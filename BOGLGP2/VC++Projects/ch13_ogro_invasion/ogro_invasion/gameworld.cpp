@@ -173,7 +173,7 @@ bool GameWorld::initialize()
 
     spawnEntity(LANDSCAPE); //Spawn the landscape
 
-	spawnEntity(SKY);
+	//spawnEntity(SKY);
 
     //Spawn a load of monsters
     for (unsigned int i = 0; i < MAX_ENEMY_COUNT; ++i)
