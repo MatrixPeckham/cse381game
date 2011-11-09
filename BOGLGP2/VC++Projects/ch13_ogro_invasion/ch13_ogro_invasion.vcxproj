@@ -1,0 +1,172 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ogro_invasion\boglgpwindow.h" />
+    <ClInclude Include="ogro_invasion\camera.h" />
+    <ClInclude Include="ogro_invasion\collider.h" />
+    <ClInclude Include="ogro_invasion\Color4.h" />
+    <ClInclude Include="ogro_invasion\enemy.h" />
+    <ClInclude Include="ogro_invasion\entity.h" />
+    <ClInclude Include="ogro_invasion\entitytypes.h" />
+    <ClInclude Include="ogro_invasion\example.h" />
+    <ClInclude Include="ogro_invasion\explosion.h" />
+    <ClInclude Include="ogro_invasion\freetypefont.h" />
+    <ClInclude Include="ogro_invasion\frustum.h" />
+    <ClInclude Include="ogro_invasion\gameworld.h" />
+    <ClInclude Include="ogro_invasion\geom.h" />
+    <ClInclude Include="ogro_invasion\glslshader.h" />
+    <ClInclude Include="ogro_invasion\glwindow.h" />
+    <ClInclude Include="ogro_invasion\keyboardinterface.h" />
+    <ClInclude Include="ogro_invasion\landscape.h" />
+    <ClInclude Include="ogro_invasion\md2model.h" />
+    <ClInclude Include="ogro_invasion\MGLSkyDome.h" />
+    <ClInclude Include="ogro_invasion\mouseinterface.h" />
+    <ClInclude Include="ogro_invasion\ogro.h" />
+    <ClInclude Include="ogro_invasion\player.h" />
+    <ClInclude Include="ogro_invasion\rocket.h" />
+    <ClInclude Include="ogro_invasion\spherecollider.h" />
+    <ClInclude Include="ogro_invasion\targa.h" />
+    <ClInclude Include="ogro_invasion\terrain.h" />
+    <ClInclude Include="ogro_invasion\terraincollider.h" />
+    <ClInclude Include="ogro_invasion\tree.h" />
+    <ClInclude Include="ogro_invasion\uncopyable.h" />
+    <ClInclude Include="ogro_invasion\win32keyboardinterface.h" />
+    <ClInclude Include="ogro_invasion\win32mouseinterface.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="ogro_invasion\camera.cpp" />
+    <ClCompile Include="ogro_invasion\collider.cpp" />
+    <ClCompile Include="ogro_invasion\enemy.cpp" />
+    <ClCompile Include="ogro_invasion\entity.cpp" />
+    <ClCompile Include="ogro_invasion\example.cpp" />
+    <ClCompile Include="ogro_invasion\explosion.cpp" />
+    <ClCompile Include="ogro_invasion\freetypefont.cpp" />
+    <ClCompile Include="ogro_invasion\frustum.cpp" />
+    <ClCompile Include="ogro_invasion\gameworld.cpp" />
+    <ClCompile Include="ogro_invasion\glwindow.cpp" />
+    <ClCompile Include="ogro_invasion\landscape.cpp" />
+    <ClCompile Include="ogro_invasion\main.cpp" />
+    <ClCompile Include="ogro_invasion\md2model.cpp" />
+    <ClCompile Include="ogro_invasion\MGLSkyDome.cpp" />
+    <ClCompile Include="ogro_invasion\MGLSkyShader.cpp" />
+    <ClCompile Include="ogro_invasion\ogro.cpp" />
+    <ClCompile Include="ogro_invasion\player.cpp" />
+    <ClCompile Include="ogro_invasion\rocket.cpp" />
+    <ClCompile Include="ogro_invasion\spherecollider.cpp" />
+    <ClCompile Include="ogro_invasion\targa.cpp" />
+    <ClCompile Include="ogro_invasion\terrain.cpp" />
+    <ClCompile Include="ogro_invasion\terraincollider.cpp" />
+    <ClCompile Include="ogro_invasion\tree.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\Apps\ch13_ogro_invasion\data\shaders\glsl1.20\alpha_test.frag" />
+    <None Include="..\..\Apps\ch13_ogro_invasion\data\shaders\glsl1.20\alpha_test.vert" />
+    <None Include="..\..\Apps\ch13_ogro_invasion\data\shaders\glsl1.20\font.frag" />
+    <None Include="..\..\Apps\ch13_ogro_invasion\data\shaders\glsl1.20\font.vert" />
+    <None Include="..\..\Apps\ch13_ogro_invasion\data\shaders\glsl1.20\model.frag" />
+    <None Include="..\..\Apps\ch13_ogro_invasion\data\shaders\glsl1.20\model.vert" />
+    <None Include="..\..\Apps\ch13_ogro_invasion\data\shaders\glsl1.20\particle.frag" />
+    <None Include="..\..\Apps\ch13_ogro_invasion\data\shaders\glsl1.20\particle.vert" />
+    <None Include="..\..\Apps\ch13_ogro_invasion\data\shaders\glsl1.20\terrain.frag" />
+    <None Include="..\..\Apps\ch13_ogro_invasion\data\shaders\glsl1.20\terrain.vert" />
+    <None Include="..\..\Apps\ch13_ogro_invasion\data\shaders\glsl1.20\water.frag" />
+    <None Include="..\..\Apps\ch13_ogro_invasion\data\shaders\glsl1.20\water.vert" />
+    <None Include="..\..\Apps\ch13_ogro_invasion\data\shaders\glsl1.30\alpha_test.frag" />
+    <None Include="..\..\Apps\ch13_ogro_invasion\data\shaders\glsl1.30\alpha_test.vert" />
+    <None Include="..\..\Apps\ch13_ogro_invasion\data\shaders\glsl1.30\font.frag" />
+    <None Include="..\..\Apps\ch13_ogro_invasion\data\shaders\glsl1.30\font.vert" />
+    <None Include="..\..\Apps\ch13_ogro_invasion\data\shaders\glsl1.30\model.frag" />
+    <None Include="..\..\Apps\ch13_ogro_invasion\data\shaders\glsl1.30\model.vert" />
+    <None Include="..\..\Apps\ch13_ogro_invasion\data\shaders\glsl1.30\particle.frag" />
+    <None Include="..\..\Apps\ch13_ogro_invasion\data\shaders\glsl1.30\particle.vert" />
+    <None Include="..\..\Apps\ch13_ogro_invasion\data\shaders\glsl1.30\terrain.frag" />
+    <None Include="..\..\Apps\ch13_ogro_invasion\data\shaders\glsl1.30\terrain.vert" />
+    <None Include="..\..\Apps\ch13_ogro_invasion\data\shaders\glsl1.30\water.frag" />
+    <None Include="..\..\Apps\ch13_ogro_invasion\data\shaders\glsl1.30\water.vert" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{9E70D809-D21E-4BA9-8F63-B6FFAE1FD270}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>ch13_orgo_invasion</RootNamespace>
+    <ProjectName>ch13_ogro_invasion</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)Apps\$(ProjectName)\</OutDir>
+    <IntDir>$(ProjectDir)Temp\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)Apps\$(ProjectName)\</OutDir>
+    <IntDir>$(ProjectDir)Temp\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(SolutionDir)Common\</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(SolutionDir)Common\</AdditionalLibraryDirectories>
+      <AdditionalDependencies>freetype.lib;glee.lib;kazmath.lib;opengl32.lib;glu32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(SolutionDir)Common\</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>$(SolutionDir)Common\</AdditionalLibraryDirectories>
+      <AdditionalDependencies>freetype.lib;glee.lib;kazmath.lib;opengl32.lib;glu32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
