@@ -1,0 +1,257 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Shaders">
+      <UniqueIdentifier>{9532cf86-9e59-4201-bcda-62bc8027004b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shaders\glsl1.20">
+      <UniqueIdentifier>{fc7cf9b3-f1c9-4591-995b-8f5c180a0051}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shaders\glsl1.30">
+      <UniqueIdentifier>{8b6fe2ab-882d-4f6d-a1fa-96e116d2c215}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ogro_invasion">
+      <UniqueIdentifier>{120889da-5c42-46c2-8ba3-4670fdb6552a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ogro_invasion\boglgpwindow.h">
+      <Filter>ogro_invasion</Filter>
+    </ClInclude>
+    <ClInclude Include="ogro_invasion\camera.h">
+      <Filter>ogro_invasion</Filter>
+    </ClInclude>
+    <ClInclude Include="ogro_invasion\collider.h">
+      <Filter>ogro_invasion</Filter>
+    </ClInclude>
+    <ClInclude Include="ogro_invasion\enemy.h">
+      <Filter>ogro_invasion</Filter>
+    </ClInclude>
+    <ClInclude Include="ogro_invasion\entity.h">
+      <Filter>ogro_invasion</Filter>
+    </ClInclude>
+    <ClInclude Include="ogro_invasion\entitytypes.h">
+      <Filter>ogro_invasion</Filter>
+    </ClInclude>
+    <ClInclude Include="ogro_invasion\example.h">
+      <Filter>ogro_invasion</Filter>
+    </ClInclude>
+    <ClInclude Include="ogro_invasion\explosion.h">
+      <Filter>ogro_invasion</Filter>
+    </ClInclude>
+    <ClInclude Include="ogro_invasion\freetypefont.h">
+      <Filter>ogro_invasion</Filter>
+    </ClInclude>
+    <ClInclude Include="ogro_invasion\frustum.h">
+      <Filter>ogro_invasion</Filter>
+    </ClInclude>
+    <ClInclude Include="ogro_invasion\gameworld.h">
+      <Filter>ogro_invasion</Filter>
+    </ClInclude>
+    <ClInclude Include="ogro_invasion\geom.h">
+      <Filter>ogro_invasion</Filter>
+    </ClInclude>
+    <ClInclude Include="ogro_invasion\glslshader.h">
+      <Filter>ogro_invasion</Filter>
+    </ClInclude>
+    <ClInclude Include="ogro_invasion\glwindow.h">
+      <Filter>ogro_invasion</Filter>
+    </ClInclude>
+    <ClInclude Include="ogro_invasion\keyboardinterface.h">
+      <Filter>ogro_invasion</Filter>
+    </ClInclude>
+    <ClInclude Include="ogro_invasion\landscape.h">
+      <Filter>ogro_invasion</Filter>
+    </ClInclude>
+    <ClInclude Include="ogro_invasion\md2model.h">
+      <Filter>ogro_invasion</Filter>
+    </ClInclude>
+    <ClInclude Include="ogro_invasion\mouseinterface.h">
+      <Filter>ogro_invasion</Filter>
+    </ClInclude>
+    <ClInclude Include="ogro_invasion\ogro.h">
+      <Filter>ogro_invasion</Filter>
+    </ClInclude>
+    <ClInclude Include="ogro_invasion\player.h">
+      <Filter>ogro_invasion</Filter>
+    </ClInclude>
+    <ClInclude Include="ogro_invasion\rocket.h">
+      <Filter>ogro_invasion</Filter>
+    </ClInclude>
+    <ClInclude Include="ogro_invasion\spherecollider.h">
+      <Filter>ogro_invasion</Filter>
+    </ClInclude>
+    <ClInclude Include="ogro_invasion\targa.h">
+      <Filter>ogro_invasion</Filter>
+    </ClInclude>
+    <ClInclude Include="ogro_invasion\terrain.h">
+      <Filter>ogro_invasion</Filter>
+    </ClInclude>
+    <ClInclude Include="ogro_invasion\terraincollider.h">
+      <Filter>ogro_invasion</Filter>
+    </ClInclude>
+    <ClInclude Include="ogro_invasion\tree.h">
+      <Filter>ogro_invasion</Filter>
+    </ClInclude>
+    <ClInclude Include="ogro_invasion\uncopyable.h">
+      <Filter>ogro_invasion</Filter>
+    </ClInclude>
+    <ClInclude Include="ogro_invasion\win32keyboardinterface.h">
+      <Filter>ogro_invasion</Filter>
+    </ClInclude>
+    <ClInclude Include="ogro_invasion\win32mouseinterface.h">
+      <Filter>ogro_invasion</Filter>
+    </ClInclude>
+    <ClInclude Include="ogro_invasion\MGLSkyDome.h">
+      <Filter>ogro_invasion</Filter>
+    </ClInclude>
+    <ClInclude Include="ogro_invasion\Color4.h">
+      <Filter>ogro_invasion</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="ogro_invasion\camera.cpp">
+      <Filter>ogro_invasion</Filter>
+    </ClCompile>
+    <ClCompile Include="ogro_invasion\rocket.cpp">
+      <Filter>ogro_invasion</Filter>
+    </ClCompile>
+    <ClCompile Include="ogro_invasion\collider.cpp">
+      <Filter>ogro_invasion</Filter>
+    </ClCompile>
+    <ClCompile Include="ogro_invasion\enemy.cpp">
+      <Filter>ogro_invasion</Filter>
+    </ClCompile>
+    <ClCompile Include="ogro_invasion\entity.cpp">
+      <Filter>ogro_invasion</Filter>
+    </ClCompile>
+    <ClCompile Include="ogro_invasion\example.cpp">
+      <Filter>ogro_invasion</Filter>
+    </ClCompile>
+    <ClCompile Include="ogro_invasion\explosion.cpp">
+      <Filter>ogro_invasion</Filter>
+    </ClCompile>
+    <ClCompile Include="ogro_invasion\freetypefont.cpp">
+      <Filter>ogro_invasion</Filter>
+    </ClCompile>
+    <ClCompile Include="ogro_invasion\frustum.cpp">
+      <Filter>ogro_invasion</Filter>
+    </ClCompile>
+    <ClCompile Include="ogro_invasion\gameworld.cpp">
+      <Filter>ogro_invasion</Filter>
+    </ClCompile>
+    <ClCompile Include="ogro_invasion\glwindow.cpp">
+      <Filter>ogro_invasion</Filter>
+    </ClCompile>
+    <ClCompile Include="ogro_invasion\landscape.cpp">
+      <Filter>ogro_invasion</Filter>
+    </ClCompile>
+    <ClCompile Include="ogro_invasion\main.cpp">
+      <Filter>ogro_invasion</Filter>
+    </ClCompile>
+    <ClCompile Include="ogro_invasion\md2model.cpp">
+      <Filter>ogro_invasion</Filter>
+    </ClCompile>
+    <ClCompile Include="ogro_invasion\ogro.cpp">
+      <Filter>ogro_invasion</Filter>
+    </ClCompile>
+    <ClCompile Include="ogro_invasion\player.cpp">
+      <Filter>ogro_invasion</Filter>
+    </ClCompile>
+    <ClCompile Include="ogro_invasion\tree.cpp">
+      <Filter>ogro_invasion</Filter>
+    </ClCompile>
+    <ClCompile Include="ogro_invasion\spherecollider.cpp">
+      <Filter>ogro_invasion</Filter>
+    </ClCompile>
+    <ClCompile Include="ogro_invasion\targa.cpp">
+      <Filter>ogro_invasion</Filter>
+    </ClCompile>
+    <ClCompile Include="ogro_invasion\terrain.cpp">
+      <Filter>ogro_invasion</Filter>
+    </ClCompile>
+    <ClCompile Include="ogro_invasion\terraincollider.cpp">
+      <Filter>ogro_invasion</Filter>
+    </ClCompile>
+    <ClCompile Include="ogro_invasion\MGLSkyDome.cpp">
+      <Filter>ogro_invasion</Filter>
+    </ClCompile>
+    <ClCompile Include="ogro_invasion\MGLSkyShader.cpp">
+      <Filter>ogro_invasion</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\Apps\ch13_ogro_invasion\data\shaders\glsl1.20\alpha_test.frag">
+      <Filter>Shaders\glsl1.20</Filter>
+    </None>
+    <None Include="..\..\Apps\ch13_ogro_invasion\data\shaders\glsl1.20\font.frag">
+      <Filter>Shaders\glsl1.20</Filter>
+    </None>
+    <None Include="..\..\Apps\ch13_ogro_invasion\data\shaders\glsl1.20\model.frag">
+      <Filter>Shaders\glsl1.20</Filter>
+    </None>
+    <None Include="..\..\Apps\ch13_ogro_invasion\data\shaders\glsl1.20\particle.frag">
+      <Filter>Shaders\glsl1.20</Filter>
+    </None>
+    <None Include="..\..\Apps\ch13_ogro_invasion\data\shaders\glsl1.20\terrain.frag">
+      <Filter>Shaders\glsl1.20</Filter>
+    </None>
+    <None Include="..\..\Apps\ch13_ogro_invasion\data\shaders\glsl1.20\water.frag">
+      <Filter>Shaders\glsl1.20</Filter>
+    </None>
+    <None Include="..\..\Apps\ch13_ogro_invasion\data\shaders\glsl1.20\alpha_test.vert">
+      <Filter>Shaders\glsl1.20</Filter>
+    </None>
+    <None Include="..\..\Apps\ch13_ogro_invasion\data\shaders\glsl1.20\font.vert">
+      <Filter>Shaders\glsl1.20</Filter>
+    </None>
+    <None Include="..\..\Apps\ch13_ogro_invasion\data\shaders\glsl1.20\model.vert">
+      <Filter>Shaders\glsl1.20</Filter>
+    </None>
+    <None Include="..\..\Apps\ch13_ogro_invasion\data\shaders\glsl1.20\particle.vert">
+      <Filter>Shaders\glsl1.20</Filter>
+    </None>
+    <None Include="..\..\Apps\ch13_ogro_invasion\data\shaders\glsl1.20\terrain.vert">
+      <Filter>Shaders\glsl1.20</Filter>
+    </None>
+    <None Include="..\..\Apps\ch13_ogro_invasion\data\shaders\glsl1.20\water.vert">
+      <Filter>Shaders\glsl1.20</Filter>
+    </None>
+    <None Include="..\..\Apps\ch13_ogro_invasion\data\shaders\glsl1.30\alpha_test.frag">
+      <Filter>Shaders\glsl1.30</Filter>
+    </None>
+    <None Include="..\..\Apps\ch13_ogro_invasion\data\shaders\glsl1.30\font.frag">
+      <Filter>Shaders\glsl1.30</Filter>
+    </None>
+    <None Include="..\..\Apps\ch13_ogro_invasion\data\shaders\glsl1.30\model.frag">
+      <Filter>Shaders\glsl1.30</Filter>
+    </None>
+    <None Include="..\..\Apps\ch13_ogro_invasion\data\shaders\glsl1.30\particle.frag">
+      <Filter>Shaders\glsl1.30</Filter>
+    </None>
+    <None Include="..\..\Apps\ch13_ogro_invasion\data\shaders\glsl1.30\terrain.frag">
+      <Filter>Shaders\glsl1.30</Filter>
+    </None>
+    <None Include="..\..\Apps\ch13_ogro_invasion\data\shaders\glsl1.30\water.frag">
+      <Filter>Shaders\glsl1.30</Filter>
+    </None>
+    <None Include="..\..\Apps\ch13_ogro_invasion\data\shaders\glsl1.30\alpha_test.vert">
+      <Filter>Shaders\glsl1.30</Filter>
+    </None>
+    <None Include="..\..\Apps\ch13_ogro_invasion\data\shaders\glsl1.30\font.vert">
+      <Filter>Shaders\glsl1.30</Filter>
+    </None>
+    <None Include="..\..\Apps\ch13_ogro_invasion\data\shaders\glsl1.30\model.vert">
+      <Filter>Shaders\glsl1.30</Filter>
+    </None>
+    <None Include="..\..\Apps\ch13_ogro_invasion\data\shaders\glsl1.30\particle.vert">
+      <Filter>Shaders\glsl1.30</Filter>
+    </None>
+    <None Include="..\..\Apps\ch13_ogro_invasion\data\shaders\glsl1.30\terrain.vert">
+      <Filter>Shaders\glsl1.30</Filter>
+    </None>
+    <None Include="..\..\Apps\ch13_ogro_invasion\data\shaders\glsl1.30\water.vert">
+      <Filter>Shaders\glsl1.30</Filter>
+    </None>
+  </ItemGroup>
+</Project>

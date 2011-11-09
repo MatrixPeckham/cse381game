@@ -1,0 +1,64 @@
+﻿Build started 8/19/2011 4:23:17 PM.
+     1>Project "C:\Users\McKilla Gorilla\RTM\StonyBrook\Courses\CSE381\BOGLGP2\VC++Projects\ch13_ogro_invasion\ch13_ogro_invasion.vcxproj" on node 2 (build target(s)).
+     1>InitializeBuildStatus:
+         Creating "C:\Users\McKilla Gorilla\RTM\StonyBrook\Courses\CSE381\BOGLGP2\VC++Projects\ch13_ogro_invasion\Temp\Release\ch13_ogro_invasion.unsuccessfulbuild" because "AlwaysCreate" was specified.
+       ClCompile:
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I"C:\Users\McKilla Gorilla\RTM\StonyBrook\Courses\CSE381\BOGLGP2\Common\\" /Zi /nologo /W3 /WX- /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _WINDOWS /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"C:\Users\McKilla Gorilla\RTM\StonyBrook\Courses\CSE381\BOGLGP2\VC++Projects\ch13_ogro_invasion\Temp\Release\\" /Fd"C:\Users\McKilla Gorilla\RTM\StonyBrook\Courses\CSE381\BOGLGP2\VC++Projects\ch13_ogro_invasion\Temp\Release\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt ogro_invasion\camera.cpp ogro_invasion\collider.cpp ogro_invasion\enemy.cpp ogro_invasion\entity.cpp ogro_invasion\example.cpp ogro_invasion\explosion.cpp ogro_invasion\freetypefont.cpp ogro_invasion\frustum.cpp ogro_invasion\gameworld.cpp ogro_invasion\glwindow.cpp ogro_invasion\landscape.cpp ogro_invasion\main.cpp ogro_invasion\md2model.cpp ogro_invasion\ogro.cpp ogro_invasion\player.cpp ogro_invasion\rocket.cpp ogro_invasion\spherecollider.cpp ogro_invasion\targa.cpp ogro_invasion\terrain.cpp ogro_invasion\terraincollider.cpp ogro_invasion\tree.cpp
+         camera.cpp
+         collider.cpp
+         enemy.cpp
+         entity.cpp
+         example.cpp
+     1>ogro_invasion\example.cpp(89): warning C4244: 'argument' : conversion from 'time_t' to 'unsigned int', possible loss of data
+         explosion.cpp
+         freetypefont.cpp
+         frustum.cpp
+         gameworld.cpp
+         glwindow.cpp
+         landscape.cpp
+         main.cpp
+         md2model.cpp
+         ogro.cpp
+         player.cpp
+         rocket.cpp
+         spherecollider.cpp
+         targa.cpp
+         terrain.cpp
+         terraincollider.cpp
+         Compiling...
+         tree.cpp
+       Link:
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\McKilla Gorilla\RTM\StonyBrook\Courses\CSE381\BOGLGP2\Apps\ch13_ogro_invasion\ch13_ogro_invasion.exe" /INCREMENTAL:NO /NOLOGO /LIBPATH:"C:\Users\McKilla Gorilla\RTM\StonyBrook\Courses\CSE381\BOGLGP2\Common\\" freetype.lib glee.lib kazmath.lib opengl32.lib glu32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"C:\Users\McKilla Gorilla\RTM\StonyBrook\Courses\CSE381\BOGLGP2\VC++Projects\ch13_ogro_invasion\Temp\Release\ch13_ogro_invasion.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /PDB:"C:\Users\McKilla Gorilla\RTM\StonyBrook\Courses\CSE381\BOGLGP2\Apps\ch13_ogro_invasion\ch13_ogro_invasion.pdb" /SUBSYSTEM:WINDOWS /OPT:REF /OPT:ICF /LTCG /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\McKilla Gorilla\RTM\StonyBrook\Courses\CSE381\BOGLGP2\Apps\ch13_ogro_invasion\ch13_ogro_invasion.lib" /MACHINE:X86 "C:\Users\McKilla Gorilla\RTM\StonyBrook\Courses\CSE381\BOGLGP2\VC++Projects\ch13_ogro_invasion\Temp\Release\camera.obj"
+         "C:\Users\McKilla Gorilla\RTM\StonyBrook\Courses\CSE381\BOGLGP2\VC++Projects\ch13_ogro_invasion\Temp\Release\collider.obj"
+         "C:\Users\McKilla Gorilla\RTM\StonyBrook\Courses\CSE381\BOGLGP2\VC++Projects\ch13_ogro_invasion\Temp\Release\enemy.obj"
+         "C:\Users\McKilla Gorilla\RTM\StonyBrook\Courses\CSE381\BOGLGP2\VC++Projects\ch13_ogro_invasion\Temp\Release\entity.obj"
+         "C:\Users\McKilla Gorilla\RTM\StonyBrook\Courses\CSE381\BOGLGP2\VC++Projects\ch13_ogro_invasion\Temp\Release\example.obj"
+         "C:\Users\McKilla Gorilla\RTM\StonyBrook\Courses\CSE381\BOGLGP2\VC++Projects\ch13_ogro_invasion\Temp\Release\explosion.obj"
+         "C:\Users\McKilla Gorilla\RTM\StonyBrook\Courses\CSE381\BOGLGP2\VC++Projects\ch13_ogro_invasion\Temp\Release\freetypefont.obj"
+         "C:\Users\McKilla Gorilla\RTM\StonyBrook\Courses\CSE381\BOGLGP2\VC++Projects\ch13_ogro_invasion\Temp\Release\frustum.obj"
+         "C:\Users\McKilla Gorilla\RTM\StonyBrook\Courses\CSE381\BOGLGP2\VC++Projects\ch13_ogro_invasion\Temp\Release\gameworld.obj"
+         "C:\Users\McKilla Gorilla\RTM\StonyBrook\Courses\CSE381\BOGLGP2\VC++Projects\ch13_ogro_invasion\Temp\Release\glwindow.obj"
+         "C:\Users\McKilla Gorilla\RTM\StonyBrook\Courses\CSE381\BOGLGP2\VC++Projects\ch13_ogro_invasion\Temp\Release\landscape.obj"
+         "C:\Users\McKilla Gorilla\RTM\StonyBrook\Courses\CSE381\BOGLGP2\VC++Projects\ch13_ogro_invasion\Temp\Release\main.obj"
+         "C:\Users\McKilla Gorilla\RTM\StonyBrook\Courses\CSE381\BOGLGP2\VC++Projects\ch13_ogro_invasion\Temp\Release\md2model.obj"
+         "C:\Users\McKilla Gorilla\RTM\StonyBrook\Courses\CSE381\BOGLGP2\VC++Projects\ch13_ogro_invasion\Temp\Release\ogro.obj"
+         "C:\Users\McKilla Gorilla\RTM\StonyBrook\Courses\CSE381\BOGLGP2\VC++Projects\ch13_ogro_invasion\Temp\Release\player.obj"
+         "C:\Users\McKilla Gorilla\RTM\StonyBrook\Courses\CSE381\BOGLGP2\VC++Projects\ch13_ogro_invasion\Temp\Release\rocket.obj"
+         "C:\Users\McKilla Gorilla\RTM\StonyBrook\Courses\CSE381\BOGLGP2\VC++Projects\ch13_ogro_invasion\Temp\Release\spherecollider.obj"
+         "C:\Users\McKilla Gorilla\RTM\StonyBrook\Courses\CSE381\BOGLGP2\VC++Projects\ch13_ogro_invasion\Temp\Release\targa.obj"
+         "C:\Users\McKilla Gorilla\RTM\StonyBrook\Courses\CSE381\BOGLGP2\VC++Projects\ch13_ogro_invasion\Temp\Release\terrain.obj"
+         "C:\Users\McKilla Gorilla\RTM\StonyBrook\Courses\CSE381\BOGLGP2\VC++Projects\ch13_ogro_invasion\Temp\Release\terraincollider.obj"
+         "C:\Users\McKilla Gorilla\RTM\StonyBrook\Courses\CSE381\BOGLGP2\VC++Projects\ch13_ogro_invasion\Temp\Release\tree.obj"
+         Generating code
+         Finished generating code
+         ch13_ogro_invasion.vcxproj -> C:\Users\McKilla Gorilla\RTM\StonyBrook\Courses\CSE381\BOGLGP2\Apps\ch13_ogro_invasion\ch13_ogro_invasion.exe
+       Manifest:
+         c:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /outputresource:"C:\Users\McKilla Gorilla\RTM\StonyBrook\Courses\CSE381\BOGLGP2\Apps\ch13_ogro_invasion\ch13_ogro_invasion.exe;#1" /manifest "C:\Users\McKilla Gorilla\RTM\StonyBrook\Courses\CSE381\BOGLGP2\VC++Projects\ch13_ogro_invasion\Temp\Release\ch13_ogro_invasion.exe.intermediate.manifest"
+       FinalizeBuildStatus:
+         Deleting file "C:\Users\McKilla Gorilla\RTM\StonyBrook\Courses\CSE381\BOGLGP2\VC++Projects\ch13_ogro_invasion\Temp\Release\ch13_ogro_invasion.unsuccessfulbuild".
+         Touching "C:\Users\McKilla Gorilla\RTM\StonyBrook\Courses\CSE381\BOGLGP2\VC++Projects\ch13_ogro_invasion\Temp\Release\ch13_ogro_invasion.lastbuildstate".
+     1>Done Building Project "C:\Users\McKilla Gorilla\RTM\StonyBrook\Courses\CSE381\BOGLGP2\VC++Projects\ch13_ogro_invasion\ch13_ogro_invasion.vcxproj" (build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:01:08.67

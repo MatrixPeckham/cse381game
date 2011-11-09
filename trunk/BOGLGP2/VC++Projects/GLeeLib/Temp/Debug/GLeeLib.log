@@ -1,0 +1,17 @@
+﻿Build started 11/6/2011 1:27:18 AM.
+Project "C:\Users\Eddie\Desktop\BOGLGP2\VC++Projects\GLeeLib\GLeeLib.vcxproj" on node 2 (build target(s)).
+InitializeBuildStatus:
+  Touching "Temp\Debug\GLeeLib.unsuccessfulbuild".
+ClCompile:
+  All outputs are up-to-date.
+Lib:
+  C:\Program Files\Microsoft Visual Studio 10.0\VC\bin\Lib.exe /OUT:"C:\Users\Eddie\Desktop\BOGLGP2\Common\glee\GLee.lib" /NOLOGO Temp\Debug\GLee.obj
+  GLeeLib.vcxproj -> C:\Users\Eddie\Desktop\BOGLGP2\Common\glee\GLee.lib
+FinalizeBuildStatus:
+  Deleting file "Temp\Debug\GLeeLib.unsuccessfulbuild".
+  Touching "Temp\Debug\GLeeLib.lastbuildstate".
+Done Building Project "C:\Users\Eddie\Desktop\BOGLGP2\VC++Projects\GLeeLib\GLeeLib.vcxproj" (build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:01.32
