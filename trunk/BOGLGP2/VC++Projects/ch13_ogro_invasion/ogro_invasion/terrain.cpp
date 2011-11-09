@@ -283,9 +283,9 @@ void Terrain::generateTexCoords(int width)
 void Terrain::generateWaterTexCoords(int width)
 {
     m_waterTexCoords.push_back(TexCoord(0.0f, 0.0f));
-    m_waterTexCoords.push_back(TexCoord(0.0f, 16.0f));
-    m_waterTexCoords.push_back(TexCoord(16.0f, 16.0f));
-    m_waterTexCoords.push_back(TexCoord(16.0f, 0.0f));
+    m_waterTexCoords.push_back(TexCoord(0.0f, 6.0f));
+    m_waterTexCoords.push_back(TexCoord(8.0f, 8.0f));
+    m_waterTexCoords.push_back(TexCoord(8.0f, 0.0f));
 
     /*int waterWidth = (int)sqrtf((float)m_waterVertices.size());
 

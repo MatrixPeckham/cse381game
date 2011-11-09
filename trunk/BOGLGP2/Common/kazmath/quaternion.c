@@ -25,6 +25,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include <assert.h>
 #include <memory.h>
+#include <stdlib.h>
 
 #include "utility.h"
 #include "mat3.h"
@@ -407,21 +408,29 @@ kmQuaternion* kmQuaternionSlerp(kmQuaternion* pOut,
 		pOut->w = q1->w;
 
 		return pOut;
-	}
+	} else {
 
-	kmScalar ct = kmQuaternionDot(q1, q2);
-	kmScalar theta = acosf(ct);
-	kmScalar st = sqrtf(1.0 - kmSQR(ct));
+	kmScalar ct;
+	struct kmQuaternion temp;
+	struct kmQuaternion temp2;
+	kmScalar theta;
+	kmScalar st;
+	kmScalar somt;
+	kmScalar stt;
 
-	kmScalar stt = sinf(t * theta) / st;
-	kmScalar somt = sinf((1.0 - t) * theta) / st;
+	ct = kmQuaternionDot(q1, q2);
+	theta = acosf(ct);
+	st = sqrtf(1.0 - kmSQR(ct));
 
-	kmQuaternion temp, temp2;
+	stt = sinf(t * theta) / st;
+	somt = sinf((1.0 - t) * theta) / st;
+
 	kmQuaternionScale(&temp, q1, somt);
 	kmQuaternionScale(&temp2, q2, stt);
 	kmQuaternionAdd(pOut, &temp, &temp2);
 
 	return pOut;
+	}
 }
 
 ///< Get the axis and angle of rotation from a quaternion
