@@ -71,106 +71,74 @@ bool CSkyDome::onInitialize()
 		}
 	}
 	
-	TargaImage img;
-	if (img.load("data/textures/flare0.tga") == false)
+	Targa img;
+	if (img.Load("data/textures/flare0.tga") == false)
 	{
 		return 1;
 	}
 	
 	glGenTextures(1, &FlareTex0);
 	glBindTexture(GL_TEXTURE_2D, FlareTex0);
-
-	glTexImage2D(GL_TEXTURE_2D, 
-				 0, 
-				 GL_RGBA8, 
-				 img.getWidth(), 
-				 img.getHeight(), 
-				 0,
-				 GL_RGB, 
-				 GL_UNSIGNED_BYTE, 
-				 img.getImageData());
-
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, img.GetWidth(), 
+		img.GetHeight(), 0, img.GetImageFormat() + GL_RGB, 
+		GL_UNSIGNED_BYTE, img.GetImage());
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);	
 
-	img.unload();
+	img.Release();
 
-	if (img.load("data/textures/moon.tga") == false)
+	if (img.Load("data/textures/moon.tga") == false)
 	{
 		return 1;
 	}
 	
 	glGenTextures(1, &MoonTex);
 	glBindTexture(GL_TEXTURE_2D, MoonTex);
-	
-	glTexImage2D(GL_TEXTURE_2D, 
-				 0, 
-				 GL_RGBA8, 
-				 img.getWidth(), 
-				 img.getHeight(), 
-				 0,
-				 GL_RGBA, 
-				 GL_UNSIGNED_BYTE, 
-				 img.getImageData());
-
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, img.GetWidth(), 
+		img.GetHeight(), 0, img.GetImageFormat() + GL_RGB, 
+		GL_UNSIGNED_BYTE, img.GetImage());
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);	
 		
-	img.unload();
+	img.Release();
 
-	if (img.load("data/textures/sky.tga") == false)
+	if (img.Load("data/textures/sky.tga") == false)
 	{
 		return 1;
 	}
 	
 	glGenTextures(1, &Texture);
 	glBindTexture(GL_TEXTURE_2D, Texture);
-	
-	glTexImage2D(GL_TEXTURE_2D, 
-				 0, 
-				 GL_RGBA8, 
-				 img.getWidth(), 
-				 img.getHeight(), 
-				 0,
-				 GL_RGB, 
-				 GL_UNSIGNED_BYTE, 
-				 img.getImageData());
-
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB8, img.GetWidth(), 
+		img.GetHeight(), 0, img.GetImageFormat() + GL_RGB,
+		GL_UNSIGNED_BYTE, img.GetImage());
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);	
 		
-	img.unload();
+	img.Release();
 
-    if (img.load("data/textures/skymap.tga") == false)
+    if (img.Load("data/textures/skymap.tga") == false)
 	{
 		return 1;
 	}
 	
 	glGenTextures(1, &SkyMap);
 	glBindTexture(GL_TEXTURE_2D, SkyMap);
-	
-	glTexImage2D(GL_TEXTURE_2D, 
-				 0, 
-				 GL_RGBA8, 
-				 img.getWidth(), 
-				 img.getHeight(), 
-				 0,
-				 GL_RGB, 
-				 GL_UNSIGNED_BYTE, 
-				 img.getImageData());
-
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, img.GetWidth(), 
+		img.GetHeight(), 0, img.GetImageFormat() + GL_RGB,
+		GL_UNSIGNED_BYTE, img.GetImage());
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);	
 		
-	img.unload();
+	img.Release();
 
         //load the color table from the file
 	//if (ColorTable.Load()) return 1;
