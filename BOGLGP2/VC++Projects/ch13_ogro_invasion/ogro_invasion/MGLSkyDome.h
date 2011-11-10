@@ -3,7 +3,7 @@
 
 #include "geom.h"
 #include "Color4.h"
-#include "targa.h"
+#include "MGLTargaImage.h"
 #include "entity.h"
 #include "gameworld.h"
 #include "spherecollider.h"
