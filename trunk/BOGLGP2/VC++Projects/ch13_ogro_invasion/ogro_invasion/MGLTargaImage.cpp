@@ -99,9 +99,15 @@ void Targa::SwapRedBlue()
 	}
 }
 
-bool Targa::Load(const char* filename)
+bool Targa::Load(char* filename)
 {
-	FILE* pFile = fopen(filename, "rb");
+	FILE* pFile;
+
+	if((pFile = fopen(filename, "rb")) == NULL)
+	{
+		perror("fopen failed");
+		//exit(1);
+	}
 
 	if (!pFile)
 		return false;

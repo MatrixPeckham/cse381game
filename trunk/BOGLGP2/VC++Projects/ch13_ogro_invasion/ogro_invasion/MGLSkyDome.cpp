@@ -26,6 +26,7 @@ bool CSkyDome::onInitialize()
 	NumSides = 32;
 	NumSlices = 48;
 	NumIndices = 48 * (32 + 1) * 2;
+	NumStars = 10;
 	
 	VertexBuffer = new Vector3[(NumSlices + 1) * (NumSides + 1)];
 	ColorBuffer = new Color4[(NumSlices + 1) * (NumSides + 1)];
@@ -72,7 +73,8 @@ bool CSkyDome::onInitialize()
 	}
 	
 	Targa img;
-	if (img.Load("data/textures/flare0.tga") == false)
+	char buff[512] = "data\\textures\\flare0.tga";
+	if (img.Load(buff) == false)
 	{
 		return 1;
 	}
@@ -89,7 +91,7 @@ bool CSkyDome::onInitialize()
 
 	img.Release();
 
-	if (img.Load("data/textures/moon.tga") == false)
+	if (img.Load("data\\textures\\moon.tga") == false)
 	{
 		return 1;
 	}
@@ -106,7 +108,7 @@ bool CSkyDome::onInitialize()
 		
 	img.Release();
 
-	if (img.Load("data/textures/sky.tga") == false)
+	if (img.Load("data\\textures\\sky.tga") == false)
 	{
 		return 1;
 	}
@@ -123,7 +125,7 @@ bool CSkyDome::onInitialize()
 		
 	img.Release();
 
-    if (img.Load("data/textures/skymap.tga") == false)
+    if (img.Load("data\\textures\\skymap.tga") == false)
 	{
 		return 1;
 	}
@@ -144,7 +146,6 @@ bool CSkyDome::onInitialize()
 	//if (ColorTable.Load()) return 1;
 
         //generate star positions
-	NumStars = 1000;
 	Stars = new Vector3[NumStars];
 	StarColors = new Color4[NumStars];
 	
@@ -173,7 +174,7 @@ bool CSkyDome::onInitialize()
 
 Vector3 CSkyDome::getPosition() const
 {
-	return Vector3(-1, -1, -1);
+	return Vector3(0, 0, 0);
 }
 
 void CSkyDome::setPosition(const Vector3& position)
@@ -183,12 +184,12 @@ void CSkyDome::setPosition(const Vector3& position)
 
 float CSkyDome::getYaw() const
 {
-	return -1.0f;
+	return 0.0f;
 }
 
 float CSkyDome::getPitch() const
 {
-	return -1.0f;
+	return 0.0f;
 }
 
 void CSkyDome::setYaw(const float yaw)
@@ -307,23 +308,18 @@ void CSkyDome::onRender() const
 	Vector3 vx(mat[0], mat[4], mat[8] );
 	Vector3 vy(mat[1], mat[5], mat[9] );
 
-	glEnable(GL_TEXTURE_2D);
-
-	glDisable(GL_TEXTURE_2D);
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glEnableClientState(GL_COLOR_ARRAY);
 
-	glVertexPointer(3, GL_FLOAT, 0, Stars);
-	glColorPointer(4, GL_FLOAT, 0, StarColors);
+	glVertexPointer(3, GL_FLOAT, 0, &Stars);
+	glColorPointer(4, GL_FLOAT, 0, &StarColors);
 	glDrawArrays(GL_POINTS, 0, NumStars);
 
-	glDisableClientState(GL_VERTEX_ARRAY);
-	glDisableClientState(GL_COLOR_ARRAY);
-
 	glColor3f(1,1,1);
-	glEnable(GL_TEXTURE_2D);
 
+	glEnable(GL_TEXTURE_2D);
 	glEnable(GL_ALPHA_TEST);
+
 	glAlphaFunc(GL_GREATER, 0.0f);
 
 	glBindTexture(GL_TEXTURE_2D, MoonTex);
@@ -377,7 +373,7 @@ void CSkyDome::onRender() const
 	glDisable(GL_DEPTH_TEST);
 
 	//RenderElements(false);    // Render Sun Billboard if no static SkyTexture is used for the Dome
-	glGetFloatv(GL_MODELVIEW_MATRIX, mat);    // Get modelview amtrix to render Sun,Moon Billboards
+	//glGetFloatv(GL_MODELVIEW_MATRIX, mat);    // Get modelview amtrix to render Sun,Moon Billboards
 
 	vx.x = mat[0];
 	vx.y = mat[4];
@@ -401,7 +397,6 @@ void CSkyDome::onRender() const
 	Vertices[2] = (SunPos + (vx + vy) *  SunSize * 3); 			
 	Vertices[3] = (SunPos + (vy - vx) *  SunSize * 3);
 
-	glEnable(GL_TEXTURE_2D);
 	glBindTexture(GL_TEXTURE_2D, FlareTex0);
 
 	glEnable(GL_BLEND);

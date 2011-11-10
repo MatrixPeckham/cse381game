@@ -19,7 +19,7 @@ public:
 	virtual ~Targa();
 
 	// loading and unloading
-	bool Load(const char* filename);
+	bool Load(char* filename);
 	void Release();
 
 	// flips image vertically

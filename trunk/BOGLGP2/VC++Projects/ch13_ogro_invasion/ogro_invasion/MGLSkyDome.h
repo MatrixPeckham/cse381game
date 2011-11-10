@@ -113,6 +113,11 @@ class CSkyDome : public Entity
 		Vector3*	Stars;
 		Color4*		StarColors;
 		int			NumStars;
+		int			i;
+		float		mat[16];
+		float		SunSize; 
+		float		MoonSize;
+		Vector3		Vertices[4];
 
 		void RenderDome();
 		
@@ -126,10 +131,10 @@ class CSkyDome : public Entity
 		
 		float SkyRadius;
 		
-		unsigned	FlareTex0;
-		unsigned	MoonTex;
-		unsigned	Texture;
-		unsigned	SkyMap;
+		unsigned int	FlareTex0;
+		unsigned int 	MoonTex;
+		unsigned int	Texture;
+		unsigned int 	SkyMap;
 
 		float SunTheta, SunPhi;
 		float MoonTheta, MoonPhi;
