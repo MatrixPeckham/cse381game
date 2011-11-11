@@ -10,6 +10,7 @@
 #include "glee/GLee.h"
 #include "targa.h"
 #include "geom.h"
+#include "frustum.h"
 
 class GLSLProgram;
 
@@ -20,7 +21,7 @@ public:
     virtual ~Terrain();
 
     bool loadHeightmap(const std::string& rawFile, const std::string& grassTexture, const std::string& heightTexture, int width, bool generateWater=false, const std::string& waterTexture="");
-    void render() const;
+	void render(Frustum * frust) const;
     void renderWater() const;
 
     Vertex getPositionAt(int x, int z);

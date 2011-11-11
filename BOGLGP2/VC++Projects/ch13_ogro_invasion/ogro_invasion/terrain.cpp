@@ -496,7 +496,7 @@ void Terrain::renderWater() const
     //glDisable(GL_BLEND);
 }
 
-void Terrain::render() const
+void Terrain::render(Frustum * frust) const
 {
     glEnable(GL_CULL_FACE);
     glEnable(GL_DEPTH_TEST);

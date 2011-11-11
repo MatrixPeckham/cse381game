@@ -5,6 +5,8 @@
 #include <cassert>
 #include "landscape.h"
 #include "terraincollider.h"
+#include "frustum.h"
+#include "gameworld.h"
 
 using std::string;
 
@@ -38,6 +40,7 @@ bool Landscape::onInitialize()
 
 void Landscape::onRender() const
 {
+	Frustum * frus = getWorld()->getFrustum();
     m_terrain.render();
     m_terrain.renderWater();
 }

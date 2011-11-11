@@ -102,10 +102,10 @@
     <ClInclude Include="ogro_invasion\win32mouseinterface.h">
       <Filter>ogro_invasion</Filter>
     </ClInclude>
-    <ClInclude Include="ogro_invasion\MGLSkyDome.h">
+    <ClInclude Include="ogro_invasion\Color4.h">
       <Filter>ogro_invasion</Filter>
     </ClInclude>
-    <ClInclude Include="ogro_invasion\Color4.h">
+    <ClInclude Include="ogro_invasion\skybox.h">
       <Filter>ogro_invasion</Filter>
     </ClInclude>
   </ItemGroup>
@@ -173,10 +173,7 @@
     <ClCompile Include="ogro_invasion\terraincollider.cpp">
       <Filter>ogro_invasion</Filter>
     </ClCompile>
-    <ClCompile Include="ogro_invasion\MGLSkyDome.cpp">
-      <Filter>ogro_invasion</Filter>
-    </ClCompile>
-    <ClCompile Include="ogro_invasion\MGLSkyShader.cpp">
+    <ClCompile Include="ogro_invasion\skybox.cpp">
       <Filter>ogro_invasion</Filter>
     </ClCompile>
   </ItemGroup>
