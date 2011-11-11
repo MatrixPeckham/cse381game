@@ -40,12 +40,6 @@ m_relY(0)
 {
     m_gameCamera = std::auto_ptr<Camera>(new Camera());
     m_frustum = std::auto_ptr<Frustum>(new Frustum());
-
-	myLatitude = 44.0f;
-	myLongitude = 36.0f;
-	myTime = 16.0f;
-	myDay = 180.0f;
-
 }
 
 GameWorld::~GameWorld()
@@ -143,7 +137,7 @@ Entity* GameWorld::spawnEntity(EntityType entityType)
             newEntity = new Tree(this);
         break;
 		case SKY:
-			newEntity = new CSkyDome(this);
+			newEntity = new Skybox(this);
 		break;
         default:
             throw std::invalid_argument("Attempted to spawn an invalid entity");
@@ -169,6 +163,8 @@ Entity* GameWorld::spawnEntity(EntityType entityType)
 
 bool GameWorld::initialize()
 {
+	myRenderMode = GL_FILL;
+	myBackFaceCulling = true;
     srand((unsigned int)time(0));
 
 	spawnEntity(SKY);
@@ -176,25 +172,25 @@ bool GameWorld::initialize()
     spawnEntity(LANDSCAPE); //Spawn the landscape
 
 	
-  //  //Spawn a load of monsters
-  //  for (unsigned int i = 0; i < MAX_ENEMY_COUNT; ++i)
-  //  {
-  //      Entity* newEntity = spawnEntity(OGRO);
-  //      newEntity->setPosition(getRandomPosition());
-  //  }
+    //Spawn a load of monsters
+    for (unsigned int i = 0; i < MAX_ENEMY_COUNT; ++i)
+    {
+        Entity* newEntity = spawnEntity(OGRO);
+        newEntity->setPosition(getRandomPosition());
+    }
 
-  //  for (int i = 0; i < TREE_COUNT; ++i)
-  //  {
-  //      Entity* newEntity = spawnEntity(TREE);
+    for (int i = 0; i < TREE_COUNT; ++i)
+    {
+        Entity* newEntity = spawnEntity(TREE);
 
-  //      Vector3 pos(0.0f, -1.0f, 0.0f);
-  //      while (pos.y < 1.1f) 
-		//{
-  //          pos = getRandomPosition();
-  //      }
+        Vector3 pos(0.0f, -1.0f, 0.0f);
+        while (pos.y < 1.1f) 
+		{
+            pos = getRandomPosition();
+        }
 
-  //      newEntity->setPosition(pos);
-  //  }
+        newEntity->setPosition(pos);
+    }
 
     //Spawn the player and center them
     spawnEntity(PLAYER);
@@ -278,8 +274,6 @@ void GameWorld::render() const
 {
     m_gameCamera->apply();
     m_frustum->updateFrustum();
-
-	//mySky->Render(m_gameCamera->getPosition());
 
     for (ConstEntityIterator entity = m_entities.begin(); entity != m_entities.end(); ++entity)
     {

@@ -66,6 +66,12 @@ public:
         case 'D':
             return KC_d;
         break;
+		case 'F':
+            return KC_f;
+        break;
+		case 'C':
+            return KC_c;
+        break;
         case VK_SPACE:
             return KC_SPACE;
         break;
