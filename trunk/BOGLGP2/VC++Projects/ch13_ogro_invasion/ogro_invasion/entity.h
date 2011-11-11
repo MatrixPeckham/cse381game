@@ -51,7 +51,7 @@ class Entity : private Uncopyable {
 
         virtual EntityType getType() const = 0;
 
-        GameWorld* getWorld() {
+        GameWorld* getWorld() const {
             return m_world;
         }
 };

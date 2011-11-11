@@ -29,11 +29,11 @@
     <ClInclude Include="ogro_invasion\keyboardinterface.h" />
     <ClInclude Include="ogro_invasion\landscape.h" />
     <ClInclude Include="ogro_invasion\md2model.h" />
-    <ClInclude Include="ogro_invasion\MGLSkyDome.h" />
     <ClInclude Include="ogro_invasion\mouseinterface.h" />
     <ClInclude Include="ogro_invasion\ogro.h" />
     <ClInclude Include="ogro_invasion\player.h" />
     <ClInclude Include="ogro_invasion\rocket.h" />
+    <ClInclude Include="ogro_invasion\skybox.h" />
     <ClInclude Include="ogro_invasion\spherecollider.h" />
     <ClInclude Include="ogro_invasion\targa.h" />
     <ClInclude Include="ogro_invasion\terrain.h" />
@@ -57,11 +57,10 @@
     <ClCompile Include="ogro_invasion\landscape.cpp" />
     <ClCompile Include="ogro_invasion\main.cpp" />
     <ClCompile Include="ogro_invasion\md2model.cpp" />
-    <ClCompile Include="ogro_invasion\MGLSkyDome.cpp" />
-    <ClCompile Include="ogro_invasion\MGLSkyShader.cpp" />
     <ClCompile Include="ogro_invasion\ogro.cpp" />
     <ClCompile Include="ogro_invasion\player.cpp" />
     <ClCompile Include="ogro_invasion\rocket.cpp" />
+    <ClCompile Include="ogro_invasion\skybox.cpp" />
     <ClCompile Include="ogro_invasion\spherecollider.cpp" />
     <ClCompile Include="ogro_invasion\targa.cpp" />
     <ClCompile Include="ogro_invasion\terrain.cpp" />

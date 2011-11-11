@@ -149,6 +149,11 @@ class GameWorld : private Uncopyable
             y = m_relY;
         }
 
+		Frustum * getFrustum(){
+			return m_frustum.get();
+		}
+
+
     private:
         std::list<Entity*> m_entities; //!< Member variable "m_enemies"
         std::list<Collider*> m_colliders;
@@ -170,6 +175,7 @@ class GameWorld : private Uncopyable
 		Skybox*	mySkybox;
 
         Vector3 getRandomPosition() const;
+
 
         void clearDeadEntities();
 
