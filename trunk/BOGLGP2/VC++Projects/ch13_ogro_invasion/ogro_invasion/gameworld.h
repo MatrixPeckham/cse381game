@@ -9,7 +9,7 @@
 
 #include "uncopyable.h"
 #include "enemy.h"
-#include "MGLSkyDome.h"
+#include "skybox.h"
 
 class KeyboardInterface;
 class MouseInterface;
@@ -38,6 +38,44 @@ class GameWorld : private Uncopyable
 
         typedef std::list<Collider*>::iterator ColliderIterator;
         typedef std::list<Collider*>::const_iterator ConstColliderIterator;
+
+		GLint getRenderMode()
+		{
+			return myRenderMode;
+		}
+
+		void setRenderMode(GLint mode)
+		{
+			myRenderMode = mode;
+		}
+
+		void toggleRenderMode()
+		{
+			if(myRenderMode == GL_FILL)
+			{
+				myRenderMode = GL_LINE;
+			}
+			else
+			{
+				myRenderMode = GL_FILL;
+			}
+
+			glPolygonMode(GL_FRONT_AND_BACK, myRenderMode);
+		}
+
+		void toggleBackFaceCulling()
+		{
+			myBackFaceCulling = !myBackFaceCulling;
+
+			if(myBackFaceCulling)
+			{
+				glEnable(GL_CULL_FACE);
+			}
+			else
+			{
+				glDisable(GL_CULL_FACE);
+			}
+		}
 
         Player* getPlayer() { return m_player; }
         Landscape* getLandscape() const { return m_landscape; }
@@ -124,8 +162,12 @@ class GameWorld : private Uncopyable
         static const unsigned int MAX_ENEMY_COUNT = 15;
         static const int TREE_COUNT = 20;
 
+		GLint myRenderMode;
+		bool myBackFaceCulling;
+
         Player* m_player;
         Landscape* m_landscape;
+		Skybox*	mySkybox;
 
         Vector3 getRandomPosition() const;
 
@@ -144,12 +186,6 @@ class GameWorld : private Uncopyable
         float m_relX, m_relY;
 
         std::auto_ptr<Frustum> m_frustum;
-
-		//CSkyDome* mySky;
-		float myLatitude;
-		float myLongitude;
-		float myTime;
-		float myDay;
 };
 
 #endif // GAMEWORLD_H

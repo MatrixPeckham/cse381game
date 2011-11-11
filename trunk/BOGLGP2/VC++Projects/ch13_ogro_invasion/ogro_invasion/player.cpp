@@ -40,6 +40,16 @@ void Player::onPrepare(float dT)
         yaw(-50.0f * dT);
     }
 
+	if(getWorld()->getKeyboard()->isKeyHeldDown(KC_f))
+	{
+		getWorld()->toggleRenderMode();
+	}
+
+	if(getWorld()->getKeyboard()->isKeyHeldDown(KC_c))
+	{
+		getWorld()->toggleBackFaceCulling();
+	}
+
     if (getWorld()->getKeyboard()->isKeyPressed(KC_SPACE) ||
         getWorld()->getMouse()->isButtonPressed(0))
     {
