@@ -138,6 +138,7 @@ Entity* GameWorld::spawnEntity(EntityType entityType)
         break;
 		case SKY:
 			newEntity = new Skybox(this);
+			mySkybox = dynamic_cast<Skybox*>(newEntity);
 		break;
         default:
             throw std::invalid_argument("Attempted to spawn an invalid entity");
@@ -267,6 +268,10 @@ void GameWorld::update(float dT)
 
     //Put the mouse in the middle of the screen
     m_mouse->setMousePos(viewport[2] / 2, viewport[3] / 2);
+
+	myCamPos = m_gameCamera.get()->getPosition();
+	mySkybox->setPosition(myCamPos);
+
 
 }
 
