@@ -250,5 +250,17 @@
     <None Include="..\..\Apps\ch13_ogro_invasion\data\shaders\glsl1.30\water.vert">
       <Filter>Shaders\glsl1.30</Filter>
     </None>
+    <None Include="..\..\Apps\ch13_ogro_invasion\data\shaders\glsl1.30\skybox.frag">
+      <Filter>Shaders\glsl1.30</Filter>
+    </None>
+    <None Include="..\..\Apps\ch13_ogro_invasion\data\shaders\glsl1.30\skybox.vert">
+      <Filter>Shaders\glsl1.30</Filter>
+    </None>
+    <None Include="..\..\Apps\ch13_ogro_invasion\data\shaders\glsl1.20\skybox.frag">
+      <Filter>Shaders\glsl1.20</Filter>
+    </None>
+    <None Include="..\..\Apps\ch13_ogro_invasion\data\shaders\glsl1.20\skybox.vert">
+      <Filter>Shaders\glsl1.20</Filter>
+    </None>
   </ItemGroup>
 </Project>
