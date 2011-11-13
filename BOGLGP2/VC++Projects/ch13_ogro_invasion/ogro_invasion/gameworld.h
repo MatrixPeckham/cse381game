@@ -164,6 +164,9 @@ class GameWorld : private Uncopyable
         void registerEntity(Entity* entity);
         void unregisterEntity(const Entity* entity);
 
+		Vector3 getRandomPosition() const;
+        void clearDeadEntities();
+
         static const unsigned int MAX_ENEMY_COUNT = 15;
         static const int TREE_COUNT = 20;
 
@@ -174,11 +177,6 @@ class GameWorld : private Uncopyable
         Landscape* m_landscape;
 		Skybox*	mySkybox;
 
-        Vector3 getRandomPosition() const;
-
-
-        void clearDeadEntities();
-
         std::auto_ptr<Camera> m_gameCamera;
 
         KeyboardInterface* m_keyboard;
@@ -186,10 +184,11 @@ class GameWorld : private Uncopyable
 
         float m_lastSpawn;
         float m_currentTime;
-
         float m_remainingTime;
+        float m_relX;
+		float m_relY;
 
-        float m_relX, m_relY;
+		Vector3 myCamPos;
 
         std::auto_ptr<Frustum> m_frustum;
 };

@@ -24,9 +24,8 @@ Skybox::~Skybox()
 
 bool Skybox::onInitialize()
 {
-
-	myRadius = 80;
-	setPosition(Vector3(0.0f, 0.0f, 0.0f));
+	myRadius = 1;
+	setPosition(Vector3(0.0f, 2.0f, 0.0f));
 	
 	//Initialize color matrix
     myColors.push_back(Color(1.0f, 0.0f, 0.0f, 1.0f));
@@ -51,14 +50,15 @@ bool Skybox::onInitialize()
     myVertices.push_back(Vertex( myRadius, myRadius,  myRadius));//7
 
     //Push back the indices that make up the triangles for each face.
-
-    myIndices.push_back(0);
-    myIndices.push_back(2);
+	//Bottom
     myIndices.push_back(3);
-    myIndices.push_back(0);
-    myIndices.push_back(1);
     myIndices.push_back(2);
+    myIndices.push_back(0);
+    myIndices.push_back(2);
+    myIndices.push_back(1);
+    myIndices.push_back(0);
 
+	//Top
     myIndices.push_back(4);
     myIndices.push_back(6);
     myIndices.push_back(7);
@@ -66,33 +66,37 @@ bool Skybox::onInitialize()
     myIndices.push_back(5);
     myIndices.push_back(6);
 
+	//Front
+    myIndices.push_back(1);
+    myIndices.push_back(4);
     myIndices.push_back(0);
-    myIndices.push_back(4);
-    myIndices.push_back(1);
-    myIndices.push_back(4);
-    myIndices.push_back(5);
-    myIndices.push_back(1);
-
-    myIndices.push_back(2);
-    myIndices.push_back(6);
-    myIndices.push_back(3);
-    myIndices.push_back(6);
-    myIndices.push_back(7);
-    myIndices.push_back(3);
-
-    myIndices.push_back(6);
     myIndices.push_back(1);
     myIndices.push_back(5);
+    myIndices.push_back(4);
+
+	//Back
+    myIndices.push_back(3);
     myIndices.push_back(6);
     myIndices.push_back(2);
-    myIndices.push_back(1);
-
-    myIndices.push_back(0);
-    myIndices.push_back(7);
-    myIndices.push_back(4);
-    myIndices.push_back(0);
     myIndices.push_back(3);
     myIndices.push_back(7);
+    myIndices.push_back(6);
+
+	//Side
+    myIndices.push_back(5);
+    myIndices.push_back(1);
+    myIndices.push_back(6);
+    myIndices.push_back(1);
+    myIndices.push_back(2);
+    myIndices.push_back(6);
+
+	//Side
+    myIndices.push_back(4);
+    myIndices.push_back(7);
+    myIndices.push_back(0);
+    myIndices.push_back(7);
+    myIndices.push_back(3);
+    myIndices.push_back(0);
 
 
 	////Generate Texture Coordinates
@@ -192,10 +196,10 @@ void Skybox::onPrepare(float dT)
 
 void Skybox::onRender() const
 {
-	//glDisable(GL_DEPTH_TEST);
+	glDisable(GL_DEPTH_TEST);
 	
     glPushMatrix();
-		glTranslatef(0.0f, 2.0f, 0.0f);
+		glTranslatef(myPosition.x, myPosition.y, myPosition.z);
 		static float modelviewMatrix[16];
 		static float projectionMatrix[16];
 
@@ -239,6 +243,8 @@ void Skybox::onRender() const
 		glDisableVertexAttribArray(0);
 
    glPopMatrix();
+
+   glEnable(GL_DEPTH_TEST);
 }
 
 void Skybox::onPostRender()

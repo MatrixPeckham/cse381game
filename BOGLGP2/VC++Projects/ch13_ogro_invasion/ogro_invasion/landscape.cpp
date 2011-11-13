@@ -41,7 +41,7 @@ bool Landscape::onInitialize()
 void Landscape::onRender() const
 {
 	Frustum * frus = getWorld()->getFrustum();
-    m_terrain.render();
+    m_terrain.render(frus);
     m_terrain.renderWater();
 }
 
