@@ -76,6 +76,8 @@
     <None Include="..\..\Apps\ch13_ogro_invasion\data\shaders\glsl1.20\model.vert" />
     <None Include="..\..\Apps\ch13_ogro_invasion\data\shaders\glsl1.20\particle.frag" />
     <None Include="..\..\Apps\ch13_ogro_invasion\data\shaders\glsl1.20\particle.vert" />
+    <None Include="..\..\Apps\ch13_ogro_invasion\data\shaders\glsl1.20\skybox.frag" />
+    <None Include="..\..\Apps\ch13_ogro_invasion\data\shaders\glsl1.20\skybox.vert" />
     <None Include="..\..\Apps\ch13_ogro_invasion\data\shaders\glsl1.20\terrain.frag" />
     <None Include="..\..\Apps\ch13_ogro_invasion\data\shaders\glsl1.20\terrain.vert" />
     <None Include="..\..\Apps\ch13_ogro_invasion\data\shaders\glsl1.20\water.frag" />
@@ -88,6 +90,8 @@
     <None Include="..\..\Apps\ch13_ogro_invasion\data\shaders\glsl1.30\model.vert" />
     <None Include="..\..\Apps\ch13_ogro_invasion\data\shaders\glsl1.30\particle.frag" />
     <None Include="..\..\Apps\ch13_ogro_invasion\data\shaders\glsl1.30\particle.vert" />
+    <None Include="..\..\Apps\ch13_ogro_invasion\data\shaders\glsl1.30\skybox.frag" />
+    <None Include="..\..\Apps\ch13_ogro_invasion\data\shaders\glsl1.30\skybox.vert" />
     <None Include="..\..\Apps\ch13_ogro_invasion\data\shaders\glsl1.30\terrain.frag" />
     <None Include="..\..\Apps\ch13_ogro_invasion\data\shaders\glsl1.30\terrain.vert" />
     <None Include="..\..\Apps\ch13_ogro_invasion\data\shaders\glsl1.30\water.frag" />

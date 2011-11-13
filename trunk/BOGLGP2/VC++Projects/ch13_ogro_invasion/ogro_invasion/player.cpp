@@ -65,17 +65,17 @@ void Player::onPrepare(float dT)
     yaw(float(x) * 40.0f * dT);
     pitch(float(y)* -40.0f * dT);
 
-    m_position.y -= 8.0f * dT;
+    //m_position.y -= 8.0f * dT;
 
-    float minX = getWorld()->getLandscape()->getTerrain()->getMinX() + 2.5f;
-    float maxX = getWorld()->getLandscape()->getTerrain()->getMaxX() - 2.5f;
-    float minZ = getWorld()->getLandscape()->getTerrain()->getMinZ() + 2.5f;
-    float maxZ = getWorld()->getLandscape()->getTerrain()->getMaxZ() - 2.5f;
+    //float minX = getWorld()->getLandscape()->getTerrain()->getMinX() + 2.5f;
+    //float maxX = getWorld()->getLandscape()->getTerrain()->getMaxX() - 2.5f;
+    //float minZ = getWorld()->getLandscape()->getTerrain()->getMinZ() + 2.5f;
+    //float maxZ = getWorld()->getLandscape()->getTerrain()->getMaxZ() - 2.5f;
 
-    if (m_position.x < minX) m_position.x = minX;
-    if (m_position.x > maxX) m_position.x = maxX;
-    if (m_position.z < minZ) m_position.z = minZ;
-    if (m_position.z > maxZ) m_position.z = maxZ;
+    //if (m_position.x < minX) m_position.x = minX;
+    //if (m_position.x > maxX) m_position.x = maxX;
+    //if (m_position.z < minZ) m_position.z = minZ;
+    //if (m_position.z > maxZ) m_position.z = maxZ;
 }
 
 void Player::onRender() const
