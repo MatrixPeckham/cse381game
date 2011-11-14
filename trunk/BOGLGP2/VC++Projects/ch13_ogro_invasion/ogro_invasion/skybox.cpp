@@ -24,7 +24,7 @@ Skybox::~Skybox()
 
 bool Skybox::onInitialize()
 {
-	myRadius = 1;
+	myRadius = 10;
 	setPosition(Vector3(0.0f, 2.0f, 0.0f));
 	
 	//Initialize color matrix
@@ -38,65 +38,65 @@ bool Skybox::onInitialize()
     myColors.push_back(Color(1.0f, 0.5f, 0.0f, 1.0f));
     myColors.push_back(Color(0.5f, 0.5f, 0.5f, 1.0f));
 
+	myColors.push_back(Color(1.0f, 0.0f, 0.0f, 1.0f));
+    myColors.push_back(Color(1.0f, 1.0f, 0.0f, 1.0f));
+    myColors.push_back(Color(1.0f, 0.5f, 0.0f, 1.0f));
+    myColors.push_back(Color(0.5f, 0.5f, 0.5f, 1.0f));
+
+	myColors.push_back(Color(1.0f, 0.0f, 0.0f, 1.0f));
+    myColors.push_back(Color(1.0f, 1.0f, 0.0f, 1.0f));
+    myColors.push_back(Color(1.0f, 0.5f, 0.0f, 1.0f));
+    myColors.push_back(Color(0.5f, 0.5f, 0.5f, 1.0f));
+
+	myColors.push_back(Color(1.0f, 0.0f, 0.0f, 1.0f));
+    myColors.push_back(Color(1.0f, 1.0f, 0.0f, 1.0f));
+    myColors.push_back(Color(1.0f, 0.5f, 0.0f, 1.0f));
+    myColors.push_back(Color(0.5f, 0.5f, 0.5f, 1.0f));
+
+	myColors.push_back(Color(1.0f, 0.0f, 0.0f, 1.0f));
+    myColors.push_back(Color(1.0f, 1.0f, 0.0f, 1.0f));
+    myColors.push_back(Color(1.0f, 0.5f, 0.0f, 1.0f));
+    myColors.push_back(Color(0.5f, 0.5f, 0.5f, 1.0f));
+
+
+
 	//Position the key points of the cube
+	//Bottom
 	myVertices.push_back(Vertex(-myRadius, -myRadius,  myRadius));//0
     myVertices.push_back(Vertex(-myRadius, -myRadius, -myRadius));//1
     myVertices.push_back(Vertex(myRadius, -myRadius, -myRadius));//2
     myVertices.push_back(Vertex(myRadius, -myRadius,  myRadius));//3
 
+	//Top
     myVertices.push_back(Vertex(-myRadius, myRadius,  myRadius));//4
     myVertices.push_back(Vertex(-myRadius, myRadius, -myRadius));//5
     myVertices.push_back(Vertex( myRadius, myRadius, -myRadius));//6
     myVertices.push_back(Vertex( myRadius, myRadius,  myRadius));//7
+	
 
-    //Push back the indices that make up the triangles for each face.
-	//Bottom
-    myIndices.push_back(3);
-    myIndices.push_back(2);
-    myIndices.push_back(0);
-    myIndices.push_back(2);
-    myIndices.push_back(1);
-    myIndices.push_back(0);
+	//Left
+	myVertices.push_back(Vertex(-myRadius, -myRadius,  myRadius));//0
+	myVertices.push_back(Vertex(-myRadius, myRadius,  myRadius));//4
+	myVertices.push_back(Vertex( myRadius, myRadius,  myRadius));//7
+	myVertices.push_back(Vertex(myRadius, -myRadius,  myRadius));//3
 
-	//Top
-    myIndices.push_back(4);
-    myIndices.push_back(6);
-    myIndices.push_back(7);
-    myIndices.push_back(4);
-    myIndices.push_back(5);
-    myIndices.push_back(6);
+	//Right
+	myVertices.push_back(Vertex(-myRadius, -myRadius, -myRadius));//1
+	myVertices.push_back(Vertex(myRadius, -myRadius, -myRadius));//2
+	myVertices.push_back(Vertex( myRadius, myRadius, -myRadius));//6
+	myVertices.push_back(Vertex(-myRadius, myRadius, -myRadius));//5
 
 	//Front
-    myIndices.push_back(1);
-    myIndices.push_back(4);
-    myIndices.push_back(0);
-    myIndices.push_back(1);
-    myIndices.push_back(5);
-    myIndices.push_back(4);
+	myVertices.push_back(Vertex(-myRadius, -myRadius,  myRadius));//0
+	myVertices.push_back(Vertex(-myRadius, -myRadius, -myRadius));//1
+	myVertices.push_back(Vertex(-myRadius, myRadius, -myRadius));//5
+	myVertices.push_back(Vertex(-myRadius, myRadius,  myRadius));//4
 
 	//Back
-    myIndices.push_back(3);
-    myIndices.push_back(6);
-    myIndices.push_back(2);
-    myIndices.push_back(3);
-    myIndices.push_back(7);
-    myIndices.push_back(6);
-
-	//Side
-    myIndices.push_back(5);
-    myIndices.push_back(1);
-    myIndices.push_back(6);
-    myIndices.push_back(1);
-    myIndices.push_back(2);
-    myIndices.push_back(6);
-
-	//Side
-    myIndices.push_back(4);
-    myIndices.push_back(7);
-    myIndices.push_back(0);
-    myIndices.push_back(7);
-    myIndices.push_back(3);
-    myIndices.push_back(0);
+	myVertices.push_back(Vertex( myRadius, myRadius,  myRadius));//7
+	myVertices.push_back(Vertex( myRadius, myRadius, -myRadius));//6
+	myVertices.push_back(Vertex(myRadius, -myRadius, -myRadius));//2
+	myVertices.push_back(Vertex(myRadius, -myRadius,  myRadius));//3
 
 
 	////Generate Texture Coordinates
@@ -112,23 +112,29 @@ bool Skybox::onInitialize()
 	myTexCoords.push_back(TexCoord(0.5, 0.625));
 	myTexCoords.push_back(TexCoord(0.5, 1));
 
-	////Left
-	//myTexCoords.push_back(TexCoord(0, 0.625));
-	//myTexCoords.push_back(TexCoord(0.25, 0.625));
-	//myTexCoords.push_back(TexCoord(0.25, 0.375));
-	//myTexCoords.push_back(TexCoord(0, 0.375));
+	//Left
+	myTexCoords.push_back(TexCoord(0, 0.625));
+	myTexCoords.push_back(TexCoord(0.25, 0.625));
+	myTexCoords.push_back(TexCoord(0.25, 0.375));
+	myTexCoords.push_back(TexCoord(0, 0.375));
 
-	////Right
-	//myTexCoords.push_back(TexCoord(0.5, 0.625));
-	//myTexCoords.push_back(TexCoord(0.75, 0.625));
-	//myTexCoords.push_back(TexCoord(0.75, 0.375));
-	//myTexCoords.push_back(TexCoord(0.5, 0.375));
+	//Right
+	myTexCoords.push_back(TexCoord(0.5, 0.625));
+	myTexCoords.push_back(TexCoord(0.75, 0.625));
+	myTexCoords.push_back(TexCoord(0.75, 0.375));
+	myTexCoords.push_back(TexCoord(0.5, 0.375));
 
-	////Back
-	//myTexCoords.push_back(TexCoord(0.75, 0.625));
-	//myTexCoords.push_back(TexCoord(1.0, 0.625));
-	//myTexCoords.push_back(TexCoord(1.0, 0.375));
-	//myTexCoords.push_back(TexCoord(0.75, 0.375));
+	//Front
+	myTexCoords.push_back(TexCoord(0.75, 0.625));
+	myTexCoords.push_back(TexCoord(1.0, 0.625));
+	myTexCoords.push_back(TexCoord(1.0, 0.375));
+	myTexCoords.push_back(TexCoord(0.75, 0.375));
+
+	//Back
+	myTexCoords.push_back(TexCoord(0.75, 0.625));
+	myTexCoords.push_back(TexCoord(1.0, 0.625));
+	myTexCoords.push_back(TexCoord(1.0, 0.375));
+	myTexCoords.push_back(TexCoord(0.75, 0.375));
 
 	const string vertexShader = (GLSLProgram::glsl130Supported()) ? VERTEX_SHADER_130 : VERTEX_SHADER_120;
 	const string fragmentShader = (GLSLProgram::glsl130Supported()) ? FRAGMENT_SHADER_130 : FRAGMENT_SHADER_120;
@@ -179,12 +185,6 @@ bool Skybox::onInitialize()
 	glBindBuffer(GL_ARRAY_BUFFER, myTexCoordBuffer); 
 	glBufferData(GL_ARRAY_BUFFER, sizeof(TexCoord) * myTexCoords.size(), &myTexCoords[0], GL_STATIC_DRAW); //Send the data to OpenGL
 
-	glGenBuffers(1, &myIndexBuffer);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, myIndexBuffer); //Bind the vertex buffer
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLuint) * myIndices.size(), &myIndices[0], GL_STATIC_DRAW); //Send the data to OpenGL
-
-	
-
     return true;
 }
 
@@ -196,7 +196,7 @@ void Skybox::onPrepare(float dT)
 
 void Skybox::onRender() const
 {
-	glDisable(GL_DEPTH_TEST);
+	//glDisable(GL_DEPTH_TEST);
 	
     glPushMatrix();
 		glTranslatef(myPosition.x, myPosition.y, myPosition.z);
@@ -226,17 +226,14 @@ void Skybox::onRender() const
 	    glBindBuffer(GL_ARRAY_BUFFER, myTexCoordBuffer);
 		glVertexAttribPointer((GLint)2, 2, GL_FLOAT, GL_FALSE, 0, 0);
 
-		//Bind the index array
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, myIndexBuffer);
-	
 		//Send the modelview and projection matrices to the shaders
 		m_shaderProgram->sendUniform4x4("modelview_matrix", modelviewMatrix);
 		m_shaderProgram->sendUniform4x4("projection_matrix", projectionMatrix);
 		m_shaderProgram->sendUniform("texture0", 0);
 
-		glDrawElements(GL_TRIANGLES, myIndices.size(), GL_UNSIGNED_INT, 0);
-		//glPointSize(5.0f);
-		//glDrawArrays(GL_TRIANGLES, 0, myIndices.size());
+		//glDrawElements(GL_QUADS, myVertices.size(), GL_UNSIGNED_INT, 0);
+		glDrawArrays(GL_QUADS, 0, myVertices.size());
+
 
 		glDisableVertexAttribArray(2);
 		glDisableVertexAttribArray(1);
@@ -244,7 +241,7 @@ void Skybox::onRender() const
 
    glPopMatrix();
 
-   glEnable(GL_DEPTH_TEST);
+   //glEnable(GL_DEPTH_TEST);
 }
 
 void Skybox::onPostRender()

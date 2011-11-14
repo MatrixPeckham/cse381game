@@ -270,7 +270,7 @@ void GameWorld::update(float dT)
     m_mouse->setMousePos(viewport[2] / 2, viewport[3] / 2);
 
 	myCamPos = m_gameCamera.get()->getPosition();
-	mySkybox->setPosition(myCamPos);
+	mySkybox->setPosition(myCamPos.x, myCamPos.y, myCamPos.z);
 
 
 }
