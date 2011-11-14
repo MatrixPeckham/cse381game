@@ -155,7 +155,7 @@ void Example::onResize(int width, int height)
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
 
-    gluPerspective(52.0f, float(width) / float(height), 0.1f, 500.0f);
+    gluPerspective(52.0f, float(width) / float(height), 0.1f, 50000.0f);
 
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();

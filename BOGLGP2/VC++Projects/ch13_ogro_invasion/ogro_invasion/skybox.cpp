@@ -24,8 +24,8 @@ Skybox::~Skybox()
 
 bool Skybox::onInitialize()
 {
-	myRadius = 10;
-	setPosition(Vector3(0.0f, 2.0f, 0.0f));
+	myRadius = 500;
+	setPosition(Vector3(0.0f, 4.0f, 0.0f));
 	
 	//Initialize color matrix
     myColors.push_back(Color(1.0f, 0.0f, 0.0f, 1.0f));
@@ -196,7 +196,7 @@ void Skybox::onPrepare(float dT)
 
 void Skybox::onRender() const
 {
-	//glDisable(GL_DEPTH_TEST);
+	glDisable(GL_DEPTH_TEST);
 	
     glPushMatrix();
 		glTranslatef(myPosition.x, myPosition.y, myPosition.z);
@@ -241,7 +241,7 @@ void Skybox::onRender() const
 
    glPopMatrix();
 
-   //glEnable(GL_DEPTH_TEST);
+   glEnable(GL_DEPTH_TEST);
 }
 
 void Skybox::onPostRender()
