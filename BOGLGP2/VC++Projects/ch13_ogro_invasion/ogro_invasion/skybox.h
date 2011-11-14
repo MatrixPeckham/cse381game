@@ -31,6 +31,13 @@ public:
         myPosition = v;
     }
 
+	void setPosition(float x, float y, float z)
+	{
+		myPosition.x = x;
+		myPosition.y = y;
+		myPosition.z = z;
+	}
+
     float getYaw() const { return 0.0f; }
     float getPitch() const { return 0.0f; }
     void setYaw(const float v) { }
