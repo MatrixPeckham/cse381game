@@ -245,8 +245,8 @@ void Terrain::generateNormals()
 
 void Terrain::generateTexCoords(int width)
 {
-    float maxHeight = -1000;
-    float minHeight = 1000;
+    float maxHeight = -100000000;
+    float minHeight = 100000000;
 
     for (int z = 0; z < width; ++z)
     {
@@ -283,9 +283,9 @@ void Terrain::generateTexCoords(int width)
 void Terrain::generateWaterTexCoords(int width)
 {
     m_waterTexCoords.push_back(TexCoord(0.0f, 0.0f));
-    m_waterTexCoords.push_back(TexCoord(0.0f, 6.0f));
-    m_waterTexCoords.push_back(TexCoord(8.0f, 8.0f));
-    m_waterTexCoords.push_back(TexCoord(8.0f, 0.0f));
+    m_waterTexCoords.push_back(TexCoord(0.0f, 60.0f));
+    m_waterTexCoords.push_back(TexCoord(80.0f, 80.0f));
+    m_waterTexCoords.push_back(TexCoord(80.0f, 0.0f));
 
     /*int waterWidth = (int)sqrtf((float)m_waterVertices.size());
 
@@ -304,9 +304,9 @@ void Terrain::generateWaterTexCoords(int width)
     glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * m_waterTexCoords.size() * 2, &m_waterTexCoords[0], GL_STATIC_DRAW); //Send the data to OpenGL
 }
 
-bool Terrain::loadHeightmap(const string& rawFile, const string& grassTexture, const string& heightTexture, int width, bool generateWater, const string& waterTexture)
+bool Terrain::loadHeightmap(const string& rawFile, const string& grassTexture, const string& heightTexture, double width, bool generateWater, const string& waterTexture)
 {
-    const float HEIGHT_SCALE = 10.0f;
+    const float HEIGHT_SCALE = 10000.0f;
     std::ifstream fileIn(rawFile.c_str(), std::ios::binary);
 
     if (!fileIn.good())
@@ -319,8 +319,9 @@ bool Terrain::loadHeightmap(const string& rawFile, const string& grassTexture, c
     string stringBuffer(std::istreambuf_iterator<char>(fileIn), (std::istreambuf_iterator<char>()));
 
     fileIn.close();
-
-    if (stringBuffer.size() != (unsigned) (width * width))
+	
+	int area = (width * width);
+    if (stringBuffer.size() != (area + 1))
     {
         std::cout << "Image size does not match passed width" << std::endl;
         return false;
