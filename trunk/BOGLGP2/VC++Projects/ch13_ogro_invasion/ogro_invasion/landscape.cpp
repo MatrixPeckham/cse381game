@@ -47,7 +47,7 @@ void Landscape::onRender() const
 
 void Landscape::onShutdown()
 {
-
+	m_terrain.shutDown();
 }
 
 void Landscape::onCollision(Entity* entity)
