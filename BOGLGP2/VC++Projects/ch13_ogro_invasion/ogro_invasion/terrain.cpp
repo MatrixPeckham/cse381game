@@ -160,13 +160,13 @@ void Terrain::generateIndices(std::vector<float> heights, int width)
 			
 			maxX = startx;
 			minX = startx;
-			maxY = heights[width*startx+startz];
-			minY = heights[width*startx+startz];
+			maxY = heights[width*startz+startx];
+			minY = heights[width*startz+startx];
 			maxZ = startz;
 			minZ = startz;
 
 			// Loop through the chunk extents and create the list.
-			for (int z = startz; z < endz-1; z++)
+			for (int z = startz; z < endz; z++)
 			{
 				for (int x = startx; x < endx; x++)
 				{

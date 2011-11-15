@@ -87,7 +87,7 @@ private:
     float m_minZ;
     float m_maxZ;
 	// The height and width of a single chunk of the mesh.
-	enum{ChunkWidth = 8, ChunkHeight = 8};
+	enum{ChunkWidth = 3, ChunkHeight = 3};
 		
 
 	// The chunk structure.
