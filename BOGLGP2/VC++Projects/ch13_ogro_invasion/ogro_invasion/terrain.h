@@ -26,7 +26,7 @@ public:
 
     Vertex getPositionAt(int x, int z);
     GLfloat getHeightAt(GLfloat x, GLfloat z);
-
+	void shutDown();
     void normalizeTerrain();
     void scaleHeights(float scale);
 
@@ -36,7 +36,7 @@ public:
     float getMaxZ() { return m_maxZ; }
 private:
     void generateVertices(const std::vector<float> heights, int width);
-    void generateIndices(int width);
+    void generateIndices(std::vector<float> heights, int width);
     void generateTexCoords(int width);
     void generateNormals();
 
@@ -86,6 +86,22 @@ private:
     float m_maxX;
     float m_minZ;
     float m_maxZ;
+	// The height and width of a single chunk of the mesh.
+	enum{ChunkWidth = 8, ChunkHeight = 8};
+		
+
+	// The chunk structure.
+	struct chunk
+	{
+		GLuint bufferTriList;		// Triangle index list for a chunk.
+		float maxX, maxY, maxZ;		// Maximum vertex values in this chunk.
+		float minX, minY, minZ;		// Minimum vertex values in this chunk.
+	};
+
+	// A multidimentional array of mesh chunks.
+	chunk **chunkArray;
+	int width;
+	int numElements;
 
 };
 
