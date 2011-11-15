@@ -20,7 +20,7 @@ public:
     Terrain(const std::string& vertexShader, const std::string& fragmentShader, const std::string& waterVert="", const std::string& waterFrag="");
     virtual ~Terrain();
 
-    bool loadHeightmap(const std::string& rawFile, const std::string& grassTexture, const std::string& heightTexture, double width, bool generateWater=false, const std::string& waterTexture="");
+    bool loadHeightmap(const std::string& rawFile, const std::string& grassTexture, const std::string& heightTexture, int width, bool generateWater=false, const std::string& waterTexture="");
 	void render(Frustum * frust) const;
     void renderWater() const;
 
