@@ -126,6 +126,19 @@ void Example::render()
         m_font->printString(m_world->getSpawnMessage(), 20.0f, 80.0f);
         m_font->printString("+", (float)viewport[2] / 2, (float)viewport[3] / 2);
 
+		string mode = "";
+		switch(m_world->getPlayer()->getMode()){
+		case Player::EDIT_MODE:
+			mode = "Edit Mode";
+			break;
+		case Player::PLAYER_MODE:
+			mode = "Player Mode";
+			break;
+		
+		}
+
+		m_font->printString(mode, 20.0f,100.0f);
+
         stringstream fpsMessage;     
         fpsMessage << "FPS: " << std::setprecision(3) << m_FPS;
         m_font->printString(fpsMessage.str(), (float)viewport[2] - 100.0f, 20.0f);

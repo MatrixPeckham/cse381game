@@ -686,7 +686,7 @@ void Terrain::render(Frustum * frust) const
 				// bind the buffer and draw the chunk.
 				glBindBuffer(GL_ELEMENT_ARRAY_BUFFER_ARB, chunkArray[x][z].bufferTriList);
 				glDrawElements(GL_TRIANGLE_STRIP, numElements, GL_UNSIGNED_INT, 0);
-				bool boundingBox=true;
+				bool boundingBox=false;
 				if (boundingBox)
 				{									
 				glColor3f(1.0f, 0.0f, 0.0f);

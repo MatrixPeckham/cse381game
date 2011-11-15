@@ -72,11 +72,14 @@ void Camera::apply()
     float cosYaw = cosf(degreesToRadians(m_yaw));
     float sinYaw = sinf(degreesToRadians(m_yaw));
     float sinPitch = sinf(degreesToRadians(m_pitch));
+	float cosPitch = cosf(degreesToRadians(m_pitch));
+
+
 
     // calculate lookAt based on new position
-    m_lookAt.x = m_position.x + cosYaw;
+    m_lookAt.x = m_position.x + cosYaw*cosPitch;
     m_lookAt.y = m_position.y + sinPitch;
-    m_lookAt.z = m_position.z + sinYaw;
+    m_lookAt.z = m_position.z + sinYaw*cosPitch;
 
     // set the camera
 	gluLookAt(m_position.x, m_position.y, m_position.z,

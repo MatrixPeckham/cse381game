@@ -236,7 +236,11 @@ void GameWorld::update(float dT)
 
     int x, y;
     m_mouse->getMousePos(x, y);
-    m_mouse->showCursor(false);
+	if(getPlayer()->getMode()!=Player::EDIT_MODE){
+	    m_mouse->showCursor(false);
+	} else {
+		m_mouse->showCursor(true);
+	}
     GLint viewport[4];
     glGetIntegerv(GL_VIEWPORT, viewport);
 
@@ -267,7 +271,12 @@ void GameWorld::update(float dT)
     //m_relY = y - (viewport[3] / 2);
 
     //Put the mouse in the middle of the screen
-    m_mouse->setMousePos(viewport[2] / 2, viewport[3] / 2);
+	//if(getPlayer()->getMode()!=Player::EDIT_MODE){
+	    m_mouse->setMousePos(viewport[2] / 2, viewport[3] / 2);
+	//} else {
+		//m_relX=0;
+		//m_relY=0;
+	//}
 
 	myCamPos = m_gameCamera.get()->getPosition();
 	mySkybox->setPosition(myCamPos.x, myCamPos.y, myCamPos.z);

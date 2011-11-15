@@ -8,6 +8,7 @@
 class Player : public Entity
 {
     public:
+		enum{PLAYER_MODE=0,EDIT_MODE,/*THIRD_P_MODE,*/NUM_MODES};
         /** Default constructor */
         Player(GameWorld* const world);
 
@@ -21,6 +22,8 @@ class Player : public Entity
          * \param val New value to set
          */
         void getScore(unsigned int val) { m_score = val; }
+
+		int getMode(){return m_mode;}
 
         virtual EntityType getType() const { return PLAYER; }
 
@@ -46,7 +49,6 @@ class Player : public Entity
         void increaseScore(int amount) { m_score += amount; }
     private:
         unsigned int m_score; //!< Member variable "m_score"
-
         virtual void onPrepare(float);
         virtual void onRender() const;
         virtual void onPostRender();
@@ -55,7 +57,7 @@ class Player : public Entity
         virtual void onCollision(Entity* collider) { } //Players don't collide.. yet
         Vector3 m_position;
         Vector3 m_velocity;
-
+		int m_mode;
         float m_yaw;
         float m_pitch;
 		float myAcceleration;
