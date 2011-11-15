@@ -1,52 +1,18 @@
-﻿Build started 11/11/2011 8:07:13 AM.
-     1>Project "C:\Users\Owner\Documents\381 game\BOGLGP2\VC++Projects\KazmathLib\KazmathLib.vcxproj" on node 2 (build target(s)).
-     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\Microsoft.CppBuild.targets(299,5): warning MSB8004: Output Directory does not end with a trailing slash.  This build instance will add the slash as it is required to allow proper evaluation of the Output Directory.
-     1>InitializeBuildStatus:
-         Creating "C:\Users\Owner\Documents\381 game\BOGLGP2\VC++Projects\KazmathLib\Temp\Debug\KazmathLib.unsuccessfulbuild" because "AlwaysCreate" was specified.
-       ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _LIB /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"C:\Users\Owner\Documents\381 game\BOGLGP2\VC++Projects\KazmathLib\Temp\Debug\\" /Fd"C:\Users\Owner\Documents\381 game\BOGLGP2\VC++Projects\KazmathLib\Temp\Debug\vc100.pdb" /Gd /TC /analyze- /errorReport:prompt ..\..\Common\kazmath\aabb.c ..\..\Common\kazmath\GL\mat4stack.c ..\..\Common\kazmath\GL\matrix.c ..\..\Common\kazmath\mat3.c ..\..\Common\kazmath\mat4.c ..\..\Common\kazmath\plane.c ..\..\Common\kazmath\quaternion.c ..\..\Common\kazmath\utility.c ..\..\Common\kazmath\vec2.c ..\..\Common\kazmath\vec3.c ..\..\Common\kazmath\vec4.c
-         vec4.c
-         vec3.c
-         vec2.c
-         utility.c
-         quaternion.c
-         plane.c
-         mat4.c
-     1>c:\users\owner\documents\381 game\boglgp2\common\kazmath\mat4.c(398): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\owner\documents\381 game\boglgp2\common\kazmath\mat4.c(399): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\owner\documents\381 game\boglgp2\common\kazmath\mat4.c(402): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\owner\documents\381 game\boglgp2\common\kazmath\mat4.c(403): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\owner\documents\381 game\boglgp2\common\kazmath\mat4.c(404): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\owner\documents\381 game\boglgp2\common\kazmath\mat4.c(406): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\owner\documents\381 game\boglgp2\common\kazmath\mat4.c(407): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\owner\documents\381 game\boglgp2\common\kazmath\mat4.c(408): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\owner\documents\381 game\boglgp2\common\kazmath\mat4.c(537): warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\owner\documents\381 game\boglgp2\common\kazmath\mat4.c(545): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-         mat3.c
-     1>c:\users\owner\documents\381 game\boglgp2\common\kazmath\mat3.c(93): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-         matrix.c
-         mat4stack.c
-         aabb.c
-         Generating Code...
-     1>c:\users\owner\documents\381 game\boglgp2\common\kazmath\aabb.c(53): warning C4716: 'kmAABBScale' : must return a value
-       Lib:
-         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\Lib.exe /OUT:"C:\Users\Owner\Documents\381 game\BOGLGP2\Common\kazmath\KazmathLib.lib" /NOLOGO "C:\Users\Owner\Documents\381 game\BOGLGP2\VC++Projects\KazmathLib\Temp\Debug\aabb.obj"
-         "C:\Users\Owner\Documents\381 game\BOGLGP2\VC++Projects\KazmathLib\Temp\Debug\mat4stack.obj"
-         "C:\Users\Owner\Documents\381 game\BOGLGP2\VC++Projects\KazmathLib\Temp\Debug\matrix.obj"
-         "C:\Users\Owner\Documents\381 game\BOGLGP2\VC++Projects\KazmathLib\Temp\Debug\mat3.obj"
-         "C:\Users\Owner\Documents\381 game\BOGLGP2\VC++Projects\KazmathLib\Temp\Debug\mat4.obj"
-         "C:\Users\Owner\Documents\381 game\BOGLGP2\VC++Projects\KazmathLib\Temp\Debug\plane.obj"
-         "C:\Users\Owner\Documents\381 game\BOGLGP2\VC++Projects\KazmathLib\Temp\Debug\quaternion.obj"
-         "C:\Users\Owner\Documents\381 game\BOGLGP2\VC++Projects\KazmathLib\Temp\Debug\utility.obj"
-         "C:\Users\Owner\Documents\381 game\BOGLGP2\VC++Projects\KazmathLib\Temp\Debug\vec2.obj"
-         "C:\Users\Owner\Documents\381 game\BOGLGP2\VC++Projects\KazmathLib\Temp\Debug\vec3.obj"
-         "C:\Users\Owner\Documents\381 game\BOGLGP2\VC++Projects\KazmathLib\Temp\Debug\vec4.obj"
-         KazmathLib.vcxproj -> C:\Users\Owner\Documents\381 game\BOGLGP2\Common\kazmath\KazmathLib.lib
-       FinalizeBuildStatus:
-         Deleting file "C:\Users\Owner\Documents\381 game\BOGLGP2\VC++Projects\KazmathLib\Temp\Debug\KazmathLib.unsuccessfulbuild".
-         Touching "C:\Users\Owner\Documents\381 game\BOGLGP2\VC++Projects\KazmathLib\Temp\Debug\KazmathLib.lastbuildstate".
-     1>Done Building Project "C:\Users\Owner\Documents\381 game\BOGLGP2\VC++Projects\KazmathLib\KazmathLib.vcxproj" (build target(s)).
+﻿Build started 11/13/2011 1:13:44 AM.
+Project "C:\Users\Eddie\Desktop\cse381game\BOGLGP2\VC++Projects\KazmathLib\KazmathLib.vcxproj" on node 2 (build target(s)).
+C:\Program Files\MSBuild\Microsoft.Cpp\v4.0\Microsoft.CppBuild.targets(299,5): warning MSB8004: Output Directory does not end with a trailing slash.  This build instance will add the slash as it is required to allow proper evaluation of the Output Directory.
+InitializeBuildStatus:
+  Touching "C:\Users\Eddie\Desktop\cse381game\BOGLGP2\VC++Projects\KazmathLib\Temp\Debug\KazmathLib.unsuccessfulbuild".
+ClCompile:
+  All outputs are up-to-date.
+Lib:
+  All outputs are up-to-date.
+  KazmathLib.vcxproj -> C:\Users\Eddie\Desktop\cse381game\BOGLGP2\Common\kazmath\KazmathLib.lib
+FinalizeBuildStatus:
+  Deleting file "C:\Users\Eddie\Desktop\cse381game\BOGLGP2\VC++Projects\KazmathLib\Temp\Debug\KazmathLib.unsuccessfulbuild".
+  Touching "C:\Users\Eddie\Desktop\cse381game\BOGLGP2\VC++Projects\KazmathLib\Temp\Debug\KazmathLib.lastbuildstate".
+Done Building Project "C:\Users\Eddie\Desktop\cse381game\BOGLGP2\VC++Projects\KazmathLib\KazmathLib.vcxproj" (build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:01.09
+Time Elapsed 00:00:01.01

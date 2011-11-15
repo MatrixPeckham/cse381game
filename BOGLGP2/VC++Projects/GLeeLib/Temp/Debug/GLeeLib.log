@@ -1,18 +1,17 @@
-﻿Build started 11/11/2011 8:07:13 AM.
-     1>Project "C:\Users\Owner\Documents\381 game\BOGLGP2\VC++Projects\GLeeLib\GLeeLib.vcxproj" on node 3 (build target(s)).
-     1>InitializeBuildStatus:
-         Creating "Temp\Debug\GLeeLib.unsuccessfulbuild" because "AlwaysCreate" was specified.
-       ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Temp\Debug\\" /Fd"Temp\Debug\vc100.pdb" /Gd /TC /analyze- /errorReport:prompt ..\..\Common\glee\GLee.c
-         GLee.c
-       Lib:
-         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\Lib.exe /OUT:"C:\Users\Owner\Documents\381 game\BOGLGP2\Common\glee\GLee.lib" /NOLOGO Temp\Debug\GLee.obj
-         GLeeLib.vcxproj -> C:\Users\Owner\Documents\381 game\BOGLGP2\Common\glee\GLee.lib
-       FinalizeBuildStatus:
-         Deleting file "Temp\Debug\GLeeLib.unsuccessfulbuild".
-         Touching "Temp\Debug\GLeeLib.lastbuildstate".
-     1>Done Building Project "C:\Users\Owner\Documents\381 game\BOGLGP2\VC++Projects\GLeeLib\GLeeLib.vcxproj" (build target(s)).
+﻿Build started 11/15/2011 1:30:53 AM.
+Project "C:\Users\Eddie\Desktop\cse381game\BOGLGP2\VC++Projects\GLeeLib\GLeeLib.vcxproj" on node 2 (build target(s)).
+InitializeBuildStatus:
+  Creating "Temp\Debug\GLeeLib.unsuccessfulbuild" because "AlwaysCreate" was specified.
+ClCompile:
+  All outputs are up-to-date.
+Lib:
+  All outputs are up-to-date.
+  GLeeLib.vcxproj -> C:\Users\Eddie\Desktop\cse381game\BOGLGP2\Common\glee\GLee.lib
+FinalizeBuildStatus:
+  Deleting file "Temp\Debug\GLeeLib.unsuccessfulbuild".
+  Touching "Temp\Debug\GLeeLib.lastbuildstate".
+Done Building Project "C:\Users\Eddie\Desktop\cse381game\BOGLGP2\VC++Projects\GLeeLib\GLeeLib.vcxproj" (build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:02.12
+Time Elapsed 00:00:00.62

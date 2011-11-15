@@ -24,8 +24,8 @@ Skybox::~Skybox()
 
 bool Skybox::onInitialize()
 {
-	myRadius = 500;
-	setPosition(Vector3(0.0f, 4.0f, 0.0f));
+	myRadius = 10;
+	setPosition(Vector3(0.0f, 2.0f, 0.0f));
 	
 	//Initialize color matrix
     myColors.push_back(Color(1.0f, 0.0f, 0.0f, 1.0f));

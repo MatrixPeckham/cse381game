@@ -29,10 +29,10 @@ bool Landscape::onInitialize()
     const string grassTexture = "data/textures/grass.tga";
     const string heightTexture = "data/textures/height.tga";
     const string waterTexture = "data/textures/water.tga";
-    bool result = m_terrain.loadHeightmap(m_heightmap, grassTexture, heightTexture, 1024.021484, true, waterTexture);
+    bool result = m_terrain.loadHeightmap(m_heightmap, grassTexture, heightTexture, 65, true, waterTexture);
     if (result) {
         m_terrain.normalizeTerrain();
-        m_terrain.scaleHeights(40.0f);
+        m_terrain.scaleHeights(4.0f);
     }
 
     return result;
