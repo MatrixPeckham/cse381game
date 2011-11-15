@@ -13,6 +13,7 @@ enum BOGLGPKeyCode {
     KC_s,
     KC_d,
 	KC_f,
+	KC_t,
 	KC_c,
     KC_MAX_KEYS
 };

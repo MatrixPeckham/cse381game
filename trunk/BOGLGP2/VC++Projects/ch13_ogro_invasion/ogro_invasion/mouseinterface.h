@@ -7,6 +7,7 @@ public:
     virtual void getMousePos(int& x, int& y) = 0;
     virtual void setMousePos(int x, int y) = 0;
     virtual void showCursor(bool val) = 0;
+	virtual bool isCursorShown() = 0;
     virtual bool isButtonPressed(int button) = 0;
     virtual void update() = 0;
 };

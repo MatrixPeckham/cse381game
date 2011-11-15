@@ -9,6 +9,9 @@
 class WIN32MouseInterface : public MouseInterface
 {
 public:
+	WIN32MouseInterface(){
+		shown=true;
+	}
     virtual void getMousePos(int& x, int& y)
     {
         POINT point;
@@ -17,6 +20,8 @@ public:
         y = point.y;
     }
 
+	virtual bool isCursorShown(){ return shown;}
+
     virtual void setMousePos(int x, int y)
     {
         SetCursorPos(x, y);
@@ -24,6 +29,7 @@ public:
 
     virtual void showCursor(bool val)
     {
+		shown=val;
         ShowCursor(val);
     }
 
@@ -43,6 +49,7 @@ public:
 private:
     short m_buttonState[2];
     short m_lastButtonState[2];
+	bool shown;
 };
 
 #endif

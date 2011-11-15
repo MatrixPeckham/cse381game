@@ -10,6 +10,7 @@ Entity(world),
 m_score(0),
 m_position(Vector3()),
 m_velocity(Vector3()),
+m_mode(PLAYER_MODE),
 m_yaw(0.0f),
 m_pitch(0.0f)
 {
@@ -46,6 +47,12 @@ void Player::onPrepare(float dT)
 		getWorld()->toggleRenderMode();
 	}
 
+	if(getWorld()->getKeyboard()->isKeyHeldDown(KC_t))
+	{
+		//getWorld()->getMouse()->showCursor(!getWorld()->getMouse()->isCursorShown());
+		m_mode = m_mode==EDIT_MODE ? PLAYER_MODE : EDIT_MODE;
+	}
+
 	if(getWorld()->getKeyboard()->isKeyHeldDown(KC_c))
 	{
 		getWorld()->toggleBackFaceCulling();
@@ -66,7 +73,8 @@ void Player::onPrepare(float dT)
     yaw(float(x) * 40.0f * dT);
     pitch(float(y)* -40.0f * dT);
 
-    m_position.y -= 8.0f * dT;
+	if(m_mode==PLAYER_MODE)
+	    m_position.y -= 8.0f * dT;
 
     float minX = getWorld()->getLandscape()->getTerrain()->getMinX() + 2.5f;
     float maxX = getWorld()->getLandscape()->getTerrain()->getMaxX() - 2.5f;
@@ -112,8 +120,9 @@ void Player::pitch(const float val)
 {
     m_pitch += val;
 
-    const float PITCH_LIMIT = 45.0f;
-
+	float PITCH_LIMIT = 45.0f;
+	if(m_mode!=PLAYER_MODE)
+		PITCH_LIMIT=89.9f;
     if (m_pitch >= PITCH_LIMIT)
     {
         m_pitch = PITCH_LIMIT;
@@ -132,8 +141,15 @@ void Player::moveForward(const float speed)
 
     float cosYaw = cosf(degreesToRadians(m_yaw));
     float sinYaw = sinf(degreesToRadians(m_yaw));
-    pos.x += float(cosYaw)*speed;
-    pos.z += float(sinYaw)*speed;
-
+	float cosPit = cosf(degreesToRadians(m_pitch));
+	float sinPit = sinf(degreesToRadians(m_pitch));
+	if(m_mode==PLAYER_MODE){
+	    pos.x += float(cosYaw)*speed;
+		pos.z += float(sinYaw)*speed;
+	} else {
+		pos.x += cosYaw*cosPit*speed;
+		pos.y += sinPit*speed;
+		pos.z += sinYaw*cosPit*speed;
+	}
     setPosition(pos);
 }
