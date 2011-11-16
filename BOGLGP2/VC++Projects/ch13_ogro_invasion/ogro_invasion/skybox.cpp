@@ -24,39 +24,39 @@ Skybox::~Skybox()
 
 bool Skybox::onInitialize()
 {
-	myRadius = 10;
-	setPosition(Vector3(0.0f, 2.0f, 0.0f));
+	myRadius = 100;
+	setPosition(Vector3(0.0f, 0.0f, 0.0f));
 	
 	//Initialize color matrix
-    myColors.push_back(Color(1.0f, 0.0f, 0.0f, 1.0f));
-    myColors.push_back(Color(1.0f, 1.0f, 0.0f, 1.0f));
-    myColors.push_back(Color(1.0f, 0.5f, 0.0f, 1.0f));
-    myColors.push_back(Color(0.5f, 0.5f, 0.5f, 1.0f));
+    myColors.push_back(Color(1.0f, 1.0f, 1.0f, 1.0f));
+    myColors.push_back(Color(1.0f, 1.0f, 1.0f, 1.0f));
+    myColors.push_back(Color(1.0f, 1.0f, 1.0f, 1.0f));
+    myColors.push_back(Color(1.0f, 1.0f, 1.0f, 1.0f));
 
-	myColors.push_back(Color(1.0f, 0.0f, 0.0f, 1.0f));
-    myColors.push_back(Color(1.0f, 1.0f, 0.0f, 1.0f));
-    myColors.push_back(Color(1.0f, 0.5f, 0.0f, 1.0f));
-    myColors.push_back(Color(0.5f, 0.5f, 0.5f, 1.0f));
+    myColors.push_back(Color(1.0f, 1.0f, 1.0f, 1.0f));
+    myColors.push_back(Color(1.0f, 1.0f, 1.0f, 1.0f));
+    myColors.push_back(Color(1.0f, 1.0f, 1.0f, 1.0f));
+    myColors.push_back(Color(1.0f, 1.0f, 1.0f, 1.0f));
 
-	myColors.push_back(Color(1.0f, 0.0f, 0.0f, 1.0f));
-    myColors.push_back(Color(1.0f, 1.0f, 0.0f, 1.0f));
-    myColors.push_back(Color(1.0f, 0.5f, 0.0f, 1.0f));
-    myColors.push_back(Color(0.5f, 0.5f, 0.5f, 1.0f));
+    myColors.push_back(Color(1.0f, 1.0f, 1.0f, 1.0f));
+    myColors.push_back(Color(1.0f, 1.0f, 1.0f, 1.0f));
+    myColors.push_back(Color(1.0f, 1.0f, 1.0f, 1.0f));
+    myColors.push_back(Color(1.0f, 1.0f, 1.0f, 1.0f));
 
-	myColors.push_back(Color(1.0f, 0.0f, 0.0f, 1.0f));
-    myColors.push_back(Color(1.0f, 1.0f, 0.0f, 1.0f));
-    myColors.push_back(Color(1.0f, 0.5f, 0.0f, 1.0f));
-    myColors.push_back(Color(0.5f, 0.5f, 0.5f, 1.0f));
+    myColors.push_back(Color(1.0f, 1.0f, 1.0f, 1.0f));
+    myColors.push_back(Color(1.0f, 1.0f, 1.0f, 1.0f));
+    myColors.push_back(Color(1.0f, 1.0f, 1.0f, 1.0f));
+    myColors.push_back(Color(1.0f, 1.0f, 1.0f, 1.0f));
 
-	myColors.push_back(Color(1.0f, 0.0f, 0.0f, 1.0f));
-    myColors.push_back(Color(1.0f, 1.0f, 0.0f, 1.0f));
-    myColors.push_back(Color(1.0f, 0.5f, 0.0f, 1.0f));
-    myColors.push_back(Color(0.5f, 0.5f, 0.5f, 1.0f));
+    myColors.push_back(Color(1.0f, 1.0f, 1.0f, 1.0f));
+    myColors.push_back(Color(1.0f, 1.0f, 1.0f, 1.0f));
+    myColors.push_back(Color(1.0f, 1.0f, 1.0f, 1.0f));
+    myColors.push_back(Color(1.0f, 1.0f, 1.0f, 1.0f));
 
-	myColors.push_back(Color(1.0f, 0.0f, 0.0f, 1.0f));
-    myColors.push_back(Color(1.0f, 1.0f, 0.0f, 1.0f));
-    myColors.push_back(Color(1.0f, 0.5f, 0.0f, 1.0f));
-    myColors.push_back(Color(0.5f, 0.5f, 0.5f, 1.0f));
+    myColors.push_back(Color(1.0f, 1.0f, 1.0f, 1.0f));
+    myColors.push_back(Color(1.0f, 1.0f, 1.0f, 1.0f));
+    myColors.push_back(Color(1.0f, 1.0f, 1.0f, 1.0f));
+    myColors.push_back(Color(1.0f, 1.0f, 1.0f, 1.0f));
 
 
 
@@ -101,40 +101,40 @@ bool Skybox::onInitialize()
 
 	////Generate Texture Coordinates
 	//Bottom
-	myTexCoords.push_back(TexCoord(0.25, 0));
-	myTexCoords.push_back(TexCoord(0.25, 0.375));
-	myTexCoords.push_back(TexCoord(0.5, 0.375));
-	myTexCoords.push_back(TexCoord(0.5, 0));
+	myTexCoords.push_back(TexCoord(0.25, 0.375));//0
+	myTexCoords.push_back(TexCoord(0.5, 0.375));//1
+	myTexCoords.push_back(TexCoord(0.5, 0));//2
+	myTexCoords.push_back(TexCoord(0.5, 0));//3
 
 	//Top
-	myTexCoords.push_back(TexCoord(0.25, 1));
-	myTexCoords.push_back(TexCoord(0.25, 0.625));
-	myTexCoords.push_back(TexCoord(0.5, 0.625));
-	myTexCoords.push_back(TexCoord(0.5, 1));
+	myTexCoords.push_back(TexCoord(0.25, 0.65));//4
+	myTexCoords.push_back(TexCoord(0.5, 0.65));//5
+	myTexCoords.push_back(TexCoord(0.5, 1));//6
+	myTexCoords.push_back(TexCoord(0.25, 1));//7
 
 	//Left
-	myTexCoords.push_back(TexCoord(0, 0.625));
-	myTexCoords.push_back(TexCoord(0.25, 0.625));
-	myTexCoords.push_back(TexCoord(0.25, 0.375));
-	myTexCoords.push_back(TexCoord(0, 0.375));
+	myTexCoords.push_back(TexCoord(0.25, 0.375));//0
+	myTexCoords.push_back(TexCoord(0.25, 0.65));//4
+	myTexCoords.push_back(TexCoord(0, 0.65));//7
+	myTexCoords.push_back(TexCoord(0, 0.375));//3
 
 	//Right
-	myTexCoords.push_back(TexCoord(0.5, 0.625));
-	myTexCoords.push_back(TexCoord(0.75, 0.625));
-	myTexCoords.push_back(TexCoord(0.75, 0.375));
-	myTexCoords.push_back(TexCoord(0.5, 0.375));
+	myTexCoords.push_back(TexCoord(0.5, 0.375));//1
+	myTexCoords.push_back(TexCoord(0.75, 0.375));//2
+	myTexCoords.push_back(TexCoord(0.75, 0.65));//6
+	myTexCoords.push_back(TexCoord(0.5, 0.65));//5
 
 	//Front
-	myTexCoords.push_back(TexCoord(0.75, 0.625));
-	myTexCoords.push_back(TexCoord(1.0, 0.625));
-	myTexCoords.push_back(TexCoord(1.0, 0.375));
-	myTexCoords.push_back(TexCoord(0.75, 0.375));
+	myTexCoords.push_back(TexCoord(0.25, 0.375));//0
+	myTexCoords.push_back(TexCoord(0.5, 0.375));//1
+	myTexCoords.push_back(TexCoord(0.5, 0.65));//5
+	myTexCoords.push_back(TexCoord(0.25, 0.65));//4
 
 	//Back
-	myTexCoords.push_back(TexCoord(0.75, 0.625));
-	myTexCoords.push_back(TexCoord(1.0, 0.625));
-	myTexCoords.push_back(TexCoord(1.0, 0.375));
-	myTexCoords.push_back(TexCoord(0.75, 0.375));
+	myTexCoords.push_back(TexCoord(1.0, 0.65));//7
+	myTexCoords.push_back(TexCoord(0.75, 0.65));//6
+	myTexCoords.push_back(TexCoord(0.75, 0.375));//2
+	myTexCoords.push_back(TexCoord(1.0, 0.375));//3
 
 	const string vertexShader = (GLSLProgram::glsl130Supported()) ? VERTEX_SHADER_130 : VERTEX_SHADER_120;
 	const string fragmentShader = (GLSLProgram::glsl130Supported()) ? FRAGMENT_SHADER_130 : FRAGMENT_SHADER_120;
@@ -199,9 +199,13 @@ void Skybox::onRender() const
 	glDisable(GL_DEPTH_TEST);
 	
     glPushMatrix();
-		glTranslatef(myPosition.x, myPosition.y, myPosition.z);
+	glTranslatef(myPosition.x, myPosition.y + 5, myPosition.z);
 		static float modelviewMatrix[16];
 		static float projectionMatrix[16];
+		
+		//modelviewMatrix[12] = 0;
+		//modelviewMatrix[13] = 0;
+		//modelviewMatrix[14] = 0;
 
 		m_shaderProgram->bindShader();
 
