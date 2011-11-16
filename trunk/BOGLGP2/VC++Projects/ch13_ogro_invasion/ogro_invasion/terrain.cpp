@@ -23,6 +23,9 @@ m_indexBuffer(0),
 m_colorBuffer(0),
 m_isMultitextureEnabled(true),
 m_width(0),
+curIndex(0),
+drawBoundingBox(false),
+drawCurIndex(false),
 m_shaderProgram(NULL),
 m_waterShaderProgram(NULL)
 {
@@ -604,62 +607,62 @@ void Terrain::renderWater() const
 
 void Terrain::render(Frustum * frust) const
 {
-    glEnable(GL_CULL_FACE);
-    glEnable(GL_DEPTH_TEST);
+	glEnable(GL_CULL_FACE);
+	glEnable(GL_DEPTH_TEST);
 
-    static float modelviewMatrix[16];
-    static float projectionMatrix[16];
+	static float modelviewMatrix[16];
+	static float projectionMatrix[16];
 
-    m_shaderProgram->bindShader();
+	m_shaderProgram->bindShader();
 
-    //Get the current matrices from OpenGL
-    glGetFloatv(GL_MODELVIEW_MATRIX, modelviewMatrix);
-    glGetFloatv(GL_PROJECTION_MATRIX, projectionMatrix);
-    vector<float> normalMatrix = GLSLProgram::calculateNormalMatrix(modelviewMatrix);
+	//Get the current matrices from OpenGL
+	glGetFloatv(GL_MODELVIEW_MATRIX, modelviewMatrix);
+	glGetFloatv(GL_PROJECTION_MATRIX, projectionMatrix);
+	vector<float> normalMatrix = GLSLProgram::calculateNormalMatrix(modelviewMatrix);
 
-    //Send the modelview and projection matrices to the shaders
-    m_shaderProgram->sendUniform4x4("modelview_matrix", modelviewMatrix);
-    m_shaderProgram->sendUniform4x4("projection_matrix", projectionMatrix);
-    m_shaderProgram->sendUniform3x3("normal_matrix", &normalMatrix[0]);
+	//Send the modelview and projection matrices to the shaders
+	m_shaderProgram->sendUniform4x4("modelview_matrix", modelviewMatrix);
+	m_shaderProgram->sendUniform4x4("projection_matrix", projectionMatrix);
+	m_shaderProgram->sendUniform3x3("normal_matrix", &normalMatrix[0]);
 
-    glEnableVertexAttribArray(0);
-    glEnableVertexAttribArray(1);
-    glEnableVertexAttribArray(2);
-    glEnableVertexAttribArray(3);
+	glEnableVertexAttribArray(0);
+	glEnableVertexAttribArray(1);
+	glEnableVertexAttribArray(2);
+	glEnableVertexAttribArray(3);
 
-    glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, m_grassTexID);
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, m_grassTexID);
 
-    glActiveTexture(GL_TEXTURE1);
-    glBindTexture(GL_TEXTURE_1D, m_heightTexID);
+	glActiveTexture(GL_TEXTURE1);
+	glBindTexture(GL_TEXTURE_1D, m_heightTexID);
 
 
-    //Bind the vertex array and set the vertex pointer to point at it
-    glBindBuffer(GL_ARRAY_BUFFER, m_vertexBuffer);
-    //glVertexPointer(3, GL_FLOAT, 0, 0);
-    glVertexAttribPointer((GLint)0, 3, GL_FLOAT, GL_FALSE, 0, 0);
+	//Bind the vertex array and set the vertex pointer to point at it
+	glBindBuffer(GL_ARRAY_BUFFER, m_vertexBuffer);
+	//glVertexPointer(3, GL_FLOAT, 0, 0);
+	glVertexAttribPointer((GLint)0, 3, GL_FLOAT, GL_FALSE, 0, 0);
 
-    //Bind the color array
-  //  glBindBuffer(GL_ARRAY_BUFFER, m_colorBuffer);
-    //glColorPointer(3, GL_FLOAT, 0, 0);
-  //  glVertexAttribPointer((GLint)1, 3, GL_FLOAT, GL_FALSE, 0, 0);
+	//Bind the color array
+	//  glBindBuffer(GL_ARRAY_BUFFER, m_colorBuffer);
+	//glColorPointer(3, GL_FLOAT, 0, 0);
+	//  glVertexAttribPointer((GLint)1, 3, GL_FLOAT, GL_FALSE, 0, 0);
 
-    glBindBuffer(GL_ARRAY_BUFFER, m_texCoordBuffer);
-    glVertexAttribPointer((GLint)1, 2, GL_FLOAT, GL_FALSE, 0, 0);
+	glBindBuffer(GL_ARRAY_BUFFER, m_texCoordBuffer);
+	glVertexAttribPointer((GLint)1, 2, GL_FLOAT, GL_FALSE, 0, 0);
 
-    glBindBuffer(GL_ARRAY_BUFFER, m_normalBuffer);
-    glVertexAttribPointer((GLint)2, 3, GL_FLOAT, GL_FALSE, 0, 0);
+	glBindBuffer(GL_ARRAY_BUFFER, m_normalBuffer);
+	glVertexAttribPointer((GLint)2, 3, GL_FLOAT, GL_FALSE, 0, 0);
 
-    glBindBuffer(GL_ARRAY_BUFFER, m_heightTexCoordBuffer);
-    glVertexAttribPointer((GLint)3, 1, GL_FLOAT, GL_FALSE, 0, 0);
+	glBindBuffer(GL_ARRAY_BUFFER, m_heightTexCoordBuffer);
+	glVertexAttribPointer((GLint)3, 1, GL_FLOAT, GL_FALSE, 0, 0);
 
 	bool cull = true;
 
-	if(!cull){
-
+	if(!cull)
+	{
+			
 		//Bind the index array
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_indexBuffer);
-
 		//Draw the triangles
 		glDrawElements(GL_TRIANGLES, m_indices.size(), GL_UNSIGNED_INT, 0);
 
@@ -691,46 +694,88 @@ void Terrain::render(Frustum * frust) const
 				// bind the buffer and draw the chunk.
 				glBindBuffer(GL_ELEMENT_ARRAY_BUFFER_ARB, chunkArray[x][z].bufferTriList);
 				glDrawElements(GL_TRIANGLE_STRIP, numElements, GL_UNSIGNED_INT, 0);
-				bool boundingBox=false;
-				if (boundingBox)
-				{									
-				glColor3f(1.0f, 0.0f, 0.0f);
-				glBegin(GL_LINES);
-					glVertex3f(maxX, maxY, maxZ);
-					glVertex3f(minX, maxY, maxZ);
-					glVertex3f(minX, maxY, maxZ);
-					glVertex3f(minX, maxY, minZ);
+				if (drawBoundingBox)
+				{
+					glColor3f(1.0f, 0.0f, 0.0f);
+					glBegin(GL_LINES);
+						glVertex3f(maxX, maxY, maxZ);
+						glVertex3f(minX, maxY, maxZ);
+						glVertex3f(minX, maxY, maxZ);
+						glVertex3f(minX, maxY, minZ);
 
-					glVertex3f(minX, maxY, minZ);
-					glVertex3f(maxX, maxY, minZ);
-					glVertex3f(maxX, maxY, minZ);
-					glVertex3f(maxX, maxY, maxZ);
+						glVertex3f(minX, maxY, minZ);
+						glVertex3f(maxX, maxY, minZ);
+						glVertex3f(maxX, maxY, minZ);
+						glVertex3f(maxX, maxY, maxZ);
 							
-					glVertex3f(maxX, minY, maxZ);
-					glVertex3f(minX, minY, maxZ);
-					glVertex3f(minX, minY, maxZ);
-					glVertex3f(minX, minY, minZ);
+						glVertex3f(maxX, minY, maxZ);
+						glVertex3f(minX, minY, maxZ);
+						glVertex3f(minX, minY, maxZ);
+						glVertex3f(minX, minY, minZ);
 
-					glVertex3f(minX, minY, minZ);
-					glVertex3f(maxX, minY, minZ);
-					glVertex3f(maxX, minY, minZ);
-					glVertex3f(maxX, minY, maxZ);
+						glVertex3f(minX, minY, minZ);
+						glVertex3f(maxX, minY, minZ);
+						glVertex3f(maxX, minY, minZ);
+						glVertex3f(maxX, minY, maxZ);
 							
-					glVertex3f(maxX, maxY, maxZ);
-					glVertex3f(maxX, minY, maxZ);
-					glVertex3f(maxX, maxY, minZ);
-					glVertex3f(maxX, minY, minZ);
-
-					glVertex3f(minX, maxY, minZ);
-					glVertex3f(minX, minY, minZ);
-					glVertex3f(minX, maxY, maxZ);
-					glVertex3f(minX, minY, maxZ);
-
-				glEnd();
+						glVertex3f(maxX, maxY, maxZ);
+						glVertex3f(maxX, minY, maxZ);
+						glVertex3f(maxX, maxY, minZ);
+						glVertex3f(maxX, minY, minZ);
+							
+						glVertex3f(minX, maxY, minZ);
+						glVertex3f(minX, minY, minZ);
+						glVertex3f(minX, maxY, maxZ);
+						glVertex3f(minX, minY, maxZ);
+					
+					glEnd();
+				}
 			}
 		}
-
 	}
+
+	if(drawCurIndex){
+		Vector3 p = m_vertices[curIndex];
+		float halfWidth = m_width * 0.5f;
+		float maxX = p.x+0.5;
+		float minX = p.x-0.5;
+		float maxY = p.y+0.5;
+		float minY = p.y-0.5;
+		float maxZ = p.z+0.5;
+		float minZ = p.z-0.5;
+		glColor3f(1.0f, 0.0f, 0.0f);
+		glBegin(GL_LINES);
+			glVertex3f(maxX, maxY, maxZ);
+			glVertex3f(minX, maxY, maxZ);
+			glVertex3f(minX, maxY, maxZ);
+			glVertex3f(minX, maxY, minZ);
+
+			glVertex3f(minX, maxY, minZ);
+			glVertex3f(maxX, maxY, minZ);
+			glVertex3f(maxX, maxY, minZ);
+			glVertex3f(maxX, maxY, maxZ);
+				
+			glVertex3f(maxX, minY, maxZ);
+			glVertex3f(minX, minY, maxZ);
+			glVertex3f(minX, minY, maxZ);
+			glVertex3f(minX, minY, minZ);
+
+			glVertex3f(minX, minY, minZ);
+			glVertex3f(maxX, minY, minZ);
+			glVertex3f(maxX, minY, minZ);
+			glVertex3f(maxX, minY, maxZ);
+							
+			glVertex3f(maxX, maxY, maxZ);
+			glVertex3f(maxX, minY, maxZ);
+			glVertex3f(maxX, maxY, minZ);
+			glVertex3f(maxX, minY, minZ);
+						
+			glVertex3f(minX, maxY, minZ);
+			glVertex3f(minX, minY, minZ);
+			glVertex3f(minX, maxY, maxZ);
+			glVertex3f(minX, minY, maxZ);
+					
+		glEnd();
 	}
 
     glDisableVertexAttribArray(0);
@@ -833,4 +878,63 @@ void Terrain::scaleHeights(float scale)
 
     glBindBuffer(GL_ARRAY_BUFFER, m_vertexBuffer);
     glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(GLfloat) * m_vertices.size() * 3, &m_vertices[0]);
+}
+
+int Terrain::getClosestIndex(Vector3 pos, Vector3 dir){
+	float halfWidth = float(m_width) * 0.5f;
+
+    float scaledX = pos.x + halfWidth;
+    float scaledZ = pos.z + halfWidth;
+
+/*
+    Round down to get the x and z position near where we are
+*/
+	int areaSize = 5;
+	int maxX = (int)ceil(scaledX+areaSize);
+	float minX = (int)floor(scaledX-areaSize);
+	float maxZ = (int)ceil(scaledZ+areaSize);
+	float minZ = (int)floor(scaledZ-areaSize);
+
+	int cindex = -1;
+	float cdist = FLT_MAX;
+	float ct = FLT_MAX;
+
+	for(int x = minX; x<=maxX; x++){
+		if(x<0||x>m_width){
+			continue;
+		}
+		for(int z = minZ; z<=maxZ; z++){
+			if(z<0||z>m_width){
+				continue;
+			}
+			int i = z*m_width+x;
+
+			Vector3 diff = m_vertices[i] - pos;
+			float dot = dir.x*diff.x+dir.y*diff.y+dir.z*diff.z;
+			float t = dot/(dir.length()*dir.length());
+
+			if(t<0){
+				continue;
+			}
+
+			float d = (m_vertices[i] - (pos + (dir * t))).length();
+			
+			if(cindex<0||(d<cdist)){
+				cdist=d;
+				ct=t;
+				cindex=i;
+			}
+
+		}
+	}
+	
+	curIndex=cindex;
+
+	return -cindex;
+}
+
+void Terrain::movePoint(int index, float amount){
+	m_vertices[index].y+=amount;
+	glBindBuffer(GL_ARRAY_BUFFER, m_vertexBuffer);
+	glBufferSubData(GL_ARRAY_BUFFER,0,3*sizeof(GLfloat)*m_vertices.size(),&m_vertices[0]);
 }

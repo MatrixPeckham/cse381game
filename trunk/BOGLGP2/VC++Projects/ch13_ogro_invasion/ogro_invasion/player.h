@@ -45,6 +45,7 @@ class Player : public Entity
         void yaw(const float val);
         void pitch(const float val);
         void moveForward(const float speed);
+        void moveSideways(const float speed);
 
         void increaseScore(int amount) { m_score += amount; }
     private:
@@ -62,6 +63,7 @@ class Player : public Entity
         float m_pitch;
 		float myAcceleration;
         Collider* m_collider;
+		bool isEditing;
 };
 
 #endif // PLAYER_H

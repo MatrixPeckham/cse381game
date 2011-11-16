@@ -12,7 +12,8 @@ m_position(Vector3()),
 m_velocity(Vector3()),
 m_mode(PLAYER_MODE),
 m_yaw(0.0f),
-m_pitch(0.0f)
+m_pitch(0.0f),
+isEditing(false)
 {
     m_collider = new SphereCollider(this, 0.75f);
 	myAcceleration = 3.0f;
@@ -33,6 +34,14 @@ void Player::onPrepare(float dT)
     {
         moveForward(-myAcceleration * dT);
     }
+
+	if(getWorld()->getKeyboard()->isKeyHeldDown(KC_a)){
+		moveSideways(-myAcceleration*dT);
+	}
+	if(getWorld()->getKeyboard()->isKeyHeldDown(KC_d)){
+		moveSideways(myAcceleration*dT);
+	}
+
     if (getWorld()->getKeyboard()->isKeyHeldDown(KC_RIGHT))
     {
         yaw(50.0f * dT);
@@ -49,17 +58,20 @@ void Player::onPrepare(float dT)
 
 	if(getWorld()->getKeyboard()->isKeyHeldDown(KC_t))
 	{
-		//getWorld()->getMouse()->showCursor(!getWorld()->getMouse()->isCursorShown());
 		m_mode = m_mode==EDIT_MODE ? PLAYER_MODE : EDIT_MODE;
+		myAcceleration = m_mode==EDIT_MODE ? 10.0f : 3.0f;
 	}
 
 	if(getWorld()->getKeyboard()->isKeyHeldDown(KC_c))
 	{
 		getWorld()->toggleBackFaceCulling();
 	}
+	if(getWorld()->getKeyboard()->isKeyHeldDown(KC_b))
+	{
+		getWorld()->getLandscape()->getTerrain()->toggleBounds();
+	}
 
-    if (getWorld()->getKeyboard()->isKeyPressed(KC_SPACE) ||
-        getWorld()->getMouse()->isButtonPressed(0))
+    if (getWorld()->getKeyboard()->isKeyPressed(KC_SPACE))
     {
         Entity* rocket = getWorld()->spawnEntity(ROCKET);
         rocket->setPosition(getPosition());
@@ -67,11 +79,50 @@ void Player::onPrepare(float dT)
         rocket->setPitch(getPitch());
     }
 
+	if(getWorld()->getMouse()->isButtonDown(0)){
+		if(m_mode==EDIT_MODE){
+			if(!isEditing){
+				isEditing=true;
+				float cosYaw = cosf(degreesToRadians(m_yaw));
+				float sinYaw = sinf(degreesToRadians(m_yaw));
+				float cosPit = cosf(degreesToRadians(m_pitch));
+				float sinPit = sinf(degreesToRadians(m_pitch));
+				Vector3 dir;
+				dir.x += cosYaw*cosPit;
+				dir.y += sinPit;
+				dir.z += sinYaw*cosPit;
+				dir.normalize();
+				int ind = getWorld()->getLandscape()->getTerrain()->getClosestIndex(getPosition(),dir);
+				getWorld()->getLandscape()->getTerrain()->setDrawIndex(true);
+			}
+		}
+	} else {
+		isEditing=false;
+		getWorld()->getLandscape()->getTerrain()->setDrawIndex(false);
+	}
+	if(getWorld()->getMouse()->isButtonPressed(0)){
+		if(m_mode==EDIT_MODE){
+		} else {
+			Entity* rocket = getWorld()->spawnEntity(ROCKET);
+			rocket->setPosition(getPosition());
+		    rocket->setYaw(getYaw());
+	        rocket->setPitch(getPitch());
+		}
+	}
+
     float x, y;
     getWorld()->getRelativeMousePos(x, y);
 
-    yaw(float(x) * 40.0f * dT);
-    pitch(float(y)* -40.0f * dT);
+	if(isEditing){
+
+		getWorld()->getLandscape()->getTerrain()->movePoint(getWorld()->getLandscape()->getTerrain()->getCurIndex(),-y);
+
+		yaw(float(x) * 40.0f * dT);
+		pitch(float(y)* -40.0f * dT);
+	} else {
+		yaw(float(x) * 40.0f * dT);
+		pitch(float(y)* -40.0f * dT);
+	}
 
 	if(m_mode==PLAYER_MODE)
 	    m_position.y -= 8.0f * dT;
@@ -151,5 +202,17 @@ void Player::moveForward(const float speed)
 		pos.y += sinPit*speed;
 		pos.z += sinYaw*cosPit*speed;
 	}
+    setPosition(pos);
+}
+
+void Player::moveSideways(const float speed){
+    Vector3 pos = getPosition();
+
+    float cosYaw = cosf(degreesToRadians(m_yaw));
+    float sinYaw = sinf(degreesToRadians(m_yaw));
+	float cosPit = cosf(degreesToRadians(m_pitch));
+	float sinPit = sinf(degreesToRadians(m_pitch));
+    pos.x += -float(sinYaw)*speed;
+	pos.z += float(cosYaw)*speed;
     setPosition(pos);
 }

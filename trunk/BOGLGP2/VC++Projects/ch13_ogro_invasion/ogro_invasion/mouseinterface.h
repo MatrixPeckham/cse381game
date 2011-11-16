@@ -9,6 +9,7 @@ public:
     virtual void showCursor(bool val) = 0;
 	virtual bool isCursorShown() = 0;
     virtual bool isButtonPressed(int button) = 0;
+	virtual bool isButtonDown(int button)=0;
     virtual void update() = 0;
 };
 

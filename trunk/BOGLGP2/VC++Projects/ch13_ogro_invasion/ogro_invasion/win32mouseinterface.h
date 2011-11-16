@@ -38,6 +38,11 @@ public:
         assert(button < 2);
         return (m_lastButtonState[button] == 0 && m_buttonState[button] == 1);
     }
+    bool isButtonDown(int button)
+    {
+        assert(button < 2);
+        return (m_buttonState[button] == 1);
+    }
 
     void update()
     {
