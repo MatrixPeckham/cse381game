@@ -15,7 +15,7 @@ m_yaw(0.0f),
 m_pitch(0.0f)
 {
     m_collider = new SphereCollider(this, 0.75f);
-	myAcceleration = 50.0f;
+	myAcceleration = 3.0f;
 }
 
 Player::~Player()
