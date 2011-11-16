@@ -34,6 +34,12 @@ public:
     float getMaxX() { return m_maxX; }
     float getMinZ() { return m_minZ; }
     float getMaxZ() { return m_maxZ; }
+
+	void setDrawIndex(bool ind) { drawCurIndex=ind;}
+	int getClosestIndex(Vector3 pos, Vector3 dir);
+	void toggleBounds(){drawBoundingBox=!drawBoundingBox;}
+	void movePoint(int index, float amount);
+	int getCurIndex(){return curIndex;}
 private:
     void generateVertices(const std::vector<float> heights, int width);
     void generateIndices(std::vector<float> heights, int width);
@@ -102,6 +108,11 @@ private:
 	chunk **chunkArray;
 	int width;
 	int numElements;
+
+	int curIndex;
+	bool drawCurIndex;
+	bool drawBoundingBox;
+				
 
 };
 

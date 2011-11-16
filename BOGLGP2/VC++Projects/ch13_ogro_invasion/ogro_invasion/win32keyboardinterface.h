@@ -75,6 +75,9 @@ public:
 		case 'T':
             return KC_t;
         break;
+		case 'B':
+            return KC_b;
+        break;
         case VK_SPACE:
             return KC_SPACE;
         break;
