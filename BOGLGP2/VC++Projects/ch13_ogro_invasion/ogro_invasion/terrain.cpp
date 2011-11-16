@@ -128,83 +128,83 @@ void Terrain::generateIndices(std::vector<float> heights, int width)
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLuint) * m_indices.size(), &m_indices[0], GL_STATIC_DRAW);
 	
 
-	//for (int chunkZ = 0; chunkZ < width/(ChunkHeight-1); chunkZ++)
-	//{
-	//	for (int chunkX = 0; chunkX < width/(ChunkWidth-1); chunkX++)
-	//	{
-	//		// Create the index buffer.
-	//		if (chunkArray[chunkX][chunkZ].bufferTriList > 0)
-	//		{
-	//			glDeleteBuffers(1, &chunkArray[chunkX][chunkZ].bufferTriList);
-	//		}
+	for (int chunkZ = 0; chunkZ < width/(ChunkHeight-1); chunkZ++)
+	{
+		for (int chunkX = 0; chunkX < width/(ChunkWidth-1); chunkX++)
+		{
+			// Create the index buffer.
+			if (chunkArray[chunkX][chunkZ].bufferTriList > 0)
+			{
+				glDeleteBuffers(1, &chunkArray[chunkX][chunkZ].bufferTriList);
+			}
 
-	//		glGenBuffers(1, &chunkArray[chunkX][chunkZ].bufferTriList);
+			glGenBuffers(1, &chunkArray[chunkX][chunkZ].bufferTriList);
 
-	//		// 'allocate' memory for the buffer.
-	//		numElements = ((ChunkHeight-1) * (ChunkWidth*2+2))-2;
-	//		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER_ARB, chunkArray[chunkX][chunkZ].bufferTriList);
-	//		glBufferData(GL_ELEMENT_ARRAY_BUFFER_ARB, sizeof(GLuint) * numElements, NULL, GL_STATIC_DRAW_ARB);
+			// 'allocate' memory for the buffer.
+     		numElements = ((ChunkHeight-1) * (ChunkWidth*2+2))-2;
+			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER_ARB, chunkArray[chunkX][chunkZ].bufferTriList);
+			glBufferData(GL_ELEMENT_ARRAY_BUFFER_ARB, sizeof(GLuint) * numElements * chunkArray[chunkX][chunkZ].bufferTriList, NULL, GL_STATIC_DRAW_ARB);
 
 
-	//		// Fill triangle buffer.
-	//		GLuint *triBuff = (GLuint *)glMapBuffer(GL_ELEMENT_ARRAY_BUFFER_ARB, GL_WRITE_ONLY_ARB);
-	//		int currentIndex = 0;
-	//		float halfWidth = float(width) * 0.5f;
-	//																
-	//		// Calculate the extents of the chunk.
-	//		int startx = chunkX * (ChunkWidth-1);
-	//		int startz = chunkZ * (ChunkHeight-1);
-	//		int endx = startx + ChunkWidth;
-	//		int endz = startz + ChunkHeight;
+			// Fill triangle buffer.
+			GLuint *triBuff = (GLuint *)glMapBuffer(GL_ELEMENT_ARRAY_BUFFER_ARB, GL_WRITE_ONLY_ARB);
+			int currentIndex = 0;
+			float halfWidth = float(width) * 0.5f;
+																	
+			// Calculate the extents of the chunk.
+			int startx = chunkX * (ChunkWidth-1);
+			int startz = chunkZ * (ChunkHeight-1);
+			int endx = startx + ChunkWidth;
+			int endz = startz + ChunkHeight;
 
-	//		// Initialize the min and max values based on the first vertex.
-	//		float maxX, maxY, maxZ;
-	//		float minX, minY, minZ;
-	//		
-	//		maxX = startx;
-	//		minX = startx;
-	//		maxY = heights[width*startz+startx];
-	//		minY = heights[width*startz+startx];
-	//		maxZ = startz;
-	//		minZ = startz;
+			// Initialize the min and max values based on the first vertex.
+			float maxX, maxY, maxZ;
+			float minX, minY, minZ;
+			
+			maxX = startx;
+			minX = startx;
+			maxY = heights[width*startz+startx];
+			minY = heights[width*startz+startx];
+			maxZ = startz;
+			minZ = startz;
 
-	//		// Loop through the chunk extents and create the list.
-	//		for (int z = startz; z < endz; z++)
-	//		{
-	//			for (int x = startx; x < endx; x++)
-	//			{
-	//				// Update the min and max values.
-	//				maxX = maxX > x ? maxX : x;
-	//				minX = minX < x ? minX : x;
-	//				maxY = maxY > heights[width*z+x] ? maxY : heights[width*z+x];
-	//				minY = minY < heights[width*z+x] ? minY : heights[width*z+x];
-	//				maxZ = maxZ > z ? maxZ : z;
-	//				minZ = minZ < z ? minZ : z;
+			// Loop through the chunk extents and create the list.
+			for (int z = startz; z < endz; z++)
+			{
+				for (int x = startx; x < endx; x++)
+				{
+					// Update the min and max values.
+					maxX = maxX > x ? maxX : x;
+					minX = minX < x ? minX : x;
+					maxY = maxY > heights[width*z+x] ? maxY : heights[width*z+x];
+					minY = minY < heights[width*z+x] ? minY : heights[width*z+x];
+					maxZ = maxZ > z ? maxZ : z;
+					minZ = minZ < z ? minZ : z;
 
-	//				// Used for degenerate triangles.
-	//				if (x == startx && z != startz)
-	//					triBuff[currentIndex++] = x + (z * width);
+					// Used for degenerate triangles.
+					if (x == startx && z != startz)
+						triBuff[currentIndex++] = x + (z * width);
 
-	//				triBuff[currentIndex++] = x + (z * width);
-	//				triBuff[currentIndex++] = x + ((z+1) * width);
+					triBuff[currentIndex++] = x + (z * width);
+					triBuff[currentIndex++] = x + ((z+1) * width);
 
-	//				// Used for degenerate triangles.
-	//				if (x == endx-1 && z != endz-2)
-	//					triBuff[currentIndex++] = x + ((z+1) * width);
-	//			}
-	//		}
-	//		glUnmapBuffer(GL_ELEMENT_ARRAY_BUFFER_ARB);
-	//		
-	//		// Assign the min and max values found.
-	//		chunkArray[chunkX][chunkZ].maxX = maxX-halfWidth;
-	//		chunkArray[chunkX][chunkZ].maxY = maxY;
-	//		chunkArray[chunkX][chunkZ].maxZ = maxZ-halfWidth;
-	//		chunkArray[chunkX][chunkZ].minX = minX-halfWidth;
-	//		chunkArray[chunkX][chunkZ].minY = minY;
-	//		chunkArray[chunkX][chunkZ].minZ = minZ-halfWidth;
+					// Used for degenerate triangles.
+					if (x == endx-1 && z != endz-2)
+						triBuff[currentIndex++] = x + ((z+1) * width);
+				}
+			}
+			glUnmapBuffer(GL_ELEMENT_ARRAY_BUFFER_ARB);
+			
+			// Assign the min and max values found.
+			chunkArray[chunkX][chunkZ].maxX = maxX-halfWidth;
+			chunkArray[chunkX][chunkZ].maxY = maxY;
+			chunkArray[chunkX][chunkZ].maxZ = maxZ-halfWidth;
+			chunkArray[chunkX][chunkZ].minX = minX-halfWidth;
+			chunkArray[chunkX][chunkZ].minY = minY;
+			chunkArray[chunkX][chunkZ].minZ = minZ-halfWidth;
 
-	//	}
-	//}
+		}
+	}
 
 }
 
@@ -363,9 +363,9 @@ void Terrain::generateTexCoords(int width)
 void Terrain::generateWaterTexCoords(int width)
 {
     m_waterTexCoords.push_back(TexCoord(0.0f, 0.0f));
-    m_waterTexCoords.push_back(TexCoord(0.0f, 6.0f));
-    m_waterTexCoords.push_back(TexCoord(8.0f, 8.0f));
-    m_waterTexCoords.push_back(TexCoord(8.0f, 0.0f));
+    m_waterTexCoords.push_back(TexCoord(0.0f, 60.0f));
+    m_waterTexCoords.push_back(TexCoord(80.0f, 80.0f));
+    m_waterTexCoords.push_back(TexCoord(80.0f, 0.0f));
 
     /*int waterWidth = (int)sqrtf((float)m_waterVertices.size());
 
@@ -409,24 +409,24 @@ bool Terrain::loadHeightmap(const string& rawFile, const string& grassTexture, c
     }
 
     vector<float> heights;
-    heights.reserve(width * width); //Reserve some space (faster)
+    heights.reserve(stringBuffer.size()); //Reserve some space (faster)
 	
 	// Create the chunk array and initialize it's values.
-	//chunkArray = new chunk*[width/(ChunkWidth-1)];
-	//for (int x = 0; x < width/(ChunkWidth-1); x++)
-	//{
-	//	chunkArray[x] = new chunk[width/(ChunkHeight-1)];
-	//}
-	//for (int z = 0; z < width/(ChunkHeight-1); z++)
-	//{
-	//	for (int x = 0; x < width/(ChunkWidth-1); x++)
-	//	{
-	//		chunkArray[x][z].bufferTriList = 0;
-	//	}
-	//}
+	chunkArray = new chunk*[(int)width/(ChunkWidth-1)];
+	for (int x = 0; x < width/(ChunkWidth-1); x++)
+	{
+		chunkArray[x] = new chunk[(int)width/(ChunkHeight-1)];
+	}
+	for (int z = 0; z < width/(ChunkHeight-1); z++)
+	{
+		for (int x = 0; x < width/(ChunkWidth-1); x++)
+		{
+			chunkArray[x][z].bufferTriList = 0;
+		}
+	}
 
     //Go through the string converting each character to a float and scale it
-    for (int i = 0; i < (width * width); ++i)
+    for (int i = 0; i < stringBuffer.size(); ++i)
     {
         //Convert to floating value, the unsigned char cast is importantant otherwise the values wrap at 128
         float value = (float)(unsigned char)stringBuffer[i] / 256.0f;
@@ -653,7 +653,7 @@ void Terrain::render(Frustum * frust) const
     glBindBuffer(GL_ARRAY_BUFFER, m_heightTexCoordBuffer);
     glVertexAttribPointer((GLint)3, 1, GL_FLOAT, GL_FALSE, 0, 0);
 
-	bool cull = false;
+	bool cull = true;
 
 	if(!cull){
 
@@ -803,14 +803,14 @@ void Terrain::normalizeTerrain()
     {
         (*v).y /= h;
     }
-	//for (int z = 0; z < width / (ChunkHeight-1); z++)
-	//{
-	//	for (int x = 0; x < width / (ChunkWidth -1); x++)
-	//	{
-	//		chunkArray[x][z].maxY/=h;
-	//		chunkArray[x][z].minY/=h;
-	//	}
-	//}
+	for (int z = 0; z < width / (ChunkHeight-1); z++)
+	{
+		for (int x = 0; x < width / (ChunkWidth -1); x++)
+		{
+			chunkArray[x][z].maxY/=h;
+			chunkArray[x][z].minY/=h;
+		}
+	}
     glBindBuffer(GL_ARRAY_BUFFER, m_vertexBuffer);
     glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(GLfloat) * m_vertices.size() * 3, &m_vertices[0]);
 }
@@ -822,14 +822,14 @@ void Terrain::scaleHeights(float scale)
     {
         (*v).y *= scale;
     }
-	//for (int z = 0; z < width / (ChunkHeight-1); z++)
-	//{
-	//	for (int x = 0; x < width / (ChunkWidth -1); x++)
-	//	{
-	//		chunkArray[x][z].maxY*=scale;
-	//		chunkArray[x][z].minY*=scale;
-	//	}
-	//}
+	for (int z = 0; z < width / (ChunkHeight-1); z++)
+	{
+		for (int x = 0; x < width / (ChunkWidth -1); x++)
+		{
+			chunkArray[x][z].maxY*=scale;
+			chunkArray[x][z].minY*=scale;
+		}
+	}
 
     glBindBuffer(GL_ARRAY_BUFFER, m_vertexBuffer);
     glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(GLfloat) * m_vertices.size() * 3, &m_vertices[0]);
