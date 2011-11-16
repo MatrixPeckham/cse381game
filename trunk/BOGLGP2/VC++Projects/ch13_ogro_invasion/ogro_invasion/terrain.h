@@ -38,7 +38,7 @@ public:
 	void setDrawIndex(bool ind) { drawCurIndex=ind;}
 	int getClosestIndex(Vector3 pos, Vector3 dir);
 	void toggleBounds(){drawBoundingBox=!drawBoundingBox;}
-	void movePoint(int index, float amount);
+	void movePoint(int index, float dist, int type);
 	int getCurIndex(){return curIndex;}
 private:
     void generateVertices(const std::vector<float> heights, int width);

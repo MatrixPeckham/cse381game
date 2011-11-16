@@ -933,8 +933,39 @@ int Terrain::getClosestIndex(Vector3 pos, Vector3 dir){
 	return -cindex;
 }
 
-void Terrain::movePoint(int index, float amount){
-	m_vertices[index].y+=amount;
-	glBindBuffer(GL_ARRAY_BUFFER, m_vertexBuffer);
-	glBufferSubData(GL_ARRAY_BUFFER,0,3*sizeof(GLfloat)*m_vertices.size(),&m_vertices[0]);
+void Terrain::movePoint(int index, float dist, int rad){
+	if(rad==0){
+		m_vertices[index].y+=dist;
+
+		glBindBuffer(GL_ARRAY_BUFFER, m_vertexBuffer);
+		glBufferSubData(GL_ARRAY_BUFFER,0,3*sizeof(GLfloat)*m_vertices.size(),&m_vertices[0]);
+	} else {
+		int radSq = rad*rad;
+		int midX = index%m_width;
+		int midZ = (int) index/m_width;
+		int minX = midX-rad;
+		int maxX = midX+rad;
+		int minZ = midZ-rad;
+		int maxZ = midZ+rad;
+		for(int x=minX;x<=maxX;x++){
+			for(int z=minZ;z<=maxZ;z++){
+				int i = z*m_width+x;
+				
+				int xs = midX-x;
+				xs*=xs;
+				int zs = midZ-z;
+				zs*=zs;
+
+				int d2 = xs+zs;
+				if(d2<radSq){
+					float distS = sqrtf(rad-d2)/float(rad);
+					m_vertices[i].y+=distS;
+				}
+
+			}
+		}
+
+		glBindBuffer(GL_ARRAY_BUFFER, m_vertexBuffer);
+		glBufferSubData(GL_ARRAY_BUFFER,0,3*sizeof(GLfloat)*m_vertices.size(),&m_vertices[0]);
+	}
 }
