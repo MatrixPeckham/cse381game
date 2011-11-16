@@ -115,7 +115,7 @@ void Player::onPrepare(float dT)
 
 	if(isEditing){
 
-		getWorld()->getLandscape()->getTerrain()->movePoint(getWorld()->getLandscape()->getTerrain()->getCurIndex(),-y);
+		getWorld()->getLandscape()->getTerrain()->movePoint(getWorld()->getLandscape()->getTerrain()->getCurIndex(),-(y/100),1);
 
 		yaw(float(x) * 40.0f * dT);
 		pitch(float(y)* -40.0f * dT);
