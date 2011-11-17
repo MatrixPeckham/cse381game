@@ -45,6 +45,7 @@ private:
     void generateIndices(std::vector<float> heights, int width);
     void generateTexCoords(int width);
     void generateNormals();
+	void genChunkBounds(int minx,int maxx, int minz, int maxz);
 
     void generateWaterVertices(int width);
     void generateWaterIndices(int width);

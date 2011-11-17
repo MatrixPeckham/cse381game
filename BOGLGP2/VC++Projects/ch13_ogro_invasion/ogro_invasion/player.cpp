@@ -60,6 +60,7 @@ void Player::onPrepare(float dT)
 	{
 		m_mode = m_mode==EDIT_MODE ? PLAYER_MODE : EDIT_MODE;
 		myAcceleration = m_mode==EDIT_MODE ? 10.0f : 3.0f;
+		getWorld()->getLandscape()->getTerrain()->setDrawIndex(m_mode==EDIT_MODE?true:false);
 	}
 
 	if(getWorld()->getKeyboard()->isKeyHeldDown(KC_c))
@@ -83,22 +84,11 @@ void Player::onPrepare(float dT)
 		if(m_mode==EDIT_MODE){
 			if(!isEditing){
 				isEditing=true;
-				float cosYaw = cosf(degreesToRadians(m_yaw));
-				float sinYaw = sinf(degreesToRadians(m_yaw));
-				float cosPit = cosf(degreesToRadians(m_pitch));
-				float sinPit = sinf(degreesToRadians(m_pitch));
-				Vector3 dir;
-				dir.x += cosYaw*cosPit;
-				dir.y += sinPit;
-				dir.z += sinYaw*cosPit;
-				dir.normalize();
-				int ind = getWorld()->getLandscape()->getTerrain()->getClosestIndex(getPosition(),dir);
-				getWorld()->getLandscape()->getTerrain()->setDrawIndex(true);
 			}
 		}
 	} else {
 		isEditing=false;
-		getWorld()->getLandscape()->getTerrain()->setDrawIndex(false);
+		//getWorld()->getLandscape()->getTerrain()->setDrawIndex(false);
 	}
 	if(getWorld()->getMouse()->isButtonPressed(0)){
 		if(m_mode==EDIT_MODE){
@@ -114,8 +104,7 @@ void Player::onPrepare(float dT)
     getWorld()->getRelativeMousePos(x, y);
 
 	if(isEditing){
-
-		getWorld()->getLandscape()->getTerrain()->movePoint(getWorld()->getLandscape()->getTerrain()->getCurIndex(),-(y/100),1);
+		getWorld()->getLandscape()->getTerrain()->movePoint(getWorld()->getLandscape()->getTerrain()->getCurIndex(),-(y),2);
 
 		yaw(float(x) * 40.0f * dT);
 		pitch(float(y)* -40.0f * dT);
@@ -124,9 +113,20 @@ void Player::onPrepare(float dT)
 		pitch(float(y)* -40.0f * dT);
 	}
 
-	if(m_mode==PLAYER_MODE)
+	if(m_mode==PLAYER_MODE){
 	    m_position.y -= 8.0f * dT;
-
+	} else if(!isEditing) {
+		float cosYaw = cosf(degreesToRadians(m_yaw));
+		float sinYaw = sinf(degreesToRadians(m_yaw));
+		float cosPit = cosf(degreesToRadians(m_pitch));
+		float sinPit = sinf(degreesToRadians(m_pitch));
+		Vector3 dir;
+		dir.x += cosYaw*cosPit;
+		dir.y += sinPit;
+		dir.z += sinYaw*cosPit;
+		dir.normalize();
+		int ind = getWorld()->getLandscape()->getTerrain()->getClosestIndex(getPosition(),dir);
+	}
     float minX = getWorld()->getLandscape()->getTerrain()->getMinX() + 2.5f;
     float maxX = getWorld()->getLandscape()->getTerrain()->getMaxX() - 2.5f;
     float minZ = getWorld()->getLandscape()->getTerrain()->getMinZ() + 2.5f;
