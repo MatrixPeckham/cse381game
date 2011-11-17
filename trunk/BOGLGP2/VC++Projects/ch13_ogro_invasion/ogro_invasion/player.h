@@ -48,6 +48,7 @@ class Player : public Entity
         void moveSideways(const float speed);
 
         void increaseScore(int amount) { m_score += amount; }
+		int getBrushSize(){return brushSize;}
     private:
         unsigned int m_score; //!< Member variable "m_score"
         virtual void onPrepare(float);
@@ -64,6 +65,8 @@ class Player : public Entity
 		float myAcceleration;
         Collider* m_collider;
 		bool isEditing;
+		bool keyHold;
+		int brushSize;
 };
 
 #endif // PLAYER_H

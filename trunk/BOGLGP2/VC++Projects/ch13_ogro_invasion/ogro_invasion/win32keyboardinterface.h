@@ -78,6 +78,12 @@ public:
 		case 'B':
             return KC_b;
         break;
+		case 'P':
+            return KC_p;
+        break;
+		case 'L':
+            return KC_l;
+        break;
         case VK_SPACE:
             return KC_SPACE;
         break;

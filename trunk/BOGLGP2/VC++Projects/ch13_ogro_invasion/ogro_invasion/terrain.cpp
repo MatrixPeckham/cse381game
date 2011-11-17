@@ -26,6 +26,7 @@ m_width(0),
 curIndex(0),
 drawBoundingBox(false),
 drawCurIndex(false),
+filename(""),
 m_shaderProgram(NULL),
 m_waterShaderProgram(NULL)
 {
@@ -52,7 +53,7 @@ void Terrain::generateVertices(const vector<float> heights, int width)
     {
         for (int x = 0; x < width; ++x)
         {
-            m_vertices.push_back(Vertex(float(x) - halfWidth, heights[i++], float(z) - halfWidth));
+            m_vertices.push_back(Vertex(float(x) - halfWidth, heights[i++]-2, float(z) - halfWidth));
         }
     }
 
@@ -83,7 +84,23 @@ void Terrain::generateWaterVertices(int width)
     m_waterVertices.push_back(Vertex((float) width, waterHeight, (float) width));
     m_waterVertices.push_back(Vertex((float) width, waterHeight, (float)-width));
 
-    /*const float waterStep = 4.0f;
+    glGenBuffers(1, &m_waterVertexBuffer);
+    glBindBuffer(GL_ARRAY_BUFFER, m_waterVertexBuffer);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * m_waterVertices.size() * 3, &m_waterVertices[0], GL_STATIC_DRAW);
+
+	
+    const float pondHeight = 0.5f;
+    m_pondVertices.push_back(Vertex((float)9.5, pondHeight, (float)2));
+    m_pondVertices.push_back(Vertex((float)9.5, pondHeight, (float) 12));
+    m_pondVertices.push_back(Vertex((float) 19, pondHeight, (float) 12));
+    m_pondVertices.push_back(Vertex((float) 19, pondHeight, (float)2));
+
+    glGenBuffers(1, &m_pondVertexBuffer);
+    glBindBuffer(GL_ARRAY_BUFFER, m_pondVertexBuffer);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * m_pondVertices.size() * 3, &m_pondVertices[0], GL_STATIC_DRAW);
+	
+	
+	/*const float waterStep = 4.0f;
 
     int i = 0;
     for (float z = float(-width); z <= float(width); z += waterStep)
@@ -94,9 +111,6 @@ void Terrain::generateWaterVertices(int width)
         }
     }*/
 
-    glGenBuffers(1, &m_waterVertexBuffer);
-    glBindBuffer(GL_ARRAY_BUFFER, m_waterVertexBuffer);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * m_waterVertices.size() * 3, &m_waterVertices[0], GL_STATIC_DRAW);
 }
 
 void Terrain::generateIndices(std::vector<float> heights, int width)
@@ -272,6 +286,23 @@ void Terrain::generateWaterIndices(int width)
     m_waterIndices.push_back(2);
     m_waterIndices.push_back(3);
 
+    glGenBuffers(1, &m_waterIndexBuffer);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_waterIndexBuffer);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLuint) * m_waterIndices.size(), &m_waterIndices[0], GL_STATIC_DRAW);
+
+
+	m_pondIndices.push_back(0);
+    m_pondIndices.push_back(1);
+    m_pondIndices.push_back(2);
+
+    m_pondIndices.push_back(0);
+    m_pondIndices.push_back(2);
+    m_pondIndices.push_back(3);
+
+    glGenBuffers(1, &m_pondIndexBuffer);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_pondIndexBuffer);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLuint) * m_pondIndices.size(), &m_pondIndices[0], GL_STATIC_DRAW);
+
     /*int waterWidth = (int)sqrtf((float)m_waterVertices.size());
 
     //Generate the triangle indices
@@ -289,9 +320,6 @@ void Terrain::generateWaterIndices(int width)
         }
     }*/
 
-    glGenBuffers(1, &m_waterIndexBuffer);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_waterIndexBuffer);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLuint) * m_waterIndices.size(), &m_waterIndices[0], GL_STATIC_DRAW);
 }
 
 Vertex* crossProduct(Vertex* out, Vertex* v1, Vertex* v2)
@@ -418,10 +446,24 @@ void Terrain::generateWaterTexCoords(int width)
 {
     m_waterTexCoords.push_back(TexCoord(0.0f, 0.0f));
     m_waterTexCoords.push_back(TexCoord(0.0f, 60.0f));
-    m_waterTexCoords.push_back(TexCoord(80.0f, 80.0f));
-    m_waterTexCoords.push_back(TexCoord(80.0f, 0.0f));
+    m_waterTexCoords.push_back(TexCoord(60.0f, 60.0f));
+    m_waterTexCoords.push_back(TexCoord(60.0f, 0.0f));
 
-    /*int waterWidth = (int)sqrtf((float)m_waterVertices.size());
+    glGenBuffers(1, &m_waterTexCoordsBuffer);
+    glBindBuffer(GL_ARRAY_BUFFER, m_waterTexCoordsBuffer); //Bind the vertex buffer
+    glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * m_waterTexCoords.size() * 2, &m_waterTexCoords[0], GL_STATIC_DRAW); //Send the data to OpenGL
+
+    m_pondTexCoords.push_back(TexCoord(0.0f, 0.0f));
+    m_pondTexCoords.push_back(TexCoord(0.0f, 10.0f));
+    m_pondTexCoords.push_back(TexCoord(10.0f, 10.0f));
+    m_pondTexCoords.push_back(TexCoord(10.0f, 0.0f));
+
+    glGenBuffers(1, &m_pondTexCoordsBuffer);
+    glBindBuffer(GL_ARRAY_BUFFER, m_pondTexCoordsBuffer); //Bind the vertex buffer
+    glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * m_pondTexCoords.size() * 2, &m_pondTexCoords[0], GL_STATIC_DRAW); //Send the data to OpenGL
+
+	
+	/*int waterWidth = (int)sqrtf((float)m_waterVertices.size());
 
     for (int z = 0; z < waterWidth; ++z)
     {
@@ -433,15 +475,13 @@ void Terrain::generateWaterTexCoords(int width)
         }
     }*/
 
-    glGenBuffers(1, &m_waterTexCoordsBuffer);
-    glBindBuffer(GL_ARRAY_BUFFER, m_waterTexCoordsBuffer); //Bind the vertex buffer
-    glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * m_waterTexCoords.size() * 2, &m_waterTexCoords[0], GL_STATIC_DRAW); //Send the data to OpenGL
 }
 
-bool Terrain::loadHeightmap(const string& rawFile, const string& grassTexture, const string& heightTexture, double width, bool generateWater, const string& waterTexture)
+bool Terrain::loadHeightmap(const string& rawFile, const string& grassTexture, const string& heightTexture, double width, bool generateWater, const string& waterTexture, const string& pondTexture)
 {
 	this->width=width;
     const float HEIGHT_SCALE = 10.0f;
+	filename = rawFile;
     std::ifstream fileIn(rawFile.c_str(), std::ios::binary);
 
     if (!fileIn.good())
@@ -456,7 +496,7 @@ bool Terrain::loadHeightmap(const string& rawFile, const string& grassTexture, c
     fileIn.close();
 
 	int area = width * width;
-    if (stringBuffer.size() !=(area + 1))
+    if (stringBuffer.size() !=(area + 1)&&(stringBuffer.size()!=(int(width)*int(width))))
     {
         std::cout << "Image size does not match passed width" << std::endl;
         return false;
@@ -464,6 +504,7 @@ bool Terrain::loadHeightmap(const string& rawFile, const string& grassTexture, c
 
     vector<float> heights;
     heights.reserve(stringBuffer.size()); //Reserve some space (faster)
+
 	
 	// Create the chunk array and initialize it's values.
 	chunkArray = new chunk*[(int)width/(ChunkWidth-1)];
@@ -509,6 +550,11 @@ bool Terrain::loadHeightmap(const string& rawFile, const string& grassTexture, c
             std::cerr << "Could not load the water texture" << std::endl;
             return false;
         }
+        if (!m_pondTexture.load(pondTexture))
+        {
+            std::cerr << "Could not load the water texture" << std::endl;
+            return false;
+        }
 
         if (!m_waterShaderProgram->initialize())
         {
@@ -530,6 +576,14 @@ bool Terrain::loadHeightmap(const string& rawFile, const string& grassTexture, c
         gluBuild2DMipmaps(GL_TEXTURE_2D, GL_RGB8, m_waterTexture.getWidth(),
                           m_waterTexture.getHeight(), GL_RGB, GL_UNSIGNED_BYTE,
                           m_waterTexture.getImageData());
+        glGenTextures(1, &m_pondTexID);
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, m_pondTexID);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+        gluBuild2DMipmaps(GL_TEXTURE_2D, GL_RGB8, m_pondTexture.getWidth(),
+                          m_pondTexture.getHeight(), GL_RGB, GL_UNSIGNED_BYTE,
+                          m_pondTexture.getImageData());
 
 
 
@@ -601,13 +655,37 @@ bool Terrain::loadHeightmap(const string& rawFile, const string& grassTexture, c
     return true;
 }
 
-void Terrain::shutDown(){
-	if (chunkArray)
-	{
-		for (int x = 0; x < width / (ChunkWidth-1); x++)
-			delete [] chunkArray[x];
-		delete chunkArray;
+void Terrain::saveHeightmap(const string& rawFile){
+	float min = FLT_MAX;
+	float max = FLT_MIN;
+	for(int i = 0; i<m_vertices.size(); i++){
+		float y = m_vertices[i].y;
+		min=y<min?y:min;
+		max=y>max?y:max;
 	}
+	vector<char> vec;
+	vec.resize(m_vertices.size());
+	float dif = max-min;
+	for(int i = 0; i<m_vertices.size(); i++){
+		float y = m_vertices[i].y;
+		float norm = (y-min)/dif;
+		vec[i] = (char) (norm*256);
+	}
+	std::ofstream file(filename.c_str(),std::ofstream::binary);
+	file.write((const char *)&vec[0],vec.size());
+	file.flush();
+	file.close();
+
+}
+
+void Terrain::shutDown(){
+	saveHeightmap("");
+//	if (chunkArray)
+//	{
+//		for (int x = 0; x < width / (ChunkWidth-1); x++)
+//			delete [] chunkArray[x];
+//		delete chunkArray;
+//	}
 
 }
 
@@ -650,6 +728,20 @@ void Terrain::renderWater() const
     m_waterShaderProgram->bindShader();
 
     glDrawElements(GL_TRIANGLES, m_waterIndices.size(), GL_UNSIGNED_INT, 0);
+
+	glBindTexture(GL_TEXTURE_2D, m_pondTexID);
+
+    glBindBuffer(GL_ARRAY_BUFFER, m_pondVertexBuffer);
+    glVertexAttribPointer((GLint)0, 3, GL_FLOAT, GL_FALSE, 0, 0);
+
+    glBindBuffer(GL_ARRAY_BUFFER, m_pondTexCoordsBuffer);
+    glVertexAttribPointer((GLint)1, 2, GL_FLOAT, GL_FALSE, 0, 0);
+
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_pondIndexBuffer);
+
+
+    glDrawElements(GL_TRIANGLES, m_pondIndices.size(), GL_UNSIGNED_INT, 0);
+
 
     glDisableVertexAttribArray(0);
     glDisableVertexAttribArray(1);
@@ -785,7 +877,7 @@ void Terrain::render(Frustum * frust) const
 		}
 	}
 
-	if(drawCurIndex){
+	if(drawCurIndex&&curIndex!=-1){
 		Vector3 p = m_vertices[curIndex];
 		float halfWidth = m_width * 0.5f;
 		float maxX = p.x+0.5;
@@ -940,7 +1032,7 @@ int Terrain::getClosestIndex(Vector3 pos, Vector3 dir){
 /*
     Round down to get the x and z position near where we are
 */
-	int areaSize = 5;
+	int areaSize = 10;
 	int maxX = (int)ceil(scaledX+areaSize);
 	float minX = (int)floor(scaledX-areaSize);
 	float maxZ = (int)ceil(scaledZ+areaSize);

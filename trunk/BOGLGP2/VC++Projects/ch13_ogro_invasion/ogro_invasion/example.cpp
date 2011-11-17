@@ -129,7 +129,15 @@ void Example::render()
 		string mode = "";
 		switch(m_world->getPlayer()->getMode()){
 		case Player::EDIT_MODE:
-			mode = "Edit Mode";
+			char bufs[5];
+			itoa(m_world->getPlayer()->getBrushSize(),bufs,10);
+			char bufx[5];
+			itoa(m_world->getPlayer()->getPosition().x,bufx,10);
+			char bufy[5];
+			itoa(m_world->getPlayer()->getPosition().y,bufy,10);
+			char bufz[5];
+			itoa(m_world->getPlayer()->getPosition().z,bufz,10);
+			mode = "Edit Mode Brush Size (p/l): " + string(bufs) + "Position: (" + bufx + ", " + bufy + ", " + bufz +")";
 			break;
 		case Player::PLAYER_MODE:
 			mode = "Player Mode";
