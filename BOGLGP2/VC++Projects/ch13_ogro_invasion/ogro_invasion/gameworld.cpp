@@ -49,6 +49,7 @@ GameWorld::~GameWorld()
     for (list<Entity*>::iterator entity = m_entities.begin();
          entity != m_entities.end(); ++entity)
     {
+		(*entity)->shutdown();
         delete (*entity);
         (*entity) = NULL;
     }

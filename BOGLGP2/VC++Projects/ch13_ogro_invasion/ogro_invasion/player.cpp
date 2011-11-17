@@ -12,7 +12,9 @@ m_position(Vector3()),
 m_velocity(Vector3()),
 m_mode(PLAYER_MODE),
 m_yaw(0.0f),
+keyHold(false),
 m_pitch(0.0f),
+brushSize(2),
 isEditing(false)
 {
     m_collider = new SphereCollider(this, 0.75f);
@@ -56,20 +58,57 @@ void Player::onPrepare(float dT)
 		getWorld()->toggleRenderMode();
 	}
 
-	if(getWorld()->getKeyboard()->isKeyHeldDown(KC_t))
+	if(getWorld()->getKeyboard()->isKeyPressed(KC_t))
 	{
-		m_mode = m_mode==EDIT_MODE ? PLAYER_MODE : EDIT_MODE;
-		myAcceleration = m_mode==EDIT_MODE ? 10.0f : 3.0f;
-		getWorld()->getLandscape()->getTerrain()->setDrawIndex(m_mode==EDIT_MODE?true:false);
+		if(!keyHold){
+			keyHold=true;
+			m_mode = m_mode==EDIT_MODE ? PLAYER_MODE : EDIT_MODE;
+			myAcceleration = m_mode==EDIT_MODE ? 10.0f : 3.0f;
+			getWorld()->getLandscape()->getTerrain()->setDrawIndex(m_mode==EDIT_MODE?true:false);
+		}
+	} else {
+		keyHold=false;
 	}
 
-	if(getWorld()->getKeyboard()->isKeyHeldDown(KC_c))
+
+	if(getWorld()->getKeyboard()->isKeyPressed(KC_c))
 	{
-		getWorld()->toggleBackFaceCulling();
+		if(!keyHold){
+			keyHold=true;
+			getWorld()->toggleBackFaceCulling();
+		}
+	} else {
+		keyHold=false;
 	}
-	if(getWorld()->getKeyboard()->isKeyHeldDown(KC_b))
+
+	if(getWorld()->getKeyboard()->isKeyPressed(KC_p))
 	{
-		getWorld()->getLandscape()->getTerrain()->toggleBounds();
+		if(!keyHold){
+			keyHold=true;
+			brushSize++;
+		}
+	} else {
+		keyHold=false;
+	}
+	if(getWorld()->getKeyboard()->isKeyPressed(KC_l))
+	{
+		if(!keyHold){
+			keyHold=true;
+			brushSize--;
+			if(brushSize<0) brushSize=0;
+		}
+	} else {
+		keyHold=false;
+	}
+
+	if(getWorld()->getKeyboard()->isKeyPressed(KC_b))
+	{
+		if(!keyHold){
+			keyHold=true;
+			getWorld()->getLandscape()->getTerrain()->toggleBounds();
+		}
+	} else {
+		keyHold=false;
 	}
 
     if (getWorld()->getKeyboard()->isKeyPressed(KC_SPACE))
@@ -104,7 +143,7 @@ void Player::onPrepare(float dT)
     getWorld()->getRelativeMousePos(x, y);
 
 	if(isEditing){
-		getWorld()->getLandscape()->getTerrain()->movePoint(getWorld()->getLandscape()->getTerrain()->getCurIndex(),-(y),2);
+		getWorld()->getLandscape()->getTerrain()->movePoint(getWorld()->getLandscape()->getTerrain()->getCurIndex(),-(y),brushSize);
 
 		yaw(float(x) * 40.0f * dT);
 		pitch(float(y)* -40.0f * dT);

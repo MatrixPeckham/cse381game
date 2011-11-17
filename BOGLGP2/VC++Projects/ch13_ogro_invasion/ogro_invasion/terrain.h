@@ -20,7 +20,7 @@ public:
     Terrain(const std::string& vertexShader, const std::string& fragmentShader, const std::string& waterVert="", const std::string& waterFrag="");
     virtual ~Terrain();
 
-    bool loadHeightmap(const std::string& rawFile, const std::string& grassTexture, const std::string& heightTexture, double width, bool generateWater=false, const std::string& waterTexture="");
+    bool loadHeightmap(const std::string& rawFile, const std::string& grassTexture, const std::string& heightTexture, double width, bool generateWater=false, const std::string& waterTexture="", const std::string& pondTexture="");
 	void render(Frustum * frust) const;
     void renderWater() const;
 
@@ -40,6 +40,7 @@ public:
 	void toggleBounds(){drawBoundingBox=!drawBoundingBox;}
 	void movePoint(int index, float dist, int type);
 	int getCurIndex(){return curIndex;}
+	void saveHeightmap(const std::string& rawFile);
 private:
     void generateVertices(const std::vector<float> heights, int width);
     void generateIndices(std::vector<float> heights, int width);
@@ -63,6 +64,10 @@ private:
     GLuint m_waterIndexBuffer;
     GLuint m_waterTexCoordsBuffer;
 
+    GLuint m_pondVertexBuffer;
+    GLuint m_pondIndexBuffer;
+    GLuint m_pondTexCoordsBuffer;
+
     std::vector<Vertex> m_vertices;
     std::vector<Color> m_colors;
     std::vector<TexCoord> m_texCoords;
@@ -75,13 +80,19 @@ private:
     std::vector<GLuint> m_waterIndices;
     std::vector<TexCoord> m_waterTexCoords;
 
+	std::vector<Vertex> m_pondVertices;
+    std::vector<GLuint> m_pondIndices;
+    std::vector<TexCoord> m_pondTexCoords;
+
     TargaImage m_grassTexture;
     TargaImage m_heightTexture;
     TargaImage m_waterTexture;
+    TargaImage m_pondTexture;
 
     GLuint m_grassTexID;
     GLuint m_heightTexID;
     GLuint m_waterTexID;
+    GLuint m_pondTexID;
 
     bool m_isMultitextureEnabled;
     int m_width;
@@ -114,7 +125,7 @@ private:
 	bool drawCurIndex;
 	bool drawBoundingBox;
 				
-
+	std::string filename;
 };
 
 #endif
