@@ -211,6 +211,57 @@ void Terrain::generateIndices(std::vector<float> heights, int width)
 
 }
 
+void Terrain::genChunkBounds(int minx,int maxx, int minz, int maxz){
+	int width = m_width;
+	for (int chunkZ = 0; chunkZ < width/(ChunkHeight-1); chunkZ++)
+	{
+		for (int chunkX = 0; chunkX < width/(ChunkWidth-1); chunkX++)
+		{
+
+			int currentIndex = 0;
+			float halfWidth = float(width) * 0.5f;
+																	
+			// Calculate the extents of the chunk.
+			int startx = chunkX * (ChunkWidth-1);
+			int startz = chunkZ * (ChunkHeight-1);
+			int endx = startx + ChunkWidth;
+			int endz = startz + ChunkHeight;
+
+			// Initialize the min and max values based on the first vertex.
+			float maxX, maxY, maxZ;
+			float minX, minY, minZ;
+			
+			maxX = startx;
+			minX = startx;
+			maxY = m_vertices[width*startz+startx].y;
+			minY = m_vertices[width*startz+startx].y;
+			maxZ = startz;
+			minZ = startz;
+
+			// Loop through the chunk extents and create the list.
+			for (int z = startz; z < endz; z++)
+			{
+				for (int x = startx; x < endx; x++)
+				{
+					// Update the min and max values.
+					maxX = maxX > x ? maxX : x;
+					minX = minX < x ? minX : x;
+					maxY = maxY > m_vertices[width*z+x].y ? maxY : m_vertices[width*z+x].y;
+					minY = minY < m_vertices[width*z+x].y ? minY : m_vertices[width*z+x].y;
+					maxZ = maxZ > z ? maxZ : z;
+					minZ = minZ < z ? minZ : z;
+				}
+			}
+			chunkArray[chunkX][chunkZ].maxX = maxX-halfWidth;
+			chunkArray[chunkX][chunkZ].maxY = maxY;
+			chunkArray[chunkX][chunkZ].maxZ = maxZ-halfWidth;
+			chunkArray[chunkX][chunkZ].minX = minX-halfWidth;
+			chunkArray[chunkX][chunkZ].minY = minY;
+			chunkArray[chunkX][chunkZ].minZ = minZ-halfWidth;
+		}
+	}
+}
+
 void Terrain::generateWaterIndices(int width)
 {
     m_waterIndices.push_back(0);
@@ -900,11 +951,11 @@ int Terrain::getClosestIndex(Vector3 pos, Vector3 dir){
 	float ct = FLT_MAX;
 
 	for(int x = minX; x<=maxX; x++){
-		if(x<0||x>m_width){
+		if(x<0||x>=m_width){
 			continue;
 		}
 		for(int z = minZ; z<=maxZ; z++){
-			if(z<0||z>m_width){
+			if(z<0||z>=m_width){
 				continue;
 			}
 			int i = z*m_width+x;
@@ -934,9 +985,14 @@ int Terrain::getClosestIndex(Vector3 pos, Vector3 dir){
 }
 
 void Terrain::movePoint(int index, float dist, int rad){
+	int minChunkX=0;
+	int minChunkZ=0;
+	int maxChunkX=ChunkWidth;
+	int maxChunkZ=ChunkHeight;
 	if(rad==0){
 		m_vertices[index].y+=dist;
-
+		minChunkX = maxChunkX = (index%m_width)/(ChunkWidth-1);
+		minChunkZ = maxChunkZ = (index/m_width)/(ChunkHeight-1);
 		glBindBuffer(GL_ARRAY_BUFFER, m_vertexBuffer);
 		glBufferSubData(GL_ARRAY_BUFFER,0,3*sizeof(GLfloat)*m_vertices.size(),&m_vertices[0]);
 	} else {
@@ -948,7 +1004,14 @@ void Terrain::movePoint(int index, float dist, int rad){
 		int minZ = midZ-rad;
 		int maxZ = midZ+rad;
 		for(int x=minX;x<=maxX;x++){
+			if(x<0||x>=m_width){
+				continue;
+			}
 			for(int z=minZ;z<=maxZ;z++){
+		 		if(z<0||z>=m_width){
+					continue;
+				}
+
 				int i = z*m_width+x;
 				
 				int xs = midX-x;
@@ -957,14 +1020,20 @@ void Terrain::movePoint(int index, float dist, int rad){
 				zs*=zs;
 
 				int d2 = xs+zs;
-				if(d2<radSq){
-					float distS = sqrtf(rad-d2)/float(rad);
-					m_vertices[i].y+=distS;
+				if(d2<=radSq){
+					float distS = sqrtf(radSq-d2)/float(rad);
+					m_vertices[i].y+=distS*dist;
+					int chunkX = x/(ChunkWidth-1);
+					int chunkY = z/(ChunkHeight-1);
+					minChunkX = chunkX<minChunkX?chunkX:minChunkX;
+					minChunkZ = chunkY<minChunkZ?chunkY:minChunkZ;
+					maxChunkX = chunkX>maxChunkX?chunkX:maxChunkX;
+					maxChunkZ = chunkY>maxChunkZ?chunkY:maxChunkZ;
 				}
 
 			}
 		}
-
+		genChunkBounds(minChunkX,maxChunkX,minChunkZ,maxChunkZ);
 		glBindBuffer(GL_ARRAY_BUFFER, m_vertexBuffer);
 		glBufferSubData(GL_ARRAY_BUFFER,0,3*sizeof(GLfloat)*m_vertices.size(),&m_vertices[0]);
 	}
