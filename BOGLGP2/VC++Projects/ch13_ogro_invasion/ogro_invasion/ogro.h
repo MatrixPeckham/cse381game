@@ -30,9 +30,12 @@ class Ogro : public Enemy
         virtual bool onInitialize();
         virtual void onShutdown();
 
-        MD2Model* m_model;
-        TargaImage m_ogroTexture;
-        unsigned int m_ogroTextureID;
+        MD2Model* myBody;
+		MD2Model* myHead;
+        TargaImage myBodyTexture;
+		TargaImage myHeadTexture;
+        unsigned int myBodyTextureID;
+		unsigned int myHeadTextureID;
 
         void processAI();
 

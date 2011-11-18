@@ -35,7 +35,7 @@ Returns the correct of the two paths depending on GL2 or GL3 support
 
 std::string getShaderPath(const std::string& GL2Path, const std::string& GL3Path)
 {
-    if (std::string((char*)glGetString(GL_SHADING_LANGUAGE_VERSION)) == "1.20")
+    if (std::string((char*)glGetString(GL_SHADING_LANGUAGE_VERSION)) == "1.30")
     {
         return GL2Path;
     }

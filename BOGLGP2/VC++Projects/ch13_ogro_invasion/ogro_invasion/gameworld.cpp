@@ -174,25 +174,25 @@ bool GameWorld::initialize()
     spawnEntity(LANDSCAPE); //Spawn the landscape
 
 	
-  //  //Spawn a load of monsters
-  //  for (unsigned int i = 0; i < MAX_ENEMY_COUNT; ++i)
-  //  {
-  //      Entity* newEntity = spawnEntity(OGRO);
-  //      newEntity->setPosition(getRandomPosition());
-  //  }
+    //Spawn a load of monsters
+    for (unsigned int i = 0; i < MAX_ENEMY_COUNT; ++i)
+    {
+        Entity* newEntity = spawnEntity(OGRO);
+        newEntity->setPosition(getRandomPosition());
+    }
 
-  //  for (int i = 0; i < TREE_COUNT; ++i)
-  //  {
-  //      Entity* newEntity = spawnEntity(TREE);
+    for (int i = 0; i < TREE_COUNT; ++i)
+    {
+        Entity* newEntity = spawnEntity(TREE);
 
-  //      Vector3 pos(0.0f, -1.0f, 0.0f);
-  //      while (pos.y < 1.1f) 
-		//{
-  //          pos = getRandomPosition();
-  //      }
+        Vector3 pos(0.0f, -1.0f, 0.0f);
+        while (pos.y < 1.1f) 
+		{
+            pos = getRandomPosition();
+        }
 
-  //      newEntity->setPosition(pos);
-  //  }
+        newEntity->setPosition(pos);
+    }
 
     //Spawn the player and center them
     spawnEntity(PLAYER);
@@ -272,9 +272,12 @@ void GameWorld::update(float dT)
     //m_relY = y - (viewport[3] / 2);
 
     //Put the mouse in the middle of the screen
-	//if(getPlayer()->getMode()!=Player::EDIT_MODE){
-	    m_mouse->setMousePos(viewport[2] / 2, viewport[3] / 2);
-	//} else {
+	//if(getPlayer()->getMode()!=Player::EDIT_MODE)
+	//{
+		m_mouse->setMousePos(viewport[2] / 2, viewport[3] / 2);
+	//} 
+	//else
+	//{
 		//m_relX=0;
 		//m_relY=0;
 	//}

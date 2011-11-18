@@ -16,8 +16,10 @@
 
 using std::string;
 
-const string OGRO_MODEL = "data/models/Ogro/tris.md2";
-const string OGRO_TEXTURE = "data/models/Ogro/Ogrobase.tga";
+const string BODY_MODEL = "data/models/Sergeant/spos_body.md2";
+const string HEAD_MODEL = "data/models/Sergeant/spos_head.md2";
+const string BODY_TEXTURE = "data/models/Sergeant/spos_body.tga";
+const string HEAD_TEXTURE = "data/models/Sergeant/spos_head1.tga";
 
 Ogro::Ogro(GameWorld* world):
 Enemy(world),
@@ -27,26 +29,32 @@ m_lastAIChange(0)
 {
     string vertexShader = (GLSLProgram::glsl130Supported())? "data/shaders/glsl1.30/model.vert" : "data/shaders/glsl1.20/model.vert";
     string fragmentShader = (GLSLProgram::glsl130Supported())? "data/shaders/glsl1.30/model.frag" : "data/shaders/glsl1.20/model.frag";
-    m_model = new MD2Model(vertexShader, fragmentShader);
-    m_model->setAnimation(Animation::IDLE);
+    myBody = new MD2Model(vertexShader, fragmentShader);
+	myHead = new MD2Model(vertexShader, fragmentShader);
+
+    myBody->setAnimation(Animation::IDLE);
+	myHead->setAnimation(Animation::IDLE);
 }
 
 Ogro::~Ogro()
 {
-    delete m_model;
+    delete myBody;
+	delete myHead;
 }
 
 void Ogro::onPrepare(float dT)
 {
-    getCollider()->setRadius(m_model->getRadius());
+    getCollider()->setRadius(myBody->getRadius());
 
     m_currentTime += dT;
 
     processAI();
 
-    m_model->update(dT);
+    myBody->update(dT);
+	myHead->update(dT);
 
-    if (m_position.y > 0.0f) {
+    if (m_position.y > 0.0f) 
+	{
         m_position.y -= 10.0f * dT;
     }
 
@@ -80,8 +88,10 @@ void Ogro::onRender() const
         Vector3 pos = getPosition();
         glTranslatef(pos.x, pos.y, pos.z);
         glRotatef(getYaw(), 0.0f, -1.0f, 0.0f);
-        glBindTexture(GL_TEXTURE_2D, m_ogroTextureID);
-        m_model->render();
+        glBindTexture(GL_TEXTURE_2D, myBodyTextureID);
+        myBody->render();
+		glBindTexture(GL_TEXTURE_2D, myHeadTextureID);
+        myHead->render();
     glPopMatrix();
 }
 
@@ -92,29 +102,43 @@ void Ogro::onPostRender()
 
 bool Ogro::onInitialize()
 {
-    bool result = m_model->load(OGRO_MODEL);
-    if (result)
+    bool result1 = myBody->load(BODY_MODEL);
+	bool result2 = myHead->load(HEAD_MODEL);
+    
+	if (result1 && result2)
     {
-        if (!m_ogroTexture.load(OGRO_TEXTURE))
+		if (!myBodyTexture.load(BODY_TEXTURE) || !myHeadTexture.load(HEAD_TEXTURE))
         {
-            result = false;
+            result1 = false;
+			result2 = false;
         }
         else
         {
-            glGenTextures(1, &m_ogroTextureID);
+            glGenTextures(1, &myBodyTextureID);
             glActiveTexture(GL_TEXTURE0);
-            glBindTexture(GL_TEXTURE_2D, m_ogroTextureID);
+            glBindTexture(GL_TEXTURE_2D, myBodyTextureID);
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 
-            gluBuild2DMipmaps(GL_TEXTURE_2D, GL_RGB8, m_ogroTexture.getWidth(),
-                              m_ogroTexture.getHeight(), GL_RGB, GL_UNSIGNED_BYTE,
-                              m_ogroTexture.getImageData());
+            gluBuild2DMipmaps(GL_TEXTURE_2D, GL_RGBA8, myBodyTexture.getWidth(),
+                              myBodyTexture.getHeight(), GL_RGBA, GL_UNSIGNED_BYTE,
+                              myBodyTexture.getImageData());
+
+			glGenTextures(1, &myHeadTextureID);
+            glActiveTexture(GL_TEXTURE0);
+            glBindTexture(GL_TEXTURE_2D, myHeadTextureID);
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+
+            gluBuild2DMipmaps(GL_TEXTURE_2D, GL_RGBA8, myHeadTexture.getWidth(),
+                              myHeadTexture.getHeight(), GL_RGBA, GL_UNSIGNED_BYTE,
+                              myHeadTexture.getImageData());
         }
     }
 
     m_yaw = (float(rand()) / RAND_MAX) * 360.0f;
-    return result;
+
+    return (result1 && result2);
 }
 
 void Ogro::onShutdown()
@@ -155,7 +179,8 @@ void Ogro::processAI()
 
     if (playerDistance < DANGER_DISTANCE && m_AIState != OGRO_RUNNING && (m_currentTime - m_lastAIChange) > 3.0f)
     {
-        m_model->setAnimation(Animation::RUN);
+        myBody->setAnimation(Animation::RUN);
+		myHead->setAnimation(Animation::RUN);
         m_AIState = OGRO_RUNNING;
         m_lastAIChange = m_currentTime;
     }
@@ -171,16 +196,19 @@ void Ogro::processAI()
                 m_lastAIChange = m_currentTime;
                 if (newState == OGRO_IDLE)
                 {
-                    m_model->setAnimation(Animation::IDLE);
+                    myBody->setAnimation(Animation::IDLE);
+					myHead->setAnimation(Animation::IDLE);
                 }
                 if (newState == OGRO_CROUCH)
                 {
-                    m_model->setAnimation(Animation::CROUCH_IDLE);
+                    myBody->setAnimation(Animation::CROUCH_IDLE);
+					myHead->setAnimation(Animation::CROUCH_IDLE);
                     m_yaw += float(rand() % 180) - 90.0f;
                 }
                 if (newState == OGRO_WALK)
                 {
-                    m_model->setAnimation(Animation::CROUCH_WALK);
+                    myBody->setAnimation(Animation::CROUCH_WALK);
+					myHead->setAnimation(Animation::CROUCH_WALK);
                     m_yaw += float(rand() % 180) - 90.0f;
                 }
             }
@@ -202,7 +230,8 @@ void Ogro::processAI()
     {
         m_yaw += randYaw;
         m_AIState = OGRO_WALK;
-        m_model->setAnimation(Animation::RUN);
+        myBody->setAnimation(Animation::RUN);
+		myHead->setAnimation(Animation::RUN);
         m_lastAIChange = m_currentTime;
 
         if (getPosition().x < minX)
@@ -231,15 +260,18 @@ void Ogro::onKill()
     int r = (int) rand() % 3;
     if (r == 0)
     {
-        m_model->setAnimation(Animation::DEATH1);
+        myBody->setAnimation(Animation::DEATH1);
+		myHead->setAnimation(Animation::DEATH1);
     }
     else if (r == 1)
     {
-        m_model->setAnimation(Animation::DEATH2);
+        myBody->setAnimation(Animation::DEATH2);
+		myHead->setAnimation(Animation::DEATH2);
     }
     else
     {
-        m_model->setAnimation(Animation::DEATH3);
+        myBody->setAnimation(Animation::DEATH3);
+		myHead->setAnimation(Animation::DEATH3);
     }
 
     m_AIState = OGRO_DEAD;
@@ -247,7 +279,8 @@ void Ogro::onKill()
 
 void Ogro::onResurrection()
 {
-    m_model->setAnimation(Animation::IDLE);
-    m_AIState = OGRO_IDLE;
+    myBody->setAnimation(Animation::IDLE);
+    myHead->setAnimation(Animation::IDLE);
+	m_AIState = OGRO_IDLE;
     m_lastAIChange = m_currentTime;
 }

@@ -63,6 +63,7 @@ class Player : public Entity
         float m_yaw;
         float m_pitch;
 		float myAcceleration;
+		float PITCH_LIMIT;
         Collider* m_collider;
 		bool isEditing;
 		bool keyHold;
