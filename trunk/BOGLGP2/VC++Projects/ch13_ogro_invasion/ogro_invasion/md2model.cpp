@@ -13,26 +13,26 @@ using std::string;
 using std::vector;
 
 
-const Animation Animation::IDLE = Animation(0, 39);
-const Animation Animation::RUN = Animation(40, 45);
-const Animation Animation::ATTACK = Animation(46, 53);
-const Animation Animation::PAIN1 = Animation(54, 57);
-const Animation Animation::PAIN2 = Animation(58, 61);
-const Animation Animation::PAIN3 = Animation(62, 65);
-const Animation Animation::JUMP = Animation(66, 71);
-const Animation Animation::FLIP_OFF = Animation(72, 83);
-const Animation Animation::SAULTE = Animation(84, 94);
-const Animation Animation::TAUNT = Animation(95, 111);
-const Animation Animation::WAVE = Animation(112, 122);
-const Animation Animation::POINT = Animation(123, 134);
-const Animation Animation::CROUCH_IDLE = Animation(135, 153);
-const Animation Animation::CROUCH_WALK = Animation(154, 159);
-const Animation Animation::CROUCH_ATTACK = Animation(160, 168);
-const Animation Animation::CROUCH_PAIN = Animation(169, 172);
-const Animation Animation::CROUCH_DEATH = Animation(173, 177);
-const Animation Animation::DEATH1 = Animation(178, 183, false);
-const Animation Animation::DEATH2 = Animation(184, 189, false);
-const Animation Animation::DEATH3 = Animation(190, 197, false);
+const Animation Animation::IDLE = Animation(11, 12);
+const Animation Animation::RUN = Animation(1, 11);
+const Animation Animation::ATTACK = Animation(13, 18);
+const Animation Animation::PAIN1 = Animation(11, 12);
+const Animation Animation::PAIN2 = Animation(11, 12);
+const Animation Animation::PAIN3 = Animation(11, 12);
+const Animation Animation::JUMP = Animation(11, 12);
+const Animation Animation::FLIP_OFF = Animation(11, 12);
+const Animation Animation::SAULTE = Animation(11, 12);
+const Animation Animation::TAUNT = Animation(11, 12);
+const Animation Animation::WAVE = Animation(11, 12);
+const Animation Animation::POINT = Animation(11, 12);
+const Animation Animation::CROUCH_IDLE = Animation(11, 12);
+const Animation Animation::CROUCH_WALK = Animation(1, 11);
+const Animation Animation::CROUCH_ATTACK = Animation(13, 18);
+const Animation Animation::CROUCH_PAIN = Animation(11, 12);
+const Animation Animation::CROUCH_DEATH = Animation(18, 28);
+const Animation Animation::DEATH1 = Animation(18, 28, false);
+const Animation Animation::DEATH2 = Animation(18, 28, false);
+const Animation Animation::DEATH3 = Animation(18, 28, false);
 
 MD2Model::MD2Model(const std::string vertexShader, const std::string fragmentShader):
 m_startFrame(0),
