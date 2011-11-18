@@ -40,7 +40,7 @@ Tree::~Tree()
 
 void Tree::onPrepare(float dT)
 {
-
+	m_position.y-=1;
 }
 
 void Tree::onRender() const
