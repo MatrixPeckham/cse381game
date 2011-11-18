@@ -5,6 +5,15 @@
 #include "spherecollider.h"
 #include "landscape.h"
 
+using std::string;
+
+const string BODY_MODEL = "data/models/Chaingunner/chaingunner_body.md2";
+const string HEAD_MODEL = "data/models/Chaingunner/chaingunner_head.md2";
+const string GUN_MODEL = "data/models/Chaingunner/chaingunner_weapon.md2";
+const string BODY_TEXTURE = "data/models/Chaingunner/chaingunner_body.tga";
+const string HEAD_TEXTURE = "data/models/Chaingunner/chaingunner_head2.tga";
+const string GUN_TEXTURE = "data/models/Chaingunner/chaingunner_weapon.tga";
+
 Player::Player(GameWorld* const world):
 Entity(world),
 m_score(0),
@@ -18,12 +27,27 @@ brushSize(2),
 isEditing(false)
 {
     m_collider = new SphereCollider(this, 0.75f);
+
+	string vertexShader = (GLSLProgram::glsl130Supported())? "data/shaders/glsl1.30/model.vert" : "data/shaders/glsl1.20/model.vert";
+    string fragmentShader = (GLSLProgram::glsl130Supported())? "data/shaders/glsl1.30/model.frag" : "data/shaders/glsl1.20/model.frag";
+
+	myBody = new MD2Model(vertexShader, fragmentShader);
+	myHead = new MD2Model(vertexShader, fragmentShader);
+	myGun = new MD2Model(vertexShader, fragmentShader);
+
+    myBody->setAnimation(Animation::IDLE);
+	myHead->setAnimation(Animation::IDLE);
+	myGun->setAnimation(Animation::IDLE);
+
 	myAcceleration = 3.0f;
 }
 
 Player::~Player()
 {
     delete m_collider;
+	delete myBody;
+	delete myHead;
+	delete myGun;
 }
 
 void Player::onPrepare(float dT)
@@ -130,10 +154,15 @@ void Player::onPrepare(float dT)
 		//getWorld()->getLandscape()->getTerrain()->setDrawIndex(false);
 	}
 	if(getWorld()->getMouse()->isButtonPressed(0)){
-		if(m_mode==EDIT_MODE){
-		} else {
+		if(m_mode==EDIT_MODE)
+		{
+
+		} 
+		else 
+		{
+			Vector3 pos = getPosition();
 			Entity* rocket = getWorld()->spawnEntity(ROCKET);
-			rocket->setPosition(getPosition());
+			rocket->setPosition(Vector3(pos.x, pos.y, pos.z));
 		    rocket->setYaw(getYaw());
 	        rocket->setPitch(getPitch());
 		}
@@ -142,19 +171,25 @@ void Player::onPrepare(float dT)
     float x, y;
     getWorld()->getRelativeMousePos(x, y);
 
-	if(isEditing){
+	if(isEditing)
+	{
 		getWorld()->getLandscape()->getTerrain()->movePoint(getWorld()->getLandscape()->getTerrain()->getCurIndex(),-(y),brushSize);
 
 		yaw(float(x) * 40.0f * dT);
 		pitch(float(y)* -40.0f * dT);
-	} else {
+	} 
+	else 
+	{
 		yaw(float(x) * 40.0f * dT);
 		pitch(float(y)* -40.0f * dT);
 	}
 
-	if(m_mode==PLAYER_MODE){
+	if(m_mode==PLAYER_MODE)
+	{
 	    m_position.y -= 8.0f * dT;
-	} else if(!isEditing) {
+	} 
+	else if(!isEditing) 
+	{
 		float cosYaw = cosf(degreesToRadians(m_yaw));
 		float sinYaw = sinf(degreesToRadians(m_yaw));
 		float cosPit = cosf(degreesToRadians(m_pitch));
@@ -175,11 +210,28 @@ void Player::onPrepare(float dT)
     if (m_position.x > maxX) m_position.x = maxX;
     if (m_position.z < minZ) m_position.z = minZ;
     if (m_position.z > maxZ) m_position.z = maxZ;
+
+	myBody->update(dT);
+	myHead->update(dT);
+	myGun->update(dT);
 }
 
 void Player::onRender() const
 {
-
+	if(m_mode != EDIT_MODE)
+	{
+		glPushMatrix();
+			Vector3 pos = getPosition();
+			glTranslatef(pos.x, pos.y - 0.2, pos.z);
+			glRotatef(getYaw(), 0.0f, -1.0f, 0.0f);
+			glBindTexture(GL_TEXTURE_2D, myBodyTextureID);
+			myBody->render();
+			glBindTexture(GL_TEXTURE_2D, myHeadTextureID);
+			myHead->render();
+			glBindTexture(GL_TEXTURE_2D, myGunTextureID);
+			myGun->render();
+		glPopMatrix();
+	}
 }
 
 void Player::onPostRender()
@@ -189,8 +241,55 @@ void Player::onPostRender()
 
 bool Player::onInitialize()
 {
+	bool result1 = myBody->load(BODY_MODEL);
+	bool result2 = myHead->load(HEAD_MODEL);
+	bool result3 = myGun->load(GUN_MODEL);
+    
+	if (result1 && result2 && result3)
+    {
+		if (!myBodyTexture.load(BODY_TEXTURE) || 
+			!myHeadTexture.load(HEAD_TEXTURE) ||
+			!myGunTexture.load(GUN_TEXTURE))
+        {
+            result1 = false;
+			result2 = false;
+			result3 = false;
+        }
+        else
+        {
+            glGenTextures(1, &myBodyTextureID);
+            glActiveTexture(GL_TEXTURE0);
+            glBindTexture(GL_TEXTURE_2D, myBodyTextureID);
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 
-    return true;
+            gluBuild2DMipmaps(GL_TEXTURE_2D, GL_RGBA8, myBodyTexture.getWidth(),
+                              myBodyTexture.getHeight(), GL_RGBA, GL_UNSIGNED_BYTE,
+                              myBodyTexture.getImageData());
+
+			glGenTextures(1, &myHeadTextureID);
+            glActiveTexture(GL_TEXTURE0);
+            glBindTexture(GL_TEXTURE_2D, myHeadTextureID);
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+
+            gluBuild2DMipmaps(GL_TEXTURE_2D, GL_RGBA8, myHeadTexture.getWidth(),
+                              myHeadTexture.getHeight(), GL_RGBA, GL_UNSIGNED_BYTE,
+                              myHeadTexture.getImageData());
+
+			glGenTextures(1, &myGunTextureID);
+            glActiveTexture(GL_TEXTURE0);
+            glBindTexture(GL_TEXTURE_2D, myGunTextureID);
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+
+            gluBuild2DMipmaps(GL_TEXTURE_2D, GL_RGBA8, myGunTexture.getWidth(),
+                              myGunTexture.getHeight(), GL_RGBA, GL_UNSIGNED_BYTE,
+                              myGunTexture.getImageData());
+        }
+    }
+
+    return (result1 && result2 && result3);
 }
 
 void Player::onShutdown()

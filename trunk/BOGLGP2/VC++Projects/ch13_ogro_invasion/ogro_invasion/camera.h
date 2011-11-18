@@ -14,7 +14,7 @@ public:
     void setPosition(const Vector3& position);
     void yaw(const float degrees);
     void pitch(const float degrees);
-    void apply();
+    void apply(bool);
 
 	Vector3 getPosition()
 	{

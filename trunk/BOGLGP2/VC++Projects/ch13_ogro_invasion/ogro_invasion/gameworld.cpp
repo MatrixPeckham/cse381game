@@ -197,6 +197,11 @@ bool GameWorld::initialize()
     //Spawn the player and center them
     spawnEntity(PLAYER);
     getPlayer()->setPosition(Vector3(10.0f, 0.0f, 0.0f));
+
+	//m_gameCamera->setPosition(Vector3(m_gameCamera->getPosition().x,
+	//								  m_gameCamera->getPosition().y + 0.75,
+	//								  m_gameCamera->getPosition().z));
+
     m_gameCamera->attachTo(getPlayer()); //Attach the camera to the player
 
     m_remainingTime = 60.0f * 5; //5 minutes
@@ -290,7 +295,7 @@ void GameWorld::update(float dT)
 
 void GameWorld::render() const
 {
-    m_gameCamera->apply();
+    m_gameCamera->apply(true);
     m_frustum->updateFrustum();
 
     for (ConstEntityIterator entity = m_entities.begin(); entity != m_entities.end(); ++entity)
@@ -316,7 +321,7 @@ Vector3 GameWorld::getRandomPosition() const
 
     float randX = minX + ((rand() / ((float)RAND_MAX + 1)) * mapWidth);
     float randZ = minX + ((rand() / ((float)RAND_MAX + 1)) * mapWidth);
-    float y = getLandscape()->getTerrain()->getHeightAt(randX, randZ);
+    float y = getLandscape()->getTerrain()->getHeightAt(randX, randZ) - 2;
 
     return Vector3(randX, y, randZ);
 }
