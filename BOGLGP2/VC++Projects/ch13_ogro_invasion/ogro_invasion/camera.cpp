@@ -61,7 +61,7 @@ void Camera::pitch(const float degrees)
 
 }
 
-void Camera::apply()
+void Camera::apply(bool isThirdPerson)
 {
     if (m_attachedEntity != NULL) {
         setPosition(m_attachedEntity->getPosition());
@@ -82,7 +82,11 @@ void Camera::apply()
     m_lookAt.z = m_position.z + sinYaw*cosPitch;
 
     // set the camera
-	gluLookAt(m_position.x, m_position.y, m_position.z,
-              m_lookAt.x, m_lookAt.y, m_lookAt.z,
-              m_up.x, m_up.y, m_up.z);
+	//if(isThirdPerson == false)
+	//{
+		gluLookAt(m_position.x, m_position.y + 0.75, m_position.z,
+			      m_lookAt.x, m_lookAt.y, m_lookAt.z,
+                  m_up.x, m_up.y, m_up.z);
+	//}
+
 }

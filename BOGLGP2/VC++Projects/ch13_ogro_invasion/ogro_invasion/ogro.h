@@ -32,10 +32,13 @@ class Ogro : public Enemy
 
         MD2Model* myBody;
 		MD2Model* myHead;
+		MD2Model* myGun;
         TargaImage myBodyTexture;
 		TargaImage myHeadTexture;
+		TargaImage myGunTexture;
         unsigned int myBodyTextureID;
 		unsigned int myHeadTextureID;
+		unsigned int myGunTextureID;
 
         void processAI();
 

@@ -18,8 +18,10 @@ using std::string;
 
 const string BODY_MODEL = "data/models/Sergeant/spos_body.md2";
 const string HEAD_MODEL = "data/models/Sergeant/spos_head.md2";
+const string GUN_MODEL = "data/models/Sergeant/spos_weapon.md2";
 const string BODY_TEXTURE = "data/models/Sergeant/spos_body.tga";
 const string HEAD_TEXTURE = "data/models/Sergeant/spos_head1.tga";
+const string GUN_TEXTURE = "data/models/Sergeant/spos_weapon.tga";
 
 Ogro::Ogro(GameWorld* world):
 Enemy(world),
@@ -29,17 +31,21 @@ m_lastAIChange(0)
 {
     string vertexShader = (GLSLProgram::glsl130Supported())? "data/shaders/glsl1.30/model.vert" : "data/shaders/glsl1.20/model.vert";
     string fragmentShader = (GLSLProgram::glsl130Supported())? "data/shaders/glsl1.30/model.frag" : "data/shaders/glsl1.20/model.frag";
-    myBody = new MD2Model(vertexShader, fragmentShader);
+
+	myBody = new MD2Model(vertexShader, fragmentShader);
 	myHead = new MD2Model(vertexShader, fragmentShader);
+	myGun = new MD2Model(vertexShader, fragmentShader);
 
     myBody->setAnimation(Animation::IDLE);
 	myHead->setAnimation(Animation::IDLE);
+	myGun->setAnimation(Animation::IDLE);
 }
 
 Ogro::~Ogro()
 {
     delete myBody;
 	delete myHead;
+	delete myGun;
 }
 
 void Ogro::onPrepare(float dT)
@@ -52,6 +58,7 @@ void Ogro::onPrepare(float dT)
 
     myBody->update(dT);
 	myHead->update(dT);
+	myGun->update(dT);
 
     if (m_position.y > 0.0f) 
 	{
@@ -83,7 +90,6 @@ void Ogro::onPrepare(float dT)
 
 void Ogro::onRender() const
 {
-
     glPushMatrix();
         Vector3 pos = getPosition();
         glTranslatef(pos.x, pos.y, pos.z);
@@ -92,6 +98,8 @@ void Ogro::onRender() const
         myBody->render();
 		glBindTexture(GL_TEXTURE_2D, myHeadTextureID);
         myHead->render();
+		glBindTexture(GL_TEXTURE_2D, myGunTextureID);
+        myGun->render();
     glPopMatrix();
 }
 
@@ -104,13 +112,17 @@ bool Ogro::onInitialize()
 {
     bool result1 = myBody->load(BODY_MODEL);
 	bool result2 = myHead->load(HEAD_MODEL);
+	bool result3 = myGun->load(GUN_MODEL);
     
-	if (result1 && result2)
+	if (result1 && result2 && result3)
     {
-		if (!myBodyTexture.load(BODY_TEXTURE) || !myHeadTexture.load(HEAD_TEXTURE))
+		if (!myBodyTexture.load(BODY_TEXTURE) || 
+			!myHeadTexture.load(HEAD_TEXTURE) ||
+			!myGunTexture.load(GUN_TEXTURE))
         {
             result1 = false;
 			result2 = false;
+			result3 = false;
         }
         else
         {
@@ -133,12 +145,22 @@ bool Ogro::onInitialize()
             gluBuild2DMipmaps(GL_TEXTURE_2D, GL_RGBA8, myHeadTexture.getWidth(),
                               myHeadTexture.getHeight(), GL_RGBA, GL_UNSIGNED_BYTE,
                               myHeadTexture.getImageData());
+
+			glGenTextures(1, &myGunTextureID);
+            glActiveTexture(GL_TEXTURE0);
+            glBindTexture(GL_TEXTURE_2D, myGunTextureID);
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+
+            gluBuild2DMipmaps(GL_TEXTURE_2D, GL_RGBA8, myGunTexture.getWidth(),
+                              myGunTexture.getHeight(), GL_RGBA, GL_UNSIGNED_BYTE,
+                              myGunTexture.getImageData());
         }
     }
 
     m_yaw = (float(rand()) / RAND_MAX) * 360.0f;
 
-    return (result1 && result2);
+    return (result1 && result2 && result3);
 }
 
 void Ogro::onShutdown()
@@ -181,6 +203,8 @@ void Ogro::processAI()
     {
         myBody->setAnimation(Animation::RUN);
 		myHead->setAnimation(Animation::RUN);
+		myGun->setAnimation(Animation::RUN);
+
         m_AIState = OGRO_RUNNING;
         m_lastAIChange = m_currentTime;
     }
@@ -198,17 +222,20 @@ void Ogro::processAI()
                 {
                     myBody->setAnimation(Animation::IDLE);
 					myHead->setAnimation(Animation::IDLE);
+					myGun->setAnimation(Animation::IDLE);
                 }
                 if (newState == OGRO_CROUCH)
                 {
                     myBody->setAnimation(Animation::CROUCH_IDLE);
 					myHead->setAnimation(Animation::CROUCH_IDLE);
+					myGun->setAnimation(Animation::CROUCH_IDLE);
                     m_yaw += float(rand() % 180) - 90.0f;
                 }
                 if (newState == OGRO_WALK)
                 {
                     myBody->setAnimation(Animation::CROUCH_WALK);
 					myHead->setAnimation(Animation::CROUCH_WALK);
+					myGun->setAnimation(Animation::CROUCH_WALK);
                     m_yaw += float(rand() % 180) - 90.0f;
                 }
             }
@@ -232,6 +259,7 @@ void Ogro::processAI()
         m_AIState = OGRO_WALK;
         myBody->setAnimation(Animation::RUN);
 		myHead->setAnimation(Animation::RUN);
+		myGun->setAnimation(Animation::RUN);
         m_lastAIChange = m_currentTime;
 
         if (getPosition().x < minX)
@@ -262,16 +290,19 @@ void Ogro::onKill()
     {
         myBody->setAnimation(Animation::DEATH1);
 		myHead->setAnimation(Animation::DEATH1);
+		myGun->setAnimation(Animation::DEATH1);
     }
     else if (r == 1)
     {
         myBody->setAnimation(Animation::DEATH2);
 		myHead->setAnimation(Animation::DEATH2);
+		myGun->setAnimation(Animation::DEATH2);
     }
     else
     {
         myBody->setAnimation(Animation::DEATH3);
 		myHead->setAnimation(Animation::DEATH3);
+		myGun->setAnimation(Animation::DEATH3);
     }
 
     m_AIState = OGRO_DEAD;
@@ -281,6 +312,7 @@ void Ogro::onResurrection()
 {
     myBody->setAnimation(Animation::IDLE);
     myHead->setAnimation(Animation::IDLE);
+	myGun->setAnimation(Animation::IDLE);
 	m_AIState = OGRO_IDLE;
     m_lastAIChange = m_currentTime;
 }

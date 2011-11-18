@@ -4,6 +4,8 @@
 #include <iostream>
 
 #include "entity.h"
+#include "targa.h"
+#include "md2model.h"
 
 class Player : public Entity
 {
@@ -57,17 +59,30 @@ class Player : public Entity
         virtual bool onInitialize();
         virtual void onShutdown();
         virtual void onCollision(Entity* collider) { } //Players don't collide.. yet
-        Vector3 m_position;
+        
+		Vector3 m_position;
         Vector3 m_velocity;
+
 		int m_mode;
         float m_yaw;
         float m_pitch;
 		float myAcceleration;
 		float PITCH_LIMIT;
+
         Collider* m_collider;
 		bool isEditing;
 		bool keyHold;
 		int brushSize;
+
+		MD2Model* myBody;
+		MD2Model* myHead;
+		MD2Model* myGun;
+        TargaImage myBodyTexture;
+		TargaImage myHeadTexture;
+		TargaImage myGunTexture;
+        unsigned int myBodyTextureID;
+		unsigned int myHeadTextureID;
+		unsigned int myGunTextureID;
 };
 
 #endif // PLAYER_H
