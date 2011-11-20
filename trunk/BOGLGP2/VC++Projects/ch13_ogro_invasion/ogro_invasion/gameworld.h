@@ -149,9 +149,21 @@ class GameWorld : private Uncopyable
             y = m_relY;
         }
 
-		Frustum * getFrustum(){
+		Frustum * getFrustum()
+		{
 			return m_frustum.get();
 		}
+
+		bool getIsThirdPerson()
+		{
+			return myIsThirdPerson;
+		}
+
+		void setIsThirdPerson(bool isThirdPerson)
+		{
+			myIsThirdPerson = isThirdPerson;
+		}
+
 
 
     private:
@@ -172,6 +184,7 @@ class GameWorld : private Uncopyable
 
 		GLint myRenderMode;
 		bool myBackFaceCulling;
+		bool myIsThirdPerson;
 
         Player* m_player;
         Landscape* m_landscape;

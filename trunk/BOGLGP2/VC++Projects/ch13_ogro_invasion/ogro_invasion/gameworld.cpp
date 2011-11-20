@@ -167,6 +167,7 @@ bool GameWorld::initialize()
 {
 	myRenderMode = GL_FILL;
 	myBackFaceCulling = true;
+	myIsThirdPerson = false;
     srand((unsigned int)time(0));
 
 	spawnEntity(SKY);
@@ -213,6 +214,15 @@ void GameWorld::update(float dT)
 {
     m_currentTime += dT; //Update the time since we started
     m_remainingTime -= dT;
+
+	if(m_player->getMode() == Player::PLAYER_MODE)
+	{
+		myIsThirdPerson = false;
+	}
+	else if(m_player->getMode() == Player::THIRD_P_MODE)
+	{
+		myIsThirdPerson = true;
+	}
 
     for (EntityIterator entity = m_entities.begin(); entity != m_entities.end(); ++entity)
     {
@@ -295,7 +305,7 @@ void GameWorld::update(float dT)
 
 void GameWorld::render() const
 {
-    m_gameCamera->apply(true);
+    m_gameCamera->apply(myIsThirdPerson);
     m_frustum->updateFrustum();
 
     for (ConstEntityIterator entity = m_entities.begin(); entity != m_entities.end(); ++entity)

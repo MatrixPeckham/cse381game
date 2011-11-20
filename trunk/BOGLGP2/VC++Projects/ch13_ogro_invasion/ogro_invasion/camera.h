@@ -12,6 +12,7 @@ public:
     Camera();
 
     void setPosition(const Vector3& position);
+	void setPosition(float x, float y, float z); 
     void yaw(const float degrees);
     void pitch(const float degrees);
     void apply(bool);
