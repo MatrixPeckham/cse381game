@@ -27,6 +27,7 @@ brushSize(2),
 isEditing(false)
 {
     m_collider = new SphereCollider(this, 0.75f);
+	myIsMoving = false;
 
 	string vertexShader = (GLSLProgram::glsl130Supported())? "data/shaders/glsl1.30/model.vert" : "data/shaders/glsl1.20/model.vert";
     string fragmentShader = (GLSLProgram::glsl130Supported())? "data/shaders/glsl1.30/model.frag" : "data/shaders/glsl1.20/model.frag";
@@ -55,18 +56,31 @@ void Player::onPrepare(float dT)
     if (getWorld()->getKeyboard()->isKeyHeldDown(KC_UP) || getWorld()->getKeyboard()->isKeyHeldDown(KC_w))
     {
         moveForward(myAcceleration * dT);
+		myIsMoving = true;
     }
+
+
     if (getWorld()->getKeyboard()->isKeyHeldDown(KC_DOWN) || getWorld()->getKeyboard()->isKeyHeldDown(KC_s))
     {
         moveForward(-myAcceleration * dT);
+		myIsMoving = true;
     }
 
-	if(getWorld()->getKeyboard()->isKeyHeldDown(KC_a)){
+
+	if(getWorld()->getKeyboard()->isKeyHeldDown(KC_a))
+	{
 		moveSideways(-myAcceleration*dT);
+		myIsMoving = true;
 	}
-	if(getWorld()->getKeyboard()->isKeyHeldDown(KC_d)){
+
+
+	if(getWorld()->getKeyboard()->isKeyHeldDown(KC_d))
+	{
 		moveSideways(myAcceleration*dT);
-	}
+		myIsMoving = true;
+	}	
+
+
 
     if (getWorld()->getKeyboard()->isKeyHeldDown(KC_RIGHT))
     {
@@ -84,13 +98,19 @@ void Player::onPrepare(float dT)
 
 	if(getWorld()->getKeyboard()->isKeyPressed(KC_t))
 	{
-		if(!keyHold){
+		if(!keyHold)
+		{
 			keyHold=true;
-			m_mode = m_mode==EDIT_MODE ? PLAYER_MODE : EDIT_MODE;
-			myAcceleration = m_mode==EDIT_MODE ? 10.0f : 3.0f;
-			getWorld()->getLandscape()->getTerrain()->setDrawIndex(m_mode==EDIT_MODE?true:false);
+			if(m_mode == PLAYER_MODE || m_mode == EDIT_MODE)
+			{
+				m_mode = m_mode==EDIT_MODE ? PLAYER_MODE : EDIT_MODE;
+				myAcceleration = m_mode==EDIT_MODE ? 10.0f : 3.0f;
+				getWorld()->getLandscape()->getTerrain()->setDrawIndex(m_mode==EDIT_MODE?true:false);
+			}
 		}
-	} else {
+	} 
+	else 
+	{
 		keyHold=false;
 	}
 
@@ -121,41 +141,54 @@ void Player::onPrepare(float dT)
 
 	if(getWorld()->getKeyboard()->isKeyPressed(KC_c))
 	{
-		if(!keyHold){
+		if(!keyHold)
+		{
 			keyHold=true;
 			getWorld()->toggleBackFaceCulling();
 		}
-	} else {
+	}
+	else 
+	{
 		keyHold=false;
 	}
 
 	if(getWorld()->getKeyboard()->isKeyPressed(KC_p))
 	{
-		if(!keyHold){
+		if(!keyHold)
+		{
 			keyHold=true;
 			brushSize++;
 		}
-	} else {
+	} 
+	else
+	{
 		keyHold=false;
 	}
+	
 	if(getWorld()->getKeyboard()->isKeyPressed(KC_l))
 	{
-		if(!keyHold){
+		if(!keyHold)
+		{
 			keyHold=true;
 			brushSize--;
 			if(brushSize<0) brushSize=0;
 		}
-	} else {
+	} 
+	else 
+	{
 		keyHold=false;
 	}
 
 	if(getWorld()->getKeyboard()->isKeyPressed(KC_b))
 	{
-		if(!keyHold){
+		if(!keyHold)
+		{
 			keyHold=true;
 			getWorld()->getLandscape()->getTerrain()->toggleBounds();
 		}
-	} else {
+	} 
+	else
+	{
 		keyHold=false;
 	}
 
@@ -167,16 +200,22 @@ void Player::onPrepare(float dT)
         rocket->setPitch(getPitch());
     }
 
-	if(getWorld()->getMouse()->isButtonDown(0)){
-		if(m_mode==EDIT_MODE){
-			if(!isEditing){
+	if(getWorld()->getMouse()->isButtonDown(0))
+	{
+		if(m_mode==EDIT_MODE)
+		{
+			if(!isEditing)
+			{
 				isEditing=true;
 			}
 		}
-	} else {
+	} 
+	else 
+	{
 		isEditing=false;
 		//getWorld()->getLandscape()->getTerrain()->setDrawIndex(false);
 	}
+	
 	if(getWorld()->getMouse()->isButtonPressed(0))
 	{
 		if(m_mode==EDIT_MODE)
@@ -240,11 +279,12 @@ void Player::onPrepare(float dT)
 	myHead->update(dT);
 	myGun->update(dT);
 
-	if(m_velocity.x > 0 || m_velocity.z > 0)
+	if(myIsMoving)
 	{
 		myBody->setAnimation(Animation::RUN);
 		myHead->setAnimation(Animation::RUN);
 		myGun->setAnimation(Animation::RUN);
+		myIsMoving = false;
 	}
 	else
 	{
@@ -373,14 +413,19 @@ void Player::moveForward(const float speed)
     float sinYaw = sinf(degreesToRadians(m_yaw));
 	float cosPit = cosf(degreesToRadians(m_pitch));
 	float sinPit = sinf(degreesToRadians(m_pitch));
-	if(m_mode==PLAYER_MODE){
+	
+	if(m_mode==PLAYER_MODE)
+	{
 	    pos.x += float(cosYaw)*speed;
 		pos.z += float(sinYaw)*speed;
-	} else {
+	} 
+	else 
+	{
 		pos.x += cosYaw*cosPit*speed;
 		pos.y += sinPit*speed;
 		pos.z += sinYaw*cosPit*speed;
 	}
+
     setPosition(pos);
 }
 
@@ -391,7 +436,9 @@ void Player::moveSideways(const float speed){
     float sinYaw = sinf(degreesToRadians(m_yaw));
 	float cosPit = cosf(degreesToRadians(m_pitch));
 	float sinPit = sinf(degreesToRadians(m_pitch));
+
     pos.x += -float(sinYaw)*speed;
 	pos.z += float(cosYaw)*speed;
+
     setPosition(pos);
 }

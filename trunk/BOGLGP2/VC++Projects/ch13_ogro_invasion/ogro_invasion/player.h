@@ -33,6 +33,11 @@ class Player : public Entity
 
 		int getMode(){return m_mode;}
 
+		bool getIsMoving()
+		{
+			return myIsMoving;
+		}
+
         virtual EntityType getType() const { return PLAYER; }
 
         //At the moment the player doesn't collide with other entities
@@ -78,6 +83,7 @@ class Player : public Entity
         Collider* m_collider;
 		bool isEditing;
 		bool keyHold;
+		bool myIsMoving;
 		int brushSize;
 
 		MD2Model* myBody;

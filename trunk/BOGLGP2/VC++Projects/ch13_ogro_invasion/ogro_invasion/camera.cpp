@@ -89,9 +89,9 @@ void Camera::apply(bool isThirdPerson)
 
 		if(isThirdPerson)
 		{
-			tempPos.x = cosYaw * cosPitch * radius;
+			tempPos.x = cosYaw * cosPitch * -radius;
 		    tempPos.y = sinPitch * radius;
-		    tempPos.z = sinYaw * cosPitch * radius;
+		    tempPos.z = sinYaw * cosPitch * -radius;
 			tempPos += m_attachedEntity->getPosition();
 			m_lookAt = m_attachedEntity->getPosition();
 
@@ -99,6 +99,8 @@ void Camera::apply(bool isThirdPerson)
 		}
 		else
 		{
+			tempPos.y += 0.75;// move camera up to head
+
 			setPosition(tempPos);
 		}
     }
@@ -118,7 +120,7 @@ void Camera::apply(bool isThirdPerson)
 	}
 
 
-	gluLookAt(m_position.x, m_position.y + 0.75, m_position.z,
+	gluLookAt(m_position.x, m_position.y, m_position.z,
 			  m_lookAt.x, m_lookAt.y, m_lookAt.z,
 			  m_up.x, m_up.y, m_up.z);
 

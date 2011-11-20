@@ -51,15 +51,20 @@ public:
     void update(float dt);
     void render();
 
-    void setAnimation(int start, int end) {
+    void setAnimation(int start, int end) 
+	{
         m_startFrame = start;
         m_endFrame = end;
         m_nextFrame = m_startFrame;
     }
 
-    void setAnimation(const Animation& ani) {
-        setAnimation(ani.startFrame, ani.endFrame);
-        m_loopAnimation = ani.loop;
+    void setAnimation(const Animation& ani) 
+	{
+		if(ani.startFrame != m_startFrame && ani.endFrame != m_endFrame)
+		{
+			setAnimation(ani.startFrame, ani.endFrame);
+			m_loopAnimation = ani.loop;
+		}
     }
 
     std::vector<std::string> getSkinNames() {
