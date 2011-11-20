@@ -37,6 +37,11 @@ void Camera::setPosition(const Vector3& position)
     m_position = position;
 }
 
+void Camera::setPosition(float x, float y, float z)
+{
+	m_position = Vector3(x, y, z);
+}
+
 void Camera::yaw(const float degrees)
 {
     m_yaw += degrees;
@@ -63,30 +68,59 @@ void Camera::pitch(const float degrees)
 
 void Camera::apply(bool isThirdPerson)
 {
-    if (m_attachedEntity != NULL) {
-        setPosition(m_attachedEntity->getPosition());
-        m_yaw = m_attachedEntity->getYaw();
-        m_pitch = m_attachedEntity->getPitch();
-    }
+	Vector3 tempPos;
+	float radius = 5;
+	float cosYaw;
+	float sinYaw;
+	float sinPitch;
+	float cosPitch;
 
-    float cosYaw = cosf(degreesToRadians(m_yaw));
-    float sinYaw = sinf(degreesToRadians(m_yaw));
-    float sinPitch = sinf(degreesToRadians(m_pitch));
-	float cosPitch = cosf(degreesToRadians(m_pitch));
+    if (m_attachedEntity != NULL) 
+	{
+		m_yaw = m_attachedEntity->getYaw();
+		m_pitch = m_attachedEntity->getPitch();
+
+		cosYaw = cosf(degreesToRadians(m_yaw));
+		sinYaw = sinf(degreesToRadians(m_yaw));
+		sinPitch = sinf(degreesToRadians(m_pitch));
+		cosPitch = cosf(degreesToRadians(m_pitch));
+
+		tempPos = m_attachedEntity->getPosition();
+
+		if(isThirdPerson)
+		{
+			tempPos.x = cosYaw * cosPitch * radius;
+		    tempPos.y = sinPitch * radius;
+		    tempPos.z = sinYaw * cosPitch * radius;
+			tempPos += m_attachedEntity->getPosition();
+			m_lookAt = m_attachedEntity->getPosition();
+
+			setPosition(tempPos);
+		}
+		else
+		{
+			setPosition(tempPos);
+		}
+    }
 
 
 
     // calculate lookAt based on new position
-    m_lookAt.x = m_position.x + cosYaw*cosPitch;
-    m_lookAt.y = m_position.y + sinPitch;
-    m_lookAt.z = m_position.z + sinYaw*cosPitch;
+	if(isThirdPerson)
+	{
 
-    // set the camera
-	//if(isThirdPerson == false)
-	//{
-		gluLookAt(m_position.x, m_position.y + 0.75, m_position.z,
-			      m_lookAt.x, m_lookAt.y, m_lookAt.z,
-                  m_up.x, m_up.y, m_up.z);
-	//}
+	}
+	else
+	{
+		m_lookAt.x = m_position.x + cosYaw*cosPitch;
+		m_lookAt.y = m_position.y + sinPitch;
+		m_lookAt.z = m_position.z + sinYaw*cosPitch;
+	}
+
+
+	gluLookAt(m_position.x, m_position.y + 0.75, m_position.z,
+			  m_lookAt.x, m_lookAt.y, m_lookAt.z,
+			  m_up.x, m_up.y, m_up.z);
+
 
 }

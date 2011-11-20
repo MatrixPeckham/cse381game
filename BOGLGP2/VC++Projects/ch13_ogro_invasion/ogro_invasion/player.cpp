@@ -94,6 +94,30 @@ void Player::onPrepare(float dT)
 		keyHold=false;
 	}
 
+	if(getWorld()->getKeyboard()->isKeyPressed(KC_h))
+	{
+		if(!keyHold)
+		{
+			keyHold=true;
+			if(m_mode == PLAYER_MODE)
+			{
+				m_mode = THIRD_P_MODE;
+				myAcceleration = 3.0f;
+				getWorld()->getLandscape()->getTerrain()->setDrawIndex(false);
+			}
+			else if(m_mode == THIRD_P_MODE)
+			{
+				m_mode = PLAYER_MODE;
+				myAcceleration = 3.0f;
+				getWorld()->getLandscape()->getTerrain()->setDrawIndex(false);
+			}
+		}
+	} 
+	else 
+	{
+		keyHold=false;
+	}
+
 
 	if(getWorld()->getKeyboard()->isKeyPressed(KC_c))
 	{
@@ -153,7 +177,8 @@ void Player::onPrepare(float dT)
 		isEditing=false;
 		//getWorld()->getLandscape()->getTerrain()->setDrawIndex(false);
 	}
-	if(getWorld()->getMouse()->isButtonPressed(0)){
+	if(getWorld()->getMouse()->isButtonPressed(0))
+	{
 		if(m_mode==EDIT_MODE)
 		{
 
@@ -184,7 +209,7 @@ void Player::onPrepare(float dT)
 		pitch(float(y)* -40.0f * dT);
 	}
 
-	if(m_mode==PLAYER_MODE)
+	if(m_mode==PLAYER_MODE || m_mode == THIRD_P_MODE)
 	{
 	    m_position.y -= 8.0f * dT;
 	} 
@@ -214,6 +239,19 @@ void Player::onPrepare(float dT)
 	myBody->update(dT);
 	myHead->update(dT);
 	myGun->update(dT);
+
+	if(m_velocity.x > 0 || m_velocity.z > 0)
+	{
+		myBody->setAnimation(Animation::RUN);
+		myHead->setAnimation(Animation::RUN);
+		myGun->setAnimation(Animation::RUN);
+	}
+	else
+	{
+		myBody->setAnimation(Animation::IDLE);
+		myHead->setAnimation(Animation::IDLE);
+		myGun->setAnimation(Animation::IDLE);
+	}
 }
 
 void Player::onRender() const
@@ -310,8 +348,11 @@ void Player::pitch(const float val)
     m_pitch += val;
 
 	float PITCH_LIMIT = 45.0f;
+
 	if(m_mode!=PLAYER_MODE)
+	{
 		PITCH_LIMIT=89.9f;
+	}
     if (m_pitch >= PITCH_LIMIT)
     {
         m_pitch = PITCH_LIMIT;

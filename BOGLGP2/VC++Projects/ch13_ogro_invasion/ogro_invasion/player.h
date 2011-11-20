@@ -10,7 +10,13 @@
 class Player : public Entity
 {
     public:
-		enum{PLAYER_MODE=0,EDIT_MODE,/*THIRD_P_MODE,*/NUM_MODES};
+		enum
+		{
+			PLAYER_MODE=0,
+			EDIT_MODE,
+			THIRD_P_MODE,
+			NUM_MODES
+		};
         /** Default constructor */
         Player(GameWorld* const world);
 
