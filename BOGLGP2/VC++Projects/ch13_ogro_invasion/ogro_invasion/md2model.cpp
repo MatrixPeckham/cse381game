@@ -14,7 +14,7 @@ using std::vector;
 
 
 const Animation Animation::IDLE = Animation(11, 12);
-const Animation Animation::RUN = Animation(1, 11);
+const Animation Animation::RUN = Animation(1, 10);
 const Animation Animation::ATTACK = Animation(13, 18);
 const Animation Animation::PAIN1 = Animation(11, 12);
 const Animation Animation::PAIN2 = Animation(11, 12);
@@ -26,13 +26,14 @@ const Animation Animation::TAUNT = Animation(11, 12);
 const Animation Animation::WAVE = Animation(11, 12);
 const Animation Animation::POINT = Animation(11, 12);
 const Animation Animation::CROUCH_IDLE = Animation(11, 12);
-const Animation Animation::CROUCH_WALK = Animation(1, 11);
+const Animation Animation::CROUCH_WALK = Animation(1, 10);
 const Animation Animation::CROUCH_ATTACK = Animation(13, 18);
 const Animation Animation::CROUCH_PAIN = Animation(11, 12);
 const Animation Animation::CROUCH_DEATH = Animation(18, 28);
 const Animation Animation::DEATH1 = Animation(18, 28, false);
 const Animation Animation::DEATH2 = Animation(18, 28, false);
 const Animation Animation::DEATH3 = Animation(18, 28, false);
+
 
 MD2Model::MD2Model(const std::string vertexShader, const std::string fragmentShader):
 m_startFrame(0),
