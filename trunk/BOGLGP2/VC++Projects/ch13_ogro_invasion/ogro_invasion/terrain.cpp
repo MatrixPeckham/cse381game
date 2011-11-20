@@ -970,6 +970,7 @@ GLfloat Terrain::getHeightAt(GLfloat x, GLfloat z)
 */
     float xInterp0 = m_vertices[p0].y + fracX * (m_vertices[p1].y - m_vertices[p0].y);
     float xInterp1 = m_vertices[p2].y + fracX * (m_vertices[p3].y - m_vertices[p2].y);
+
     return xInterp0 + fracZ * (xInterp1 - xInterp0);
 }
 
