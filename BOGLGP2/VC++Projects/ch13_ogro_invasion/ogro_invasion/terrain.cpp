@@ -822,16 +822,16 @@ void Terrain::render(Frustum * frust) const
 				float minX = chunkArray[x][z].minX;
 				float minY = chunkArray[x][z].minY;
 				float minZ = chunkArray[x][z].minZ;
-
+				
 				// Check to see if the corners of the chunk are within the frustum.
-				if (!frust->PointInFrustum(maxX, maxY, maxZ) &&
-					!frust->PointInFrustum(minX, maxY, minZ) &&
-					!frust->PointInFrustum(minX, maxY, maxZ) &&
-					!frust->PointInFrustum(maxX, maxY, minZ) &&
-					!frust->PointInFrustum(maxX, minY, maxZ) &&
-					!frust->PointInFrustum(minX, minY, minZ) &&
-					!frust->PointInFrustum(minX, minY, maxZ) &&
-					!frust->PointInFrustum(maxX, minY, minZ))
+				if (!frust->sphereInFrustum(maxX, maxY, maxZ,1) &&
+					!frust->sphereInFrustum(minX, maxY, minZ,1) &&
+					!frust->sphereInFrustum(minX, maxY, maxZ,1) &&
+					!frust->sphereInFrustum(maxX, maxY, minZ,1) &&
+					!frust->sphereInFrustum(maxX, minY, maxZ,1) &&
+					!frust->sphereInFrustum(minX, minY, minZ,1) &&
+					!frust->sphereInFrustum(minX, minY, maxZ,1) &&
+					!frust->sphereInFrustum(maxX, minY, minZ,1))
 						continue;
 
 				// bind the buffer and draw the chunk.
