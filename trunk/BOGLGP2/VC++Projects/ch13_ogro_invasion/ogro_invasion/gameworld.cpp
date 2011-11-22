@@ -198,6 +198,7 @@ bool GameWorld::initialize()
     //Spawn the player and center them
     spawnEntity(PLAYER);
     getPlayer()->setPosition(Vector3(10.0f, 0.0f, 0.0f));
+	//getPlayer()->setPosition(Vector3(97.0f, 98.0f, 94.0f));
 
 	//m_gameCamera->setPosition(Vector3(m_gameCamera->getPosition().x,
 	//								  m_gameCamera->getPosition().y + 0.75,
