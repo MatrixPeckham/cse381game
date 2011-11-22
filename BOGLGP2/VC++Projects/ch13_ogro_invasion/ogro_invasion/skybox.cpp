@@ -112,16 +112,16 @@ bool Skybox::onInitialize()
 	myTexCoords.push_back(TexCoord(0.5, 0));//3
 
 	//Top
-	myTexCoords.push_back(TexCoord(0.26, 0.6666));//4
-	myTexCoords.push_back(TexCoord(0.4, 0.6666));//5
-	myTexCoords.push_back(TexCoord(0.4, 1));//6
-	myTexCoords.push_back(TexCoord(0.26, 1));//7
+	myTexCoords.push_back(TexCoord(0.25, 0.6666));//4
+	myTexCoords.push_back(TexCoord(0.5, 0.6666));//5
+	myTexCoords.push_back(TexCoord(0.5, 1));//6
+	myTexCoords.push_back(TexCoord(0.25, 1));//7
 
 	//Left
 	myTexCoords.push_back(TexCoord(0.25, 0.3333));//0
 	myTexCoords.push_back(TexCoord(0.25, 0.6666));//4
-	myTexCoords.push_back(TexCoord(0.5, 0.65));//7
-	myTexCoords.push_back(TexCoord(0.5, 0.3333));//3
+	myTexCoords.push_back(TexCoord(0.00091, 0.6666));//7
+	myTexCoords.push_back(TexCoord(0.00091, 0.3333));//3
 
 	//Right
 	myTexCoords.push_back(TexCoord(0.5, 0.3333));//1
@@ -136,10 +136,10 @@ bool Skybox::onInitialize()
 	myTexCoords.push_back(TexCoord(0.25, 0.6666));//4
 
 	//Back
-	myTexCoords.push_back(TexCoord(1, 0.6666));//7
+	myTexCoords.push_back(TexCoord(0.9994, 0.6666));//7
 	myTexCoords.push_back(TexCoord(0.75, 0.6666));//6
 	myTexCoords.push_back(TexCoord(0.75, 0.3333));//2
-	myTexCoords.push_back(TexCoord(1, 0.3333));//3
+	myTexCoords.push_back(TexCoord(0.9994, 0.3333));//3
 
 	const string vertexShader = (GLSLProgram::glsl130Supported()) ? VERTEX_SHADER_130 : VERTEX_SHADER_120;
 	const string fragmentShader = (GLSLProgram::glsl130Supported()) ? FRAGMENT_SHADER_130 : FRAGMENT_SHADER_120;
