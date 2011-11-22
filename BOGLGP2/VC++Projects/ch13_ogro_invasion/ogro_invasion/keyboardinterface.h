@@ -8,6 +8,7 @@ enum BOGLGPKeyCode {
     KC_LEFT,
     KC_RIGHT,
     KC_SPACE,
+	KC_SLASH,
 	KC_p,
 	KC_l,
     KC_w,

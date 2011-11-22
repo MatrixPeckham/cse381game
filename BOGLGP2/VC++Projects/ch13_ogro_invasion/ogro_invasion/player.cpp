@@ -151,6 +151,17 @@ void Player::onPrepare(float dT)
 	{
 		keyHold=false;
 	}
+	if(getWorld()->getKeyboard()->isKeyPressed(KC_SLASH))
+	{
+		if(!keyHold)
+		{
+			getWorld()->getLandscape()->getTerrain()->toggleSaveOnExit();
+		}
+	}
+	else 
+	{
+		keyHold=false;
+	}
 
 	if(getWorld()->getKeyboard()->isKeyPressed(KC_p))
 	{

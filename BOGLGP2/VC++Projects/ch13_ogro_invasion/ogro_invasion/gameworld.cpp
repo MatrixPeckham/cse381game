@@ -215,7 +215,7 @@ void GameWorld::update(float dT)
     m_currentTime += dT; //Update the time since we started
     m_remainingTime -= dT;
 
-	if(m_player->getMode() == Player::PLAYER_MODE)
+	if(m_player->getMode() == Player::PLAYER_MODE || m_player->getMode() == Player::EDIT_MODE)
 	{
 		myIsThirdPerson = false;
 	}
