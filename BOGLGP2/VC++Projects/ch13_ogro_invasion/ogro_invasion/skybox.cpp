@@ -204,7 +204,7 @@ void Skybox::onRender() const
 	glDisable(GL_DEPTH_TEST);
 	
     glPushMatrix();
-	//glTranslatef(myPosition.x, myPosition.y + 5, myPosition.z);
+		glTranslatef(myPosition.x, myPosition.y + 5, myPosition.z);
 		static float modelviewMatrix[16];
 		static float projectionMatrix[16];
 		
