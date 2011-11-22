@@ -1056,7 +1056,7 @@ int Terrain::getClosestIndex(Vector3 pos, Vector3 dir){
 			int i = z*m_width+x;
 
 			Vector3 diff = m_vertices[i] - pos;
-			float dot = dir.x*diff.x+dir.y*diff.y+dir.z*diff.z;
+			float dot = dir.x*diff.x + dir.y*diff.y + dir.z*diff.z;
 			float t = dot/(dir.length()*dir.length());
 
 			if(t<0){

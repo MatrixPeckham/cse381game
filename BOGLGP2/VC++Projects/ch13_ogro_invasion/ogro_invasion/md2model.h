@@ -20,6 +20,7 @@ struct Animation {
     loop(loop) { }
 
     static const Animation IDLE;
+	static const Animation CAMERA_IDLE;
     static const Animation RUN;
     static const Animation ATTACK;
     static const Animation PAIN1;

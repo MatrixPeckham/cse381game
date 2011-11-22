@@ -112,32 +112,32 @@ bool Skybox::onInitialize()
 	myTexCoords.push_back(TexCoord(0.5, 0));//3
 
 	//Top
-	myTexCoords.push_back(TexCoord(0.25, 0.6666));//4
-	myTexCoords.push_back(TexCoord(0.5, 0.6666));//5
-	myTexCoords.push_back(TexCoord(0.5, 1));//6
-	myTexCoords.push_back(TexCoord(0.25, 1));//7
+	myTexCoords.push_back(TexCoord(0.254, 0.6640));//4
+	myTexCoords.push_back(TexCoord(0.495, 0.664));//5
+	myTexCoords.push_back(TexCoord(0.495, 0.99));//6
+	myTexCoords.push_back(TexCoord(0.254, 0.99));//7
 
 	//Left
 	myTexCoords.push_back(TexCoord(0.25, 0.3333));//0
-	myTexCoords.push_back(TexCoord(0.25, 0.6666));//4
-	myTexCoords.push_back(TexCoord(0.00091, 0.6666));//7
+	myTexCoords.push_back(TexCoord(0.25, 0.6640));//4
+	myTexCoords.push_back(TexCoord(0.00091, 0.6640));//7
 	myTexCoords.push_back(TexCoord(0.00091, 0.3333));//3
 
 	//Right
 	myTexCoords.push_back(TexCoord(0.5, 0.3333));//1
 	myTexCoords.push_back(TexCoord(0.75, 0.3333));//2
-	myTexCoords.push_back(TexCoord(0.75, 0.6666));//6
-	myTexCoords.push_back(TexCoord(0.5, 0.6666));//5
+	myTexCoords.push_back(TexCoord(0.75, 0.6640));//6
+	myTexCoords.push_back(TexCoord(0.5, 0.6640));//5
 
 	//Front
 	myTexCoords.push_back(TexCoord(0.25, 0.3333));//0
 	myTexCoords.push_back(TexCoord(0.5, 0.3333));//1
-	myTexCoords.push_back(TexCoord(0.5, 0.6666));//5
-	myTexCoords.push_back(TexCoord(0.25, 0.6666));//4
+	myTexCoords.push_back(TexCoord(0.5, 0.6640));//5
+	myTexCoords.push_back(TexCoord(0.25, 0.6640));//4
 
 	//Back
-	myTexCoords.push_back(TexCoord(0.9994, 0.6666));//7
-	myTexCoords.push_back(TexCoord(0.75, 0.6666));//6
+	myTexCoords.push_back(TexCoord(0.9994, 0.6640));//7
+	myTexCoords.push_back(TexCoord(0.75, 0.6640));//6
 	myTexCoords.push_back(TexCoord(0.75, 0.3333));//2
 	myTexCoords.push_back(TexCoord(0.9994, 0.3333));//3
 
@@ -204,7 +204,7 @@ void Skybox::onRender() const
 	glDisable(GL_DEPTH_TEST);
 	
     glPushMatrix();
-	glTranslatef(myPosition.x, myPosition.y + 5, myPosition.z);
+	//glTranslatef(myPosition.x, myPosition.y + 5, myPosition.z);
 		static float modelviewMatrix[16];
 		static float projectionMatrix[16];
 		

@@ -36,9 +36,9 @@ isEditing(false)
 	myHead = new MD2Model(vertexShader, fragmentShader);
 	myGun = new MD2Model(vertexShader, fragmentShader);
 
-    myBody->setAnimation(Animation::IDLE);
-	myHead->setAnimation(Animation::IDLE);
-	myGun->setAnimation(Animation::IDLE);
+    myBody->setAnimation(Animation::CAMERA_IDLE);
+	myHead->setAnimation(Animation::CAMERA_IDLE);
+	myGun->setAnimation(Animation::CAMERA_IDLE);
 
 	myAcceleration = 3.0f;
 }
@@ -251,12 +251,12 @@ void Player::onPrepare(float dT)
 		getWorld()->getLandscape()->getTerrain()->movePoint(getWorld()->getLandscape()->getTerrain()->getCurIndex(),-(y),brushSize);
 
 		yaw(float(x) * 40.0f * dT);
-		pitch(float(y)* -40.0f * dT);
+		pitch(float(y) * -40.0f * dT);
 	} 
 	else 
 	{
 		yaw(float(x) * 40.0f * dT);
-		pitch(float(y)* -40.0f * dT);
+		pitch(float(y) * -40.0f * dT);
 	}
 
 	if(m_mode==PLAYER_MODE || m_mode == THIRD_P_MODE)
@@ -281,10 +281,10 @@ void Player::onPrepare(float dT)
     float minZ = getWorld()->getLandscape()->getTerrain()->getMinZ() + 2.5f;
     float maxZ = getWorld()->getLandscape()->getTerrain()->getMaxZ() - 2.5f;
 
-    if (m_position.x < minX) m_position.x = minX;
-    if (m_position.x > maxX) m_position.x = maxX;
-    if (m_position.z < minZ) m_position.z = minZ;
-    if (m_position.z > maxZ) m_position.z = maxZ;
+    //if (m_position.x < minX) m_position.x = minX;
+    //if (m_position.x > maxX) m_position.x = maxX;
+    //if (m_position.z < minZ) m_position.z = minZ;
+    //if (m_position.z > maxZ) m_position.z = maxZ;
 
 	myBody->update(dT);
 	myHead->update(dT);
@@ -299,9 +299,18 @@ void Player::onPrepare(float dT)
 	}
 	else
 	{
-		myBody->setAnimation(Animation::IDLE);
-		myHead->setAnimation(Animation::IDLE);
-		myGun->setAnimation(Animation::IDLE);
+		if(m_mode == THIRD_P_MODE)
+		{
+			myBody->setAnimation(Animation::IDLE);
+			myHead->setAnimation(Animation::IDLE);
+			myGun->setAnimation(Animation::IDLE);
+		}
+		else
+		{
+			myBody->setAnimation(Animation::CAMERA_IDLE);
+			myHead->setAnimation(Animation::CAMERA_IDLE);
+			myGun->setAnimation(Animation::CAMERA_IDLE);
+		}
 	}
 }
 

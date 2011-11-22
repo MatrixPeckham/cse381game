@@ -14,6 +14,7 @@ using std::vector;
 
 
 const Animation Animation::IDLE = Animation(11, 12);
+const Animation Animation::CAMERA_IDLE = Animation(11, 11);
 const Animation Animation::RUN = Animation(1, 10);
 const Animation Animation::ATTACK = Animation(13, 18);
 const Animation Animation::PAIN1 = Animation(11, 12);
