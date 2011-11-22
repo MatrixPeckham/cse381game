@@ -24,6 +24,7 @@ m_colorBuffer(0),
 m_isMultitextureEnabled(true),
 m_width(0),
 curIndex(0),
+saveOnExit(true),
 drawBoundingBox(false),
 drawCurIndex(false),
 filename(""),
@@ -679,7 +680,8 @@ void Terrain::saveHeightmap(const string& rawFile){
 }
 
 void Terrain::shutDown(){
-	saveHeightmap("");
+	if(saveOnExit)
+		saveHeightmap("");
 //	if (chunkArray)
 //	{
 //		for (int x = 0; x < width / (ChunkWidth-1); x++)

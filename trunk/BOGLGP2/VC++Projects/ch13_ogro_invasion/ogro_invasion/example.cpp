@@ -20,6 +20,7 @@
 #include "player.h"
 #include "freetypefont.h"
 #include "boglgpwindow.h"
+#include "landscape.h"
 
 using std::stringstream;
 
@@ -146,6 +147,15 @@ void Example::render()
 		}
 
 		m_font->printString(mode, 20.0f,100.0f);
+
+		if(m_world->getLandscape()->getTerrain()->getSaveOnExit()){
+			mode="Terrain Will Save On Exit TAB to disable";
+		} else {
+			mode="Terrain Will NOT Save on Exit TAB to enable";
+		}
+
+		m_font->printString(mode,(float) viewport[2]/2, (float) viewport[3]-15);
+
 
         stringstream fpsMessage;     
         fpsMessage << "FPS: " << std::setprecision(3) << m_FPS;

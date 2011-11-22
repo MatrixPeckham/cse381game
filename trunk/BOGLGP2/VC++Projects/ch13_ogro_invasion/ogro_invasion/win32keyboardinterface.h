@@ -86,6 +86,8 @@ public:
         break;
 		case 'H':
             return KC_h;
+		case VK_TAB:
+            return KC_SLASH;
         break;
         case VK_SPACE:
             return KC_SPACE;

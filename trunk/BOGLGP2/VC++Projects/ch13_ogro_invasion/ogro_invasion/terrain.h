@@ -41,6 +41,8 @@ public:
 	void movePoint(int index, float dist, int type);
 	int getCurIndex(){return curIndex;}
 	void saveHeightmap(const std::string& rawFile);
+	bool getSaveOnExit(){return saveOnExit;}
+	void toggleSaveOnExit(){saveOnExit=!saveOnExit;}
 private:
     void generateVertices(const std::vector<float> heights, int width);
     void generateIndices(std::vector<float> heights, int width);
@@ -124,6 +126,7 @@ private:
 	int curIndex;
 	bool drawCurIndex;
 	bool drawBoundingBox;
+	bool saveOnExit;
 				
 	std::string filename;
 };
