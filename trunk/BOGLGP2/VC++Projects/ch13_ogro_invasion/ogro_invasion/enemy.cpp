@@ -12,7 +12,7 @@ m_yaw(0.0f),
 m_isDead(false)
 {
     //Should probably be moved to onInitialize where we will have access to the model radius
-    m_collider = new SphereCollider(this, 0.0f);
+    m_collider = new SphereCollider(this, 0.75f);
 }
 
 Enemy::~Enemy()
