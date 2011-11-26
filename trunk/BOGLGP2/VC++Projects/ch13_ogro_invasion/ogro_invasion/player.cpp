@@ -9,7 +9,7 @@ using std::string;
 
 const string BODY_MODEL = "data/models/Chaingunner/chaingunner_body.md2";
 const string HEAD_MODEL = "data/models/Chaingunner/chaingunner_head.md2";
-const string GUN_MODEL = "data/models/Chaingunner/chaingunner_weapon.md2";
+const string GUN_MODEL = "data/models/Chaingunner/sword.md2";
 const string BODY_TEXTURE = "data/models/Chaingunner/chaingunner_body.tga";
 const string HEAD_TEXTURE = "data/models/Chaingunner/chaingunner_head2.tga";
 const string GUN_TEXTURE = "data/models/Chaingunner/chaingunner_weapon.tga";
