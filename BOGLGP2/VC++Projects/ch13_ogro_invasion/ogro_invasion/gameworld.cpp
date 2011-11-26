@@ -176,24 +176,24 @@ bool GameWorld::initialize()
 
 	
     //Spawn a load of monsters
-    for (unsigned int i = 0; i < MAX_ENEMY_COUNT; ++i)
-    {
-        Entity* newEntity = spawnEntity(OGRO);
-        newEntity->setPosition(getRandomPosition());
-    }
+  //  for (unsigned int i = 0; i < MAX_ENEMY_COUNT; ++i)
+  //  {
+  //      Entity* newEntity = spawnEntity(OGRO);
+  //      newEntity->setPosition(getRandomPosition());
+  //  }
 
-    for (int i = 0; i < TREE_COUNT; ++i)
-    {
-        Entity* newEntity = spawnEntity(TREE);
+  //  for (int i = 0; i < TREE_COUNT; ++i)
+  //  {
+  //      Entity* newEntity = spawnEntity(TREE);
 
-        Vector3 pos(0.0f, -1.0f, 0.0f);
-        while (pos.y < 1.1f) 
-		{
-            pos = getRandomPosition();
-        }
+  //      Vector3 pos(0.0f, -1.0f, 0.0f);
+  //      while (pos.y < 1.1f) 
+		//{
+  //          pos = getRandomPosition();
+  //      }
 
-        newEntity->setPosition(pos);
-    }
+  //      newEntity->setPosition(pos);
+  //  }
 
     //Spawn the player and center them
     spawnEntity(PLAYER);
