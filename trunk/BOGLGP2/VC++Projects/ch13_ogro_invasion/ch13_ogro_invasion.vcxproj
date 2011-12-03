@@ -30,8 +30,10 @@
     <ClInclude Include="ogro_invasion\landscape.h" />
     <ClInclude Include="ogro_invasion\md2model.h" />
     <ClInclude Include="ogro_invasion\mouseinterface.h" />
+    <ClInclude Include="ogro_invasion\node.h" />
     <ClInclude Include="ogro_invasion\ogro.h" />
     <ClInclude Include="ogro_invasion\player.h" />
+    <ClInclude Include="ogro_invasion\quadtree.h" />
     <ClInclude Include="ogro_invasion\rocket.h" />
     <ClInclude Include="ogro_invasion\skybox.h" />
     <ClInclude Include="ogro_invasion\spherecollider.h" />
@@ -57,8 +59,10 @@
     <ClCompile Include="ogro_invasion\landscape.cpp" />
     <ClCompile Include="ogro_invasion\main.cpp" />
     <ClCompile Include="ogro_invasion\md2model.cpp" />
+    <ClCompile Include="ogro_invasion\node.cpp" />
     <ClCompile Include="ogro_invasion\ogro.cpp" />
     <ClCompile Include="ogro_invasion\player.cpp" />
+    <ClCompile Include="ogro_invasion\quadtree.cpp" />
     <ClCompile Include="ogro_invasion\rocket.cpp" />
     <ClCompile Include="ogro_invasion\skybox.cpp" />
     <ClCompile Include="ogro_invasion\spherecollider.cpp" />
