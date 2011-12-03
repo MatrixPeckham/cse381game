@@ -40,6 +40,8 @@ m_relY(0)
 {
     m_gameCamera = std::auto_ptr<Camera>(new Camera());
     m_frustum = std::auto_ptr<Frustum>(new Frustum());
+	//myQuadTree = new QuadTree(m_landscape->getTerrain()->getWidth());
+	myQuadTree = new QuadTree(5);
 }
 
 GameWorld::~GameWorld()
@@ -176,24 +178,24 @@ bool GameWorld::initialize()
 
 	
     //Spawn a load of monsters
-  //  for (unsigned int i = 0; i < MAX_ENEMY_COUNT; ++i)
-  //  {
-  //      Entity* newEntity = spawnEntity(OGRO);
-  //      newEntity->setPosition(getRandomPosition());
-  //  }
+    for (unsigned int i = 0; i < MAX_ENEMY_COUNT; ++i)
+    {
+        Entity* newEntity = spawnEntity(OGRO);
+        newEntity->setPosition(getRandomPosition());
+    }
 
-  //  for (int i = 0; i < TREE_COUNT; ++i)
-  //  {
-  //      Entity* newEntity = spawnEntity(TREE);
+    for (int i = 0; i < TREE_COUNT; ++i)
+    {
+        Entity* newEntity = spawnEntity(TREE);
 
-  //      Vector3 pos(0.0f, -1.0f, 0.0f);
-  //      while (pos.y < 1.1f) 
-		//{
-  //          pos = getRandomPosition();
-  //      }
+        Vector3 pos(0.0f, -1.0f, 0.0f);
+        while (pos.y < 1.1f) 
+		{
+            pos = getRandomPosition();
+        }
 
-  //      newEntity->setPosition(pos);
-  //  }
+        newEntity->setPosition(pos);
+    }
 
     //Spawn the player and center them
     spawnEntity(PLAYER);
@@ -206,7 +208,9 @@ bool GameWorld::initialize()
 
     m_gameCamera->attachTo(getPlayer()); //Attach the camera to the player
 
-    m_remainingTime = 60.0f * 5; //5 minutes
+    m_remainingTime = 60.0f * 50; //50 minutes
+
+	myQuadTree->BuildQuadTree();
 
     return true;
 }
@@ -385,4 +389,5 @@ void GameWorld::registerEntity(Entity* entity)
         return;
     }
     m_entities.push_back(entity);
+	myQuadTree->getRoot()->addEntityToNodeList(entity);
 }

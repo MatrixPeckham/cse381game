@@ -35,6 +35,8 @@ public:
     float getMinZ() { return m_minZ; }
     float getMaxZ() { return m_maxZ; }
 
+	int	 getWidth() { return width;  }
+
 	void setDrawIndex(bool ind) { drawCurIndex=ind;}
 	int getClosestIndex(Vector3 pos, Vector3 dir);
 	void toggleBounds(){drawBoundingBox=!drawBoundingBox;}

@@ -10,6 +10,7 @@
 #include "uncopyable.h"
 #include "enemy.h"
 #include "skybox.h"
+#include "quadtree.h"
 
 class KeyboardInterface;
 class MouseInterface;
@@ -169,6 +170,8 @@ class GameWorld : private Uncopyable
     private:
         std::list<Entity*> m_entities; //!< Member variable "m_enemies"
         std::list<Collider*> m_colliders;
+
+		QuadTree* myQuadTree;
 
         void registerCollider(Collider* collider);
         void unregisterCollider(const Collider* collider);
