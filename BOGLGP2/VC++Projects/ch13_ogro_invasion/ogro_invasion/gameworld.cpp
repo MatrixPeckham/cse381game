@@ -41,7 +41,7 @@ m_relY(0)
     m_gameCamera = std::auto_ptr<Camera>(new Camera());
     m_frustum = std::auto_ptr<Frustum>(new Frustum());
 	//myQuadTree = new QuadTree(m_landscape->getTerrain()->getWidth());
-	myQuadTree = new QuadTree(5);
+	myQuadTree = new QuadTree(65);
 }
 
 GameWorld::~GameWorld()
@@ -128,6 +128,7 @@ Entity* GameWorld::spawnEntity(EntityType entityType)
             string waterFrag = (GLSLProgram::glsl130Supported()) ? "data/shaders/glsl1.30/water.frag" : "data/shaders/glsl1.20/water.frag";
             newEntity = new Landscape(this, TERRAIN_HEIGHTMAP, vertexShader, fragShader, waterVert, waterFrag);
             m_landscape = dynamic_cast<Landscape*>(newEntity);
+			
         }
         break;
         case ROCKET:
@@ -170,12 +171,11 @@ bool GameWorld::initialize()
 	myRenderMode = GL_FILL;
 	myBackFaceCulling = true;
 	myIsThirdPerson = false;
-    srand((unsigned int)time(0));
+    srand((unsigned int)time(0));	
 
 	spawnEntity(SKY);
 
     spawnEntity(LANDSCAPE); //Spawn the landscape
-
 	
     //Spawn a load of monsters
     for (unsigned int i = 0; i < MAX_ENEMY_COUNT; ++i)
@@ -202,15 +202,13 @@ bool GameWorld::initialize()
     getPlayer()->setPosition(Vector3(10.0f, 0.0f, 0.0f));
 	//getPlayer()->setPosition(Vector3(97.0f, 98.0f, 94.0f));
 
-	//m_gameCamera->setPosition(Vector3(m_gameCamera->getPosition().x,
-	//								  m_gameCamera->getPosition().y + 0.75,
-	//								  m_gameCamera->getPosition().z));
-
     m_gameCamera->attachTo(getPlayer()); //Attach the camera to the player
 
     m_remainingTime = 60.0f * 50; //50 minutes
 
 	myQuadTree->BuildQuadTree();
+
+	//Node* root = myQuadTree->getRoot();
 
     return true;
 }
@@ -389,5 +387,7 @@ void GameWorld::registerEntity(Entity* entity)
         return;
     }
     m_entities.push_back(entity);
+
 	myQuadTree->getRoot()->addEntityToNodeList(entity);
+
 }
