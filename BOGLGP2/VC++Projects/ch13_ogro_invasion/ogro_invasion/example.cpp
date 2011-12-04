@@ -117,8 +117,8 @@ void Example::render()
 
         //Print out the player's score
         stringstream scoreString;
-        //scoreString << "Score: " << m_world->getPlayer()->getScore();
-		scoreString << "World Width: " << m_world->getLandscape()->getTerrain()->getWidth();
+        scoreString << "Score: " << m_world->getPlayer()->getScore();
+		//scoreString << "World Width: " << m_world->getLandscape()->getTerrain()->getWidth();
 		m_font->printString(scoreString.str(), 20.0f, 20.0f);
 
         stringstream remainingString;
