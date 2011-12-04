@@ -18,7 +18,7 @@ public:
 	Node::Node();
 	Node::Node(float width);
 
-	Node* Node::getChildren();
+	Node* Node::getChild(int index);
 	std::vector<Entity*> Node::getLOE();
 	float Node::getNodeWidth();
 	int Node::getID();

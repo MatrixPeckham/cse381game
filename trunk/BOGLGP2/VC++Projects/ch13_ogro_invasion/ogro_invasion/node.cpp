@@ -26,9 +26,9 @@ Node::Node(float width)
 	myID = -99;
 }
 
-Node* Node::getChildren()
+Node* Node::getChild(int index)
 {
-	return *myChildren;
+	return myChildren[index];
 }
 
 int Node::getID()
@@ -80,6 +80,7 @@ void Node::addEntityToChildNode(int nodeIndex, Entity* element)
 		myChildren[nodeIndex] = new Node(myNodeWidth / 2.0f);
 		myChildren[nodeIndex]->setID(nodeIndex);
 
+		//calculate center for each child
 		if(nodeIndex == 0)
 		{
 			temp.x = -myChildren[0]->getNodeWidth() / 2.0f;
@@ -89,24 +90,24 @@ void Node::addEntityToChildNode(int nodeIndex, Entity* element)
 		}
 		else if(nodeIndex == 1)
 		{
-			temp.x = -myChildren[0]->getNodeWidth() / 2.0f;
-			temp.z = myChildren[0]->getNodeWidth() / 2.0f;
+			temp.x = myChildren[1]->getNodeWidth() / 2.0f;
+			temp.z = myChildren[1]->getNodeWidth() / 2.0f;
 			
-			myChildren[0]->setCenter(temp);					     
+			myChildren[1]->setCenter(temp);					     
 		}
 		else if(nodeIndex == 2)
 		{
-			temp.x = -myChildren[0]->getNodeWidth() / 2.0f;
-			temp.z = myChildren[0]->getNodeWidth() / 2.0f;
+			temp.x = myChildren[2]->getNodeWidth() / 2.0f;
+			temp.z = -myChildren[2]->getNodeWidth() / 2.0f;
 			
-			myChildren[0]->setCenter(temp);					     
+			myChildren[2]->setCenter(temp);					     
 		}
 		else if(nodeIndex == 3)
 		{
-			temp.x = -myChildren[0]->getNodeWidth() / 2.0f;
-			temp.z = myChildren[0]->getNodeWidth() / 2.0f;
+			temp.x = -myChildren[3]->getNodeWidth() / 2.0f;
+			temp.z = -myChildren[3]->getNodeWidth() / 2.0f;
 			
-			myChildren[0]->setCenter(temp);					     
+			myChildren[3]->setCenter(temp);					     
 		}
 	}
 
