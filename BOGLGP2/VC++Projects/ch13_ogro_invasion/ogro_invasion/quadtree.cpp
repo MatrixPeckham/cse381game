@@ -3,7 +3,7 @@
 QuadTree::QuadTree(float worldWidth)
 {
 	myRoot = new Node(worldWidth);
-	myDepth = 5;
+	myDepth = 16;
 	myWorldWidth = worldWidth;
 }
 
@@ -11,23 +11,17 @@ Node* QuadTree::getRoot()
 {
 	return myRoot;
 }
-
-
-void QuadTree::BuildQuadTree()
+void QuadTree::InitChildren(Node* currNode)
 {
-	Node* currNode = myRoot;
-	float w2 = myWorldWidth / 2;
-
-	std::vector<Entity*> entitys = currNode->getLOE();
 	Vector3 currNodeCenter = currNode->getCenter();
 	Entity* temp;
-	Vector3 tempPos;
+	Vector3 tempPos(0.0f, 0.0f, 0.0f);
 
-	for(int j = 0; j < myDepth; j++)
+	if(currNode->getChildrenInit() == false)
 	{
-		for(int i = 0; i < entitys.size(); i++)
+		for(int i = 0; i < currNode->getLOE().size(); i++)
 		{
-			temp = entitys.at(i);
+			temp = currNode->getLOE().at(i);
 			tempPos = temp->getPosition();
 
 			if(tempPos.x <= currNodeCenter.x && tempPos.z >= currNodeCenter.z)//I
@@ -48,6 +42,29 @@ void QuadTree::BuildQuadTree()
 			}
 		}
 
-		currNode = currNode->getChild(j % 4);
+		currNode->setChildrenInit(true);
 	}
+}
+
+void QuadTree::recBuildTree(Node* parent, Node* currNode)
+{
+
+	if((int)currNode->getNodeWidth() == 0 || currNode->getTempNode() >= 4)
+	{
+		//parent->setTempNode(parent->getTempNode() + 1);
+		//recBuildTree(parent->getParent(), parent);
+		return;
+	}
+	else
+	{
+		InitChildren(currNode);
+		recBuildTree(currNode, currNode->getChild(1));
+		
+	}
+}
+
+void QuadTree::BuildQuadTree()
+{
+	myRoot->setNodeWidth(65);
+	recBuildTree(myRoot, myRoot);
 }

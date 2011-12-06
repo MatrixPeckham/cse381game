@@ -9,21 +9,28 @@ Node::Node()
 
 	myListOfEntitys = new std::vector<Entity*>();
 	myListInit = false;
-	myNodeWidth = -99;
-	myID = -99;
+	myNodeWidth = -1;
+	myID = -1;
 }
 
 Node::Node(float width)
 {
+	myParent = NULL;
+
 	for(int i = 0; i < 4; i++)
 	{
 		myChildren[i] = NULL;
 	}
-
+	
 	myListOfEntitys = new std::vector<Entity*>();
 	myListInit = false;
+	myChildrenInit = false;
 	myNodeWidth = width;
-	myID = -99;
+	myCenter.x = 0.0f;
+	myCenter.y = 0.0f;
+	myCenter.z = 0.0f;
+	myTempNode = 0;
+	myID = 0;//if -99 then its the root
 }
 
 Node* Node::getChild(int index)
@@ -51,6 +58,21 @@ float Node::getNodeWidth()
 	return myNodeWidth;
 }
 
+int Node::getTempNode()
+{
+	return myTempNode;
+}
+
+Node* Node::getParent()
+{
+	return myParent;
+}
+
+bool Node::getChildrenInit()
+{
+	return myChildrenInit;
+}
+
 void Node::setID(int id)
 {
 	myID = id;
@@ -59,6 +81,26 @@ void Node::setID(int id)
 void Node::setCenter(Vector3 center)
 {
 	myCenter = center;
+}
+
+void Node::setTempNode(int amt)
+{
+	myTempNode = amt;
+}
+
+void Node::setNodeWidth(float amt)
+{
+	myNodeWidth = amt;
+}
+
+void Node::setParent(Node* parent)
+{
+	myParent = parent;
+}
+
+void Node::setChildrenInit(bool amt)
+{
+	myChildrenInit = amt;
 }
 
 void Node::addEntityToNodeList(Entity* element)
@@ -79,6 +121,7 @@ void Node::addEntityToChildNode(int nodeIndex, Entity* element)
 		Vector3 temp(0.0f, 0.0f, 0.0f);
 		myChildren[nodeIndex] = new Node(myNodeWidth / 2.0f);
 		myChildren[nodeIndex]->setID(nodeIndex);
+		myChildren[nodeIndex]->setParent(this);
 
 		//calculate center for each child
 		if(nodeIndex == 0)

@@ -21,7 +21,8 @@ public:
 	QuadTree::QuadTree(float worldWidth);
 
 	Node* QuadTree::getRoot();
-	//Vector3 QuadTree::getCenterOfNode();
+	void QuadTree::recBuildTree(Node* parent, Node* currNode);
+	void QuadTree::InitChildren(Node* currNode);
 	void QuadTree::BuildQuadTree();
 
 };
