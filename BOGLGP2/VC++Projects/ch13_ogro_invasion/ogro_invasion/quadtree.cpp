@@ -46,19 +46,20 @@ void QuadTree::InitChildren(Node* currNode)
 	}
 }
 
-void QuadTree::recBuildTree(Node* parent, Node* currNode)
+void QuadTree::recBuildTree(Node* parent, Node* currNode, int leafIndex)
 {
 
 	if((int)currNode->getNodeWidth() == 0 || currNode->getTempNode() >= 4)
 	{
 		//parent->setTempNode(parent->getTempNode() + 1);
 		//recBuildTree(parent->getParent(), parent);
+		InitChildren(currNode);
 		return;
 	}
 	else
 	{
 		InitChildren(currNode);
-		recBuildTree(currNode, currNode->getChild(1));
+		recBuildTree(currNode, currNode->getChild(leafIndex), leafIndex);
 		
 	}
 }
@@ -66,5 +67,8 @@ void QuadTree::recBuildTree(Node* parent, Node* currNode)
 void QuadTree::BuildQuadTree()
 {
 	myRoot->setNodeWidth(65);
-	recBuildTree(myRoot, myRoot);
+	recBuildTree(myRoot, myRoot,0);
+	recBuildTree(myRoot, myRoot,1);
+	recBuildTree(myRoot, myRoot,2);
+	recBuildTree(myRoot, myRoot,3);
 }
