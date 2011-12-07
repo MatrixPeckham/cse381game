@@ -208,7 +208,7 @@ bool GameWorld::initialize()
 
 	myQuadTree->BuildQuadTree();
 
-	Node* root = myQuadTree->getRoot();
+ 	Node* root = myQuadTree->getRoot();
 
     return true;
 }
