@@ -40,6 +40,7 @@ public:
 
 	void Node::addEntityToNodeList(Entity* element);
 	void Node::addEntityToChildNode(int nodeIndex, Entity* element);
+	void Node::emptyListOfEntitys();
 
 };
 

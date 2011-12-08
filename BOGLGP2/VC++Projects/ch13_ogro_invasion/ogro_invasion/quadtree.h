@@ -14,14 +14,15 @@ class QuadTree
 {
 private:
 	Node* myRoot;
-	int myDepth; //How far we will continue to split our enviorment	
 	float myWorldWidth; //Width of the enviorment
 
 public:
 	QuadTree::QuadTree(float worldWidth);
 
 	Node* QuadTree::getRoot();
-	void QuadTree::recBuildTree(Node* parent, Node* currNode, int leafIndex);
+	float QuadTree::getWorldWidth();
+
+	void QuadTree::recBuildTree(Node* parent, Node* currNode);
 	void QuadTree::InitChildren(Node* currNode);
 	void QuadTree::BuildQuadTree();
 

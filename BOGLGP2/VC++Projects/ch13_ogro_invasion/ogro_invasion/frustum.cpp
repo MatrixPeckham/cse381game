@@ -1,5 +1,6 @@
 #include <cmath>
 #include "glee/GLee.h"
+#include "geom.h"
 #include "frustum.h"
 
 Plane Frustum::extractPlane(float a, float b, float c, float d)
@@ -41,6 +42,59 @@ bool Frustum::PointInFrustum( float x, float y, float z )
         }
     }
 	return true;
+}
+
+bool Frustum::PointOnPlane(Vector3 point, int planeIndex)
+{
+	if (m_planes[planeIndex].a * point.x + 
+		m_planes[planeIndex].b * point.y + 
+		m_planes[planeIndex].c * point.z + 
+		m_planes[planeIndex].d < 0)
+	{
+		return false;
+	}
+
+	return true;
+}
+
+bool Frustum::BoxInFrustum(float minX, float minZ, float maxX, float maxZ)
+{
+	//If all 8 points are not on the correct side
+	//of the plane, then the entitys is not in the Frustum
+	int total = 0;
+	Vector3* points[8];
+
+	points[0] = new Vector3(minX, -100, minZ);
+	points[1] = new Vector3(minX, -100, maxZ);
+	points[2] = new Vector3(maxX, -100, maxZ);
+	points[3] = new Vector3(maxX, -100, minZ);
+
+	points[4] = new Vector3(minX, -100, minZ);
+	points[5] = new Vector3(minX, -100, maxZ);
+	points[6] = new Vector3(maxX, -100, maxZ);
+	points[7] = new Vector3(maxX, -100, minZ);
+
+	for(int j = 0; j < 6; j++)
+	{
+		for(int i = 0; i < 8; i++)
+		{
+			Vector3 *temp = points[i];
+			
+			if(!PointOnPlane(*temp, j))
+			{
+				total++;
+			}
+		}
+
+		if(total >= 7)//if all 8 points are not on a plane then it is not in the frustum
+		{
+			return false;
+		}
+	}
+
+	return true;
+
+
 }
 
 void Frustum::updateFrustum()

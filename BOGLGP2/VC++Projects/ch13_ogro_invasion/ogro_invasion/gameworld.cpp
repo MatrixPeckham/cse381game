@@ -306,6 +306,7 @@ void GameWorld::update(float dT)
 
 }
 
+int numEntitysRenderd = 0;
 void GameWorld::render() const
 {
     m_gameCamera->apply(myIsThirdPerson);
@@ -319,12 +320,18 @@ void GameWorld::render() const
             (*entity)->render();
             (*entity)->postRender();
         }
-        else if (m_frustum->sphereInFrustum(pos.x, pos.y, pos.z, (*entity)->getCollider()->getRadius()))
+		else if (m_frustum->BoxInFrustum(-myQuadTree->getWorldWidth() / 8,
+										 -myQuadTree->getWorldWidth() / 8,
+										 0,
+										 0));
         {
             (*entity)->render();
             (*entity)->postRender();
+			numEntitysRenderd++;
         }
     }
+
+	numEntitysRenderd = numEntitysRenderd;
 }
 
 Vector3 GameWorld::getRandomPosition() const
