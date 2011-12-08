@@ -10,6 +10,8 @@ public:
 	void updateFrustum();
 	bool sphereInFrustum(float x, float y, float z, float radius);
 	bool PointInFrustum(float x, float y, float z);
+	bool PointOnPlane(Vector3 point, int planeIndex);
+	bool BoxInFrustum(float minX, float minZ, float maxX, float maxZ);
 
 private:
 	Plane m_planes[6];

@@ -103,6 +103,15 @@ void Node::setChildrenInit(bool amt)
 	myChildrenInit = amt;
 }
 
+void Node::emptyListOfEntitys()
+{
+	while(!myListOfEntitys->empty())
+	{
+		myListOfEntitys->pop_back();
+	}
+
+}
+
 void Node::addEntityToNodeList(Entity* element)
 {
 	if(myListInit = false)

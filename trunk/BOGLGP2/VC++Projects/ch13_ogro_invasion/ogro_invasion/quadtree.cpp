@@ -3,7 +3,6 @@
 QuadTree::QuadTree(float worldWidth)
 {
 	myRoot = new Node(worldWidth);
-	myDepth = 16;
 	myWorldWidth = worldWidth;
 }
 
@@ -11,6 +10,12 @@ Node* QuadTree::getRoot()
 {
 	return myRoot;
 }
+
+float QuadTree::getWorldWidth()
+{
+	return myWorldWidth;
+}
+
 void QuadTree::InitChildren(Node* currNode)
 {
 	Vector3 currNodeCenter = currNode->getCenter();
@@ -45,11 +50,12 @@ void QuadTree::InitChildren(Node* currNode)
 
 		}
 		
+		currNode->emptyListOfEntitys();
 		currNode->setChildrenInit(true);
 	}
 }
 
-void QuadTree::recBuildTree(Node* parent, Node* currNode, int leafIndex)
+void QuadTree::recBuildTree(Node* parent, Node* currNode)
 {
 	if(parent == NULL && currNode == NULL)
 	{
@@ -59,7 +65,7 @@ void QuadTree::recBuildTree(Node* parent, Node* currNode, int leafIndex)
 	{
 		Vector3 temp(0.0f, 0.0f, 0.0f);
 		currNode = new Node(parent->getNodeWidth() / 2.0f);
-		currNode->setID(leafIndex);
+		//currNode->setID(leafIndex);
 		currNode->setParent(parent);
 
 		//calculate center for each child
@@ -103,16 +109,16 @@ void QuadTree::recBuildTree(Node* parent, Node* currNode, int leafIndex)
 	else
 	{
 		InitChildren(currNode);
-		recBuildTree(currNode, currNode->getChild(0), 0);
+		recBuildTree(currNode, currNode->getChild(0));
 
 		InitChildren(currNode);
-		recBuildTree(currNode, currNode->getChild(1), 1);
+		recBuildTree(currNode, currNode->getChild(1));
 
 		InitChildren(currNode);
-		recBuildTree(currNode, currNode->getChild(2), 2);
+		recBuildTree(currNode, currNode->getChild(2));
 
 		InitChildren(currNode);
-		recBuildTree(currNode, currNode->getChild(3), 3);
+		recBuildTree(currNode, currNode->getChild(3));
 		
 	}
 }
@@ -120,8 +126,5 @@ void QuadTree::recBuildTree(Node* parent, Node* currNode, int leafIndex)
 void QuadTree::BuildQuadTree()
 {
 	myRoot->setNodeWidth(65);
-	recBuildTree(myRoot, myRoot,0);
-	//recBuildTree(myRoot, myRoot,1);
-	//recBuildTree(myRoot, myRoot,2);
-	//recBuildTree(myRoot, myRoot,3);
+	recBuildTree(myRoot, myRoot);
 }
