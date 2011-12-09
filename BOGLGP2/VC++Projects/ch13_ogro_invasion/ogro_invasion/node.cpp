@@ -73,6 +73,26 @@ bool Node::getChildrenInit()
 	return myChildrenInit;
 }
 
+float Node::getMinX()
+{
+	return myMinX;
+}
+
+float Node::getMinZ()
+{
+	return myMinZ;
+}
+
+float Node::getMaxX()
+{
+	return myMaxX;
+}
+
+float Node::getMaxZ()
+{
+	return myMaxZ;
+}
+
 void Node::setID(int id)
 {
 	myID = id;
@@ -101,6 +121,26 @@ void Node::setParent(Node* parent)
 void Node::setChildrenInit(bool amt)
 {
 	myChildrenInit = amt;
+}
+
+void Node::setMinX(float minX)
+{
+	myMinX = minX;
+}
+
+void Node::setMinZ(float minZ)
+{
+	myMinZ = minZ;
+}
+
+void Node::setMaxX(float maxX)
+{
+	myMaxX = maxX;
+}
+
+void Node::setMaxZ(float maxZ)
+{
+	myMaxZ = maxZ;
 }
 
 void Node::emptyListOfEntitys()
@@ -138,28 +178,48 @@ void Node::addEntityToChildNode(int nodeIndex, Entity* element)
 			temp.x = -myChildren[0]->getNodeWidth() / 2.0f;
 			temp.z = myChildren[0]->getNodeWidth() / 2.0f;
 			
-			myChildren[0]->setCenter(temp);					     
+			myChildren[0]->setCenter(temp);
+
+			myChildren[0]->setMinX(temp.x - (myChildren[0]->getNodeWidth() / 2));
+			myChildren[0]->setMinZ(temp.z - (myChildren[0]->getNodeWidth() / 2));
+			myChildren[0]->setMaxX(temp.x + (myChildren[0]->getNodeWidth() / 2));
+			myChildren[0]->setMaxZ(temp.z + (myChildren[0]->getNodeWidth() / 2));
 		}
 		else if(nodeIndex == 1)
 		{
 			temp.x = myChildren[1]->getNodeWidth() / 2.0f;
 			temp.z = myChildren[1]->getNodeWidth() / 2.0f;
 			
-			myChildren[1]->setCenter(temp);					     
+			myChildren[1]->setCenter(temp);	
+
+			myChildren[1]->setMinX(temp.x - (myChildren[1]->getNodeWidth() / 2));
+			myChildren[1]->setMinZ(temp.z - (myChildren[1]->getNodeWidth() / 2));
+			myChildren[1]->setMaxX(temp.x + (myChildren[1]->getNodeWidth() / 2));
+			myChildren[1]->setMaxZ(temp.z + (myChildren[1]->getNodeWidth() / 2));
 		}
 		else if(nodeIndex == 2)
 		{
 			temp.x = myChildren[2]->getNodeWidth() / 2.0f;
 			temp.z = -myChildren[2]->getNodeWidth() / 2.0f;
 			
-			myChildren[2]->setCenter(temp);					     
+			myChildren[2]->setCenter(temp);
+
+			myChildren[2]->setMinX(temp.x - (myChildren[2]->getNodeWidth() / 2));
+			myChildren[2]->setMinZ(temp.z - (myChildren[2]->getNodeWidth() / 2));
+			myChildren[2]->setMaxX(temp.x + (myChildren[2]->getNodeWidth() / 2));
+			myChildren[2]->setMaxZ(temp.z + (myChildren[2]->getNodeWidth() / 2));
 		}
 		else if(nodeIndex == 3)
 		{
 			temp.x = -myChildren[3]->getNodeWidth() / 2.0f;
 			temp.z = -myChildren[3]->getNodeWidth() / 2.0f;
 			
-			myChildren[3]->setCenter(temp);					     
+			myChildren[3]->setCenter(temp);	
+
+			myChildren[3]->setMinX(temp.x - (myChildren[3]->getNodeWidth() / 2));
+			myChildren[3]->setMinZ(temp.z - (myChildren[3]->getNodeWidth() / 2));
+			myChildren[3]->setMaxX(temp.x + (myChildren[3]->getNodeWidth() / 2));
+			myChildren[3]->setMaxZ(temp.z + (myChildren[3]->getNodeWidth() / 2));
 		}
 	}
 

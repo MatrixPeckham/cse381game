@@ -69,10 +69,10 @@ bool Frustum::BoxInFrustum(float minX, float minZ, float maxX, float maxZ)
 	points[2] = new Vector3(maxX, -100, maxZ);
 	points[3] = new Vector3(maxX, -100, minZ);
 
-	points[4] = new Vector3(minX, -100, minZ);
-	points[5] = new Vector3(minX, -100, maxZ);
-	points[6] = new Vector3(maxX, -100, maxZ);
-	points[7] = new Vector3(maxX, -100, minZ);
+	points[4] = new Vector3(minX, 100, minZ);
+	points[5] = new Vector3(minX, 100, maxZ);
+	points[6] = new Vector3(maxX, 100, maxZ);
+	points[7] = new Vector3(maxX, 100, minZ);
 
 	for(int j = 0; j < 6; j++)
 	{
@@ -86,15 +86,13 @@ bool Frustum::BoxInFrustum(float minX, float minZ, float maxX, float maxZ)
 			}
 		}
 
-		if(total >= 7)//if all 8 points are not on a plane then it is not in the frustum
+		if(total >= 8)//if all 8 points are not on a plane then it is not in the frustum
 		{
 			return false;
 		}
 	}
 
 	return true;
-
-
 }
 
 void Frustum::updateFrustum()
