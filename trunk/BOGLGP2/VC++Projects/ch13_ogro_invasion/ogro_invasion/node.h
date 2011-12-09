@@ -18,6 +18,11 @@ private:
 	float myNodeWidth;
 	Vector3 myCenter;
 
+	float myMinX;
+	float myMinZ;
+	float myMaxX;
+	float myMaxZ;
+
 public:
 	Node::Node();
 	Node::Node(float width);
@@ -26,6 +31,11 @@ public:
 	Node* Node::getParent();
 	std::vector<Entity*> Node::getLOE();
 	float Node::getNodeWidth();
+	float Node::getMinX();
+	float Node::getMinZ();
+	float Node::getMaxX();
+	float Node::getMaxZ();
+
 	int Node::getID();
 	int Node::getTempNode();
 	Vector3 Node::getCenter();
@@ -37,6 +47,10 @@ public:
 	void Node::setNodeWidth(float amt);
 	void Node::setParent(Node* parent);
 	void Node::setChildrenInit(bool amt);
+	void Node::setMinX(float minX);
+	void Node::setMinZ(float minZ);
+	void Node::setMaxX(float maxX);
+	void Node::setMaxZ(float maxZ);
 
 	void Node::addEntityToNodeList(Entity* element);
 	void Node::addEntityToChildNode(int nodeIndex, Entity* element);

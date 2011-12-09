@@ -311,19 +311,21 @@ void GameWorld::render() const
 {
     m_gameCamera->apply(myIsThirdPerson);
     m_frustum->updateFrustum();
+	float minX;
+	float minZ;
+	float maxX;
+	float maxZ;
 
     for (ConstEntityIterator entity = m_entities.begin(); entity != m_entities.end(); ++entity)
     {
         Vector3 pos = (*entity)->getPosition();
+
         if ((*entity)->getType() == LANDSCAPE || (*entity)->getType() == SKY || (*entity)->getCollider() == NULL)
         {
             (*entity)->render();
             (*entity)->postRender();
         }
-		else if (m_frustum->BoxInFrustum(-myQuadTree->getWorldWidth() / 8,
-										 -myQuadTree->getWorldWidth() / 8,
-										 0,
-										 0));
+		else if (m_frustum->BoxInFrustum(minX,minZ,maxX,maxZ))
         {
             (*entity)->render();
             (*entity)->postRender();
