@@ -34,10 +34,10 @@ Node::Node(float width)
 	myTempNode = 0;
 	myID = -99;//if -99 then its the root
 
-	myMinX = 0.0f;
-	myMinZ = 0.0f;
-	myMaxX = 0.0f;
-	myMaxZ = 0.0f;
+	myMinX = -64.0f;
+	myMinZ = -64.0f;
+	myMaxX = 64.0f;
+	myMaxZ = 64.0f;
 }
 
 Node* Node::getChild(int index)
@@ -168,6 +168,19 @@ void Node::addEntityToNodeList(Entity* element)
 	}
 
 	myListOfEntitys->push_back(element);
+}
+
+bool Node::getIsLeafNode()
+{
+	for(int i = 0; i < 4; i++)
+	{
+		if(myChildren[i] != NULL)
+		{
+			return false;
+		}
+	}
+
+	return true;
 }
 
 void Node::addEntityToChildNode(int nodeIndex, Entity* element)

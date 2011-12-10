@@ -150,9 +150,9 @@ class GameWorld : private Uncopyable
             y = m_relY;
         }
 
-		Frustum * getFrustum()
+		Frustum* getFrustum()
 		{
-			return m_frustum.get();
+			return m_frustum;
 		}
 
 		bool getIsThirdPerson()
@@ -206,7 +206,7 @@ class GameWorld : private Uncopyable
 
 		Vector3 myCamPos;
 
-        std::auto_ptr<Frustum> m_frustum;
+        Frustum *m_frustum;
 };
 
 #endif // GAMEWORLD_H

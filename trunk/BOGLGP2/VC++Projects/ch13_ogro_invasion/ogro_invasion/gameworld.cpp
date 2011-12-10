@@ -39,7 +39,7 @@ m_relX(0),
 m_relY(0)
 {
     m_gameCamera = std::auto_ptr<Camera>(new Camera());
-    m_frustum = std::auto_ptr<Frustum>(new Frustum());
+    m_frustum = new Frustum();
 	//myQuadTree = new QuadTree(m_landscape->getTerrain()->getWidth());
 	myQuadTree = new QuadTree(65);
 }
@@ -309,29 +309,39 @@ void GameWorld::update(float dT)
 int numEntitysRenderd = 0;
 void GameWorld::render() const
 {
+	float minX = 0.0f;
+	float minZ = 0.0f;
+	float maxX = 0.0f;
+	float maxZ = 0.0f;
+	vector<Entity*> tempList;
+
     m_gameCamera->apply(myIsThirdPerson);
     m_frustum->updateFrustum();
-	float minX;
-	float minZ;
-	float maxX;
-	float maxZ;
+	tempList = myQuadTree->getPotentiallyVisible(m_frustum);
 
-    for (ConstEntityIterator entity = m_entities.begin(); entity != m_entities.end(); ++entity)
+
+	for (int w = 0; w < tempList.size(); w++)
     {
-        Vector3 pos = (*entity)->getPosition();
-
-        if ((*entity)->getType() == LANDSCAPE || (*entity)->getType() == SKY || (*entity)->getCollider() == NULL)
+		Entity *entity = tempList.at(w); 
+        Vector3 pos = entity->getPosition();
+		
+        if (entity->getType() == LANDSCAPE || entity->getType() == SKY || entity->getCollider() == NULL)
         {
-            (*entity)->render();
-            (*entity)->postRender();
+            entity->render();
+            entity->postRender();
         }
-		else if (m_frustum->BoxInFrustum(minX,minZ,maxX,maxZ))
-        {
-            (*entity)->render();
-            (*entity)->postRender();
-			numEntitysRenderd++;
-        }
-    }
+		else if(entity->getCollider()!=NULL)
+		{
+			if(m_frustum->sphereInFrustum(entity->getPosition().x,
+										  entity->getPosition().y,
+										  entity->getPosition().z,
+										  entity->getCollider()->getRadius()))
+			{
+				entity->render();
+				entity->postRender();
+			}
+		}
+	}
 
 	numEntitysRenderd = numEntitysRenderd;
 }

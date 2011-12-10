@@ -40,6 +40,7 @@ public:
 	int Node::getTempNode();
 	Vector3 Node::getCenter();
 	bool Node::getChildrenInit();
+	bool Node::getIsLeafNode();
 
 	void Node::setID(int id);
 	void Node::setCenter(Vector3 center);
