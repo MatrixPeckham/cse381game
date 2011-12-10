@@ -166,7 +166,8 @@ class GameWorld : private Uncopyable
 			myIsThirdPerson = isThirdPerson;
 		}
 
-
+		bool isInRoom(){return inRoom;}
+		void setInRoom(bool b){inRoom=b;}
 
     private:
         std::list<Entity*> m_entities; //!< Member variable "m_enemies"
@@ -209,6 +210,7 @@ class GameWorld : private Uncopyable
 		Vector3 myCamPos;
 
         Frustum *m_frustum;
+		bool inRoom;
 };
 
 #endif // GAMEWORLD_H

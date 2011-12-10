@@ -242,6 +242,7 @@ void GameWorld::update(float dT)
     }
 
     //Perform all the collisions
+	inRoom=false;
     Collider::updateColliders(m_colliders);
     clearDeadEntities(); //Remove any entities that were killed as a result of a collision
 

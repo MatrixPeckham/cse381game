@@ -7,11 +7,13 @@
 #include "glee/GLee.h"
 #include <GL/glu.h>
 #include <vector>
+#include <math.h>
 
 #include "goalarea.h"
 #include "targa.h"
 #include "glslshader.h"
 #include "spherecollider.h"
+#include "gameworld.h"
 
 using std::string;
 
@@ -32,7 +34,8 @@ const string FRAGMENT_SHADER_130 = "data/shaders/glsl1.30/alpha_test.frag";
 GoalArea::GoalArea(GameWorld* const world):
 Entity(world)
 {
-    m_collider = new SphereCollider(this, 1.73205081f);
+	wid = 4;
+	m_collider = new SphereCollider(this, std::sqrtf(3*(wid/2*wid/2)));
 }
 
 GoalArea::~GoalArea()
@@ -92,7 +95,6 @@ void GoalArea::onPostRender()
 
 void GoalArea::initializeVBOs()
 {
-	int wid = 4;
 	vector<Vertex> vertexBuffer;
 	vertexBuffer.push_back(Vertex(-wid/2, -wid/2,  wid/2));
     vertexBuffer.push_back(Vertex(wid/2, -wid/2,  wid/2));
@@ -244,4 +246,10 @@ bool GoalArea::onInitialize()
 void GoalArea::onShutdown()
 {
 
+}
+
+void GoalArea::onCollision(Entity* collider){
+	if(collider->getType()==PLAYER){
+		getWorld()->setInRoom(true);
+	}
 }
