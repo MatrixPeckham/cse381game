@@ -157,10 +157,15 @@ void Example::render()
 
 		m_font->printString(mode,(float) viewport[2]/2, (float) viewport[3]-15);
 
+		m_font->printString(m_world->isInRoom()?"In Hostage Room":"",(float) viewport[2]/2, (float) viewport[3]-25);
+
 
         stringstream fpsMessage;     
         fpsMessage << "FPS: " << std::setprecision(3) << m_FPS;
         m_font->printString(fpsMessage.str(), (float)viewport[2] - 100.0f, 20.0f);
+
+
+
     }
     else
     {

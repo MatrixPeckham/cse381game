@@ -711,6 +711,7 @@ void Terrain::renderWater() const
     //Send the modelview and projection matrices to the shaders
     m_waterShaderProgram->sendUniform4x4("modelview_matrix", modelviewMatrix);
     m_waterShaderProgram->sendUniform4x4("projection_matrix", projectionMatrix);
+    m_waterShaderProgram->sendUniform("texture0", 0);
 
     glBindTexture(GL_TEXTURE_2D, m_waterTexID);
 
@@ -769,6 +770,7 @@ void Terrain::render(Frustum * frust) const
 	m_shaderProgram->sendUniform4x4("modelview_matrix", modelviewMatrix);
 	m_shaderProgram->sendUniform4x4("projection_matrix", projectionMatrix);
 	m_shaderProgram->sendUniform3x3("normal_matrix", &normalMatrix[0]);
+    m_shaderProgram->sendUniform("texture0", 0);
 
 	glEnableVertexAttribArray(0);
 	glEnableVertexAttribArray(1);

@@ -33,7 +33,7 @@ public:
 
     EntityType getType() const { return GOALAREA; }
 
-    virtual void onCollision(Entity* collider) { }
+    virtual void onCollision(Entity* collider);
 private:
     static GLuint m_goalAreaTexID;
     static GLuint m_vertexBuffer;
@@ -43,7 +43,7 @@ private:
 	std::vector<GLuint> indices;
 
     void initializeVBOs();
-
+	int wid;
     Vector3 m_position;
     Collider* m_collider;
 };
