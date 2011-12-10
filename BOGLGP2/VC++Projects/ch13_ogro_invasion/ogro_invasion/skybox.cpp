@@ -218,6 +218,7 @@ void Skybox::onRender() const
 		glGetFloatv(GL_MODELVIEW_MATRIX, modelviewMatrix);
 		glGetFloatv(GL_PROJECTION_MATRIX, projectionMatrix);
 
+		glActiveTexture(GL_TEXTURE0);
 		//Enable the point sprite and the automatic texture coordinates
 		glBindTexture(GL_TEXTURE_2D, myTexID);
 
