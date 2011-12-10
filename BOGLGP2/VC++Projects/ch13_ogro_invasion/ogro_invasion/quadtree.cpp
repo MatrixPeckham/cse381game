@@ -35,39 +35,13 @@ std::vector<Entity*> QuadTree::Concat(std::vector<Entity*> v1, std::vector<Entit
 
 void QuadTree::InitChildren(Node* currNode)
 {
-	Vector3 currNodeCenter = currNode->getCenter();
-	Entity* temp;
-	Vector3 tempPos(0.0f, 0.0f, 0.0f);
-
 	if(currNode->getChildrenInit() == false)
 	{
-		for(int i = 0; i < currNode->getLOE().size(); i++)
-		{
-			temp = currNode->getLOE().at(i);
-			currNode->getLOE().pop_back();
+		currNode->initChild(0);
+		currNode->initChild(1);
+		currNode->initChild(2);
+		currNode->initChild(3);
 
-			tempPos = temp->getPosition();
-
-			if(tempPos.x <= currNodeCenter.x && tempPos.z >= currNodeCenter.z)//I
-			{
-				currNode->addEntityToChildNode(0, temp);
-			}
-			else if(tempPos.x > currNodeCenter.x && tempPos.z >= currNodeCenter.z)//II
-			{
-				currNode->addEntityToChildNode(1, temp);
-			}
-			else if(tempPos.x > currNodeCenter.x && tempPos.z < currNodeCenter.z)//III
-			{
-				currNode->addEntityToChildNode(2, temp);
-			}
-			else if(tempPos.x <= currNodeCenter.x && tempPos.z < currNodeCenter.z)//IV
-			{
-				currNode->addEntityToChildNode(3, temp);
-			}
-
-		}
-
-		currNode->emptyListOfEntitys();
 		currNode->setChildrenInit(true);
 	}
 }
@@ -83,7 +57,6 @@ void QuadTree::recBuildTree(Node* parent, Node* currNode)
 	{
 		Vector3 temp(0.0f, 0.0f, 0.0f);
 		currNode = new Node(parent->getNodeWidth() / 2.0f);
-		//currNode->setID(leafIndex);
 		currNode->setParent(parent);
 
 		//calculate center for each child

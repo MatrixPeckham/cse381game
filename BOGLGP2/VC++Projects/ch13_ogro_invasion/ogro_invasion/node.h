@@ -54,7 +54,7 @@ public:
 	void Node::setMaxZ(float maxZ);
 
 	void Node::addEntityToNodeList(Entity* element);
-	void Node::addEntityToChildNode(int nodeIndex, Entity* element);
+	void Node::initChild(int nodeIndex);
 	void Node::emptyListOfEntitys();
 
 };

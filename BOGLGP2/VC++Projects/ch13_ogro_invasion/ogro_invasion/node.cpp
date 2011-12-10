@@ -183,7 +183,7 @@ bool Node::getIsLeafNode()
 	return true;
 }
 
-void Node::addEntityToChildNode(int nodeIndex, Entity* element)
+void Node::initChild(int nodeIndex)
 {
 	if(myChildren[nodeIndex] == NULL)
 	{
@@ -242,6 +242,4 @@ void Node::addEntityToChildNode(int nodeIndex, Entity* element)
 			myChildren[3]->setMaxZ(temp.z + (myChildren[3]->getNodeWidth() / 2));
 		}
 	}
-
-	myChildren[nodeIndex]->addEntityToNodeList(element);
 }
