@@ -713,7 +713,8 @@ void Terrain::renderWater() const
     m_waterShaderProgram->sendUniform4x4("projection_matrix", projectionMatrix);
     m_waterShaderProgram->sendUniform("texture0", 0);
 
-    glBindTexture(GL_TEXTURE_2D, m_waterTexID);
+ 		glActiveTexture(GL_TEXTURE0);
+   glBindTexture(GL_TEXTURE_2D, m_waterTexID);
 
     //glEnable(GL_BLEND);
     //glBlendFunc(GL_SRC_ALPHA, GL_ONE);

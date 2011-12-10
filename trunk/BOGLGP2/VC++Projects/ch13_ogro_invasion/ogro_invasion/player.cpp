@@ -322,6 +322,7 @@ void Player::onRender() const
 			Vector3 pos = getPosition();
 			glTranslatef(pos.x, pos.y - 0.2, pos.z);
 			glRotatef(getYaw(), 0.0f, -1.0f, 0.0f);
+			glActiveTexture(GL_TEXTURE0);
 			glBindTexture(GL_TEXTURE_2D, myBodyTextureID);
 			myBody->render();
 			glBindTexture(GL_TEXTURE_2D, myHeadTextureID);

@@ -64,6 +64,7 @@ void GoalArea::onRender() const
     m_shaderProgram->sendUniform4x4("projection_matrix", projectionMatrix);
     m_shaderProgram->sendUniform("texture0", 0);
 
+	glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, m_goalAreaTexID);
 
     glDisable(GL_CULL_FACE);

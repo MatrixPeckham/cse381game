@@ -154,6 +154,7 @@ void Explosion::onRender() const
     positions.clear();
     colors.clear();
 
+		glActiveTexture(GL_TEXTURE0);
     //Enable the point sprite and the automatic texture coordinates
     glBindTexture(GL_TEXTURE_2D, m_particleTexID);
     for (ConstParticleIterator it = m_particles.begin(); it != m_particles.end(); ++it)

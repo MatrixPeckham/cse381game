@@ -66,6 +66,7 @@ void Rocket::onRender() const
         glTranslatef(pos.x, pos.y, pos.z);
         glRotatef(getYaw(), 0.0f, -1.0f, 0.0f);
         glRotatef(getPitch(), 0.0f, 0.0f, 1.0f);
+  		glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, m_rocketTexID);
         glScalef(0.5f, 0.5f, 0.5f);
         m_model->render();
