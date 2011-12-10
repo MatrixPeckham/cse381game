@@ -114,6 +114,9 @@
     <ClInclude Include="ogro_invasion\quadtree.h">
       <Filter>ogro_invasion</Filter>
     </ClInclude>
+    <ClInclude Include="ogro_invasion\goalarea.h">
+      <Filter>ogro_invasion</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ogro_invasion\camera.cpp">
@@ -186,6 +189,9 @@
       <Filter>ogro_invasion</Filter>
     </ClCompile>
     <ClCompile Include="ogro_invasion\node.cpp">
+      <Filter>ogro_invasion</Filter>
+    </ClCompile>
+    <ClCompile Include="ogro_invasion\goalarea.cpp">
       <Filter>ogro_invasion</Filter>
     </ClCompile>
   </ItemGroup>

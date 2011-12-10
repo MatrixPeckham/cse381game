@@ -57,6 +57,7 @@ void Tree::onRender() const
     m_shaderProgram->bindShader();
     m_shaderProgram->sendUniform4x4("modelview_matrix", modelviewMatrix);
     m_shaderProgram->sendUniform4x4("projection_matrix", projectionMatrix);
+    m_shaderProgram->sendUniform("texture0", 0);
 
     glBindTexture(GL_TEXTURE_2D, m_treeTexID);
 

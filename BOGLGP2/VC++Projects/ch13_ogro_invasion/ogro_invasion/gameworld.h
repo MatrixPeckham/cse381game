@@ -11,6 +11,7 @@
 #include "enemy.h"
 #include "skybox.h"
 #include "quadtree.h"
+#include "goalarea.h"
 
 class KeyboardInterface;
 class MouseInterface;
@@ -182,8 +183,8 @@ class GameWorld : private Uncopyable
 		Vector3 getRandomPosition() const;
         void clearDeadEntities();
 
-        static const unsigned int MAX_ENEMY_COUNT = 50;
-        static const int TREE_COUNT = 20;
+        static const unsigned int MAX_ENEMY_COUNT = 5;
+        static const int TREE_COUNT = 2;
 
 		GLint myRenderMode;
 		bool myBackFaceCulling;
@@ -192,6 +193,7 @@ class GameWorld : private Uncopyable
         Player* m_player;
         Landscape* m_landscape;
 		Skybox*	mySkybox;
+		GoalArea* m_goal;
 
         std::auto_ptr<Camera> m_gameCamera;
 

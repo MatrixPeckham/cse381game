@@ -26,6 +26,7 @@
     <ClInclude Include="ogro_invasion\geom.h" />
     <ClInclude Include="ogro_invasion\glslshader.h" />
     <ClInclude Include="ogro_invasion\glwindow.h" />
+    <ClInclude Include="ogro_invasion\goalarea.h" />
     <ClInclude Include="ogro_invasion\keyboardinterface.h" />
     <ClInclude Include="ogro_invasion\landscape.h" />
     <ClInclude Include="ogro_invasion\md2model.h" />
@@ -56,6 +57,7 @@
     <ClCompile Include="ogro_invasion\frustum.cpp" />
     <ClCompile Include="ogro_invasion\gameworld.cpp" />
     <ClCompile Include="ogro_invasion\glwindow.cpp" />
+    <ClCompile Include="ogro_invasion\goalarea.cpp" />
     <ClCompile Include="ogro_invasion\landscape.cpp" />
     <ClCompile Include="ogro_invasion\main.cpp" />
     <ClCompile Include="ogro_invasion\md2model.cpp" />
