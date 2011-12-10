@@ -26,11 +26,18 @@ Node::Node(float width)
 	myListInit = false;
 	myChildrenInit = false;
 	myNodeWidth = width;
+
 	myCenter.x = 0.0f;
 	myCenter.y = 0.0f;
 	myCenter.z = 0.0f;
+	
 	myTempNode = 0;
-	myID = 0;//if -99 then its the root
+	myID = -99;//if -99 then its the root
+
+	myMinX = 0.0f;
+	myMinZ = 0.0f;
+	myMaxX = 0.0f;
+	myMaxZ = 0.0f;
 }
 
 Node* Node::getChild(int index)
