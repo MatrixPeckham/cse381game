@@ -6,25 +6,30 @@
 #endif
 
 #include "entity.h"
+#include "frustum.h"
 #include "node.h"
-#include <list>
-
+#include <vector>
 
 class QuadTree
 {
 private:
 	Node* myRoot;
 	float myWorldWidth; //Width of the enviorment
+	std::vector<Entity*> myConcatList;
+
+	void QuadTree::recBuildTree(Node* parent, Node* currNode);
+	std::vector<Entity*> QuadTree::recPotentiallyVisible(Node* curNode, Frustum *frust);
 
 public:
 	QuadTree::QuadTree(float worldWidth);
 
 	Node* QuadTree::getRoot();
 	float QuadTree::getWorldWidth();
-
-	void QuadTree::recBuildTree(Node* parent, Node* currNode);
+	std::vector<Entity*> getPotentiallyVisible(Frustum *frust);
+	
 	void QuadTree::InitChildren(Node* currNode);
 	void QuadTree::BuildQuadTree();
+	std::vector<Entity*> QuadTree::Concat(std::vector<Entity*> v1, std::vector<Entity*> v2);
 
 };
 
