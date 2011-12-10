@@ -19,6 +19,7 @@
 #include "rocket.h"
 #include "explosion.h"
 #include "tree.h"
+#include "goalarea.h"
 #include "frustum.h"
 
 using std::list;
@@ -144,6 +145,10 @@ Entity* GameWorld::spawnEntity(EntityType entityType)
 			newEntity = new Skybox(this);
 			mySkybox = dynamic_cast<Skybox*>(newEntity);
 		break;
+		case GOALAREA:
+			newEntity = new GoalArea(this);
+			m_goal = dynamic_cast<GoalArea*>(newEntity);
+			break;
         default:
             throw std::invalid_argument("Attempted to spawn an invalid entity");
     }
@@ -176,6 +181,8 @@ bool GameWorld::initialize()
 	spawnEntity(SKY);
 
     spawnEntity(LANDSCAPE); //Spawn the landscape
+
+	spawnEntity(GOALAREA);
 	
     //Spawn a load of monsters
     for (unsigned int i = 0; i < MAX_ENEMY_COUNT; ++i)
@@ -196,6 +203,8 @@ bool GameWorld::initialize()
 
         newEntity->setPosition(pos);
     }
+
+	m_goal->setPosition(getRandomPosition());
 
     //Spawn the player and center them
     spawnEntity(PLAYER);
