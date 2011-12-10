@@ -86,11 +86,12 @@ bool Frustum::BoxInFrustum(float minX, float minZ, float maxX, float maxZ)
 			}
 		}
 
-		total = 0;
 		if(total >= 8)//if all 8 points are not on a plane then it is not in the frustum
 		{
 			return false;
 		}
+
+		total = 0;
 	}
 
 	return true;

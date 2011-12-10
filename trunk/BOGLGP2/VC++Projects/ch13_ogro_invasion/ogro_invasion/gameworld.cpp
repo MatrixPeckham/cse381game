@@ -417,6 +417,6 @@ void GameWorld::registerEntity(Entity* entity)
     }
     m_entities.push_back(entity);
 
-	myQuadTree->getRoot()->addEntityToNodeList(entity);
+	//myQuadTree->getRoot()->addEntityToNodeList(entity);
 
 }
