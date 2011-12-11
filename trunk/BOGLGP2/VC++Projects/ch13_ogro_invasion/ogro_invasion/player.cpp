@@ -204,13 +204,13 @@ void Player::onPrepare(float dT)
 	}
 
     if (getWorld()->getKeyboard()->isKeyPressed(KC_SPACE))
-    {
+    {/*
         Entity* rocket = getWorld()->spawnEntity(ROCKET);
         rocket->setPosition(getPosition());
         rocket->setYaw(getYaw());
         rocket->setPitch(getPitch());
 		getWorld()->getQuadTree()->UpdateEntity(rocket);
-    }
+    */}
 
 	if(getWorld()->getMouse()->isButtonDown(0))
 	{
