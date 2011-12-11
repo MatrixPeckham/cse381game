@@ -36,6 +36,8 @@ class GameWorld : private Uncopyable
         void update(float dt);
         void render() const;
 
+		void playerAttack();
+
         typedef std::list<Entity*>::iterator EntityIterator;
         typedef std::list<Entity*>::const_iterator ConstEntityIterator;
 
@@ -185,8 +187,8 @@ class GameWorld : private Uncopyable
 		Vector3 getRandomPosition() const;
         void clearDeadEntities();
 
-        static const unsigned int MAX_ENEMY_COUNT = 2;
-        static const int TREE_COUNT = 2;
+        static const unsigned int MAX_ENEMY_COUNT = 10;
+        static const int TREE_COUNT = 10;
 
 		GLint myRenderMode;
 		bool myBackFaceCulling;

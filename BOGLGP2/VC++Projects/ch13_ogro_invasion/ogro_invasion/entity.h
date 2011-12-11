@@ -7,6 +7,7 @@
 
 class GameWorld;
 class Collider;
+class Node;
 
 /**
     The entity is uncopyable because we will mainly be handling
@@ -25,6 +26,7 @@ class Entity : private Uncopyable {
         bool m_canBeRemoved;
 
         GameWorld* m_world;
+		Node* containingNode;
     public:
         Entity(GameWorld* const gameWorld);
         virtual ~Entity();
@@ -54,6 +56,8 @@ class Entity : private Uncopyable {
         GameWorld* getWorld() const {
             return m_world;
         }
+		Node* getContainingNode(){return containingNode;}
+		void setContainingNode(Node* n){containingNode=n;}
 };
 
 #endif // ENTITY_H_INCLUDED

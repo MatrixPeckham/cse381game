@@ -232,3 +232,13 @@ void Node::initChild(int nodeIndex)
 		}
 	}
 }
+
+void Node::removeEntityFromNodeList(Entity* ent){
+	std::vector<Entity*>::iterator it = myListOfEntitys->begin();
+	for(;it!=myListOfEntitys->end();++it){
+		if(*it==ent){
+			myListOfEntitys->erase(it);
+			return;
+		}
+	}
+}

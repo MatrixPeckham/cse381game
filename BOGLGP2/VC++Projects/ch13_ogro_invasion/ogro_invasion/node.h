@@ -51,6 +51,7 @@ public:
 	void Node::setMaxZ(float maxZ);
 
 	void Node::addEntityToNodeList(Entity* element);
+	void Node::removeEntityFromNodeList(Entity* element);
 	void Node::initChild(int nodeIndex);
 	void Node::emptyListOfEntitys();
 
