@@ -151,6 +151,26 @@ std::vector<Entity*> QuadTree::recPotentiallyVisible(Node* curNode, Frustum *fru
 	myConcatList.clear();
 	return myConcatList;
 }
+void QuadTree::recAddEntity(Entity* item, Node* currNode)
+{
+	if(currNode->getIsLeafNode())
+	{
+		currNode->addEntityToNodeList(item);
+	}
+	else
+	{
+		QuadTree::recAddEntity(item, currNode->getChild(0));
+		QuadTree::recAddEntity(item, currNode->getChild(1));
+		QuadTree::recAddEntity(item, currNode->getChild(2));
+		QuadTree::recAddEntity(item, currNode->getChild(3));
+	}
+}
+
+
+void QuadTree::AddEntity(Entity* item)
+{
+	QuadTree::recAddEntity(item, myRoot);
+}
 
 std::vector<Entity*> QuadTree::getPotentiallyVisible(Frustum *frust)
 {
