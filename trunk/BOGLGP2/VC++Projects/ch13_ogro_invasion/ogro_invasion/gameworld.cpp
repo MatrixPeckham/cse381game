@@ -178,17 +178,25 @@ bool GameWorld::initialize()
 	myIsThirdPerson = false;
     srand((unsigned int)time(0));	
 
+	myQuadTree->BuildQuadTree();
+
+ 	Node* root = myQuadTree->getRoot();
+
 	spawnEntity(SKY);
 
     spawnEntity(LANDSCAPE); //Spawn the landscape
 
 	spawnEntity(GOALAREA);
+	m_goal->setPosition(getRandomPosition());
+	myQuadTree->AddEntity(m_goal);
 	
     //Spawn a load of monsters
     for (unsigned int i = 0; i < MAX_ENEMY_COUNT; ++i)
     {
         Entity* newEntity = spawnEntity(OGRO);
         newEntity->setPosition(getRandomPosition());
+		if(!(newEntity->getType()==SKY||newEntity->getType()==LANDSCAPE))
+			myQuadTree->AddEntity(newEntity);
     }
 
     for (int i = 0; i < TREE_COUNT; ++i)
@@ -202,9 +210,11 @@ bool GameWorld::initialize()
         }
 
         newEntity->setPosition(pos);
+		if(!(newEntity->getType()==SKY||newEntity->getType()==LANDSCAPE))
+			myQuadTree->AddEntity(newEntity);
+
     }
 
-	m_goal->setPosition(getRandomPosition());
 
     //Spawn the player and center them
     spawnEntity(PLAYER);
@@ -215,9 +225,6 @@ bool GameWorld::initialize()
 
     m_remainingTime = 60.0f * 50; //50 minutes
 
-	myQuadTree->BuildQuadTree();
-
- 	Node* root = myQuadTree->getRoot();
 
     return true;
 }
@@ -419,6 +426,5 @@ void GameWorld::registerEntity(Entity* entity)
     }
 
     m_entities.push_back(entity);
-	myQuadTree->AddEntity(entity);
 
 }

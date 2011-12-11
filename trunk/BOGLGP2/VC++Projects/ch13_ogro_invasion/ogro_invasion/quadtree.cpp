@@ -90,7 +90,7 @@ void QuadTree::recBuildTree(Node* parent, Node* currNode)
 		}
 	}
 
-	if((int)currNode->getNodeWidth() == 0 || currNode->getTempNode() >= 4)
+	if((int)currNode->getNodeWidth() < 10 || currNode->getTempNode() >= 4)
 	{
 		InitChildren(currNode);
 		return;
@@ -114,6 +114,8 @@ void QuadTree::recBuildTree(Node* parent, Node* currNode)
 
 std::vector<Entity*> QuadTree::recPotentiallyVisible(Node* curNode, Frustum *frust)
 {
+	std::vector<Entity*> myConcatList;
+
 	if(curNode != NULL)
 	{
 		//if node is visible
@@ -208,5 +210,5 @@ std::vector<Entity*> QuadTree::getPotentiallyVisible(Frustum *frust)
 void QuadTree::BuildQuadTree()
 {
 	myRoot->setNodeWidth(65);
-	recBuildTree(myRoot, myRoot);
+	recBuildTree(NULL, myRoot);
 }
