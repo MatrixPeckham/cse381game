@@ -328,6 +328,10 @@ void GameWorld::render() const
     m_frustum->updateFrustum();
 	tempList = myQuadTree->getPotentiallyVisible(m_frustum);
 
+	mySkybox->render();
+	mySkybox->postRender();
+	m_landscape->render();
+	m_landscape->postRender();
 
 	for (int w = 0; w < tempList.size(); w++)
     {
@@ -413,6 +417,8 @@ void GameWorld::registerEntity(Entity* entity)
     {
         return;
     }
+
     m_entities.push_back(entity);
+	myQuadTree->AddEntity(entity);
 
 }

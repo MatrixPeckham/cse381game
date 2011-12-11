@@ -159,10 +159,37 @@ void QuadTree::recAddEntity(Entity* item, Node* currNode)
 	}
 	else
 	{
-		QuadTree::recAddEntity(item, currNode->getChild(0));
-		QuadTree::recAddEntity(item, currNode->getChild(1));
-		QuadTree::recAddEntity(item, currNode->getChild(2));
-		QuadTree::recAddEntity(item, currNode->getChild(3));
+		if( item->getPosition().x< currNode->getChild(0)->getMaxX() &&
+		    item->getPosition().x> currNode->getChild(0)->getMinX() &&
+		    item->getPosition().z< currNode->getChild(0)->getMaxZ() &&
+		    item->getPosition().z> currNode->getChild(0)->getMinZ())
+		{
+			QuadTree::recAddEntity(item, currNode->getChild(0));
+		}
+		
+		if( item->getPosition().x< currNode->getChild(1)->getMaxX() &&
+		    item->getPosition().x> currNode->getChild(1)->getMinX() &&
+		    item->getPosition().z< currNode->getChild(1)->getMaxZ() &&
+		    item->getPosition().z> currNode->getChild(1)->getMinZ())
+		{
+			QuadTree::recAddEntity(item, currNode->getChild(1));
+		}
+
+		if( item->getPosition().x< currNode->getChild(2)->getMaxX() &&
+		    item->getPosition().x> currNode->getChild(2)->getMinX() &&
+		    item->getPosition().z< currNode->getChild(2)->getMaxZ() &&
+		    item->getPosition().z> currNode->getChild(2)->getMinZ())
+		{
+			QuadTree::recAddEntity(item, currNode->getChild(2));
+		}
+
+		if( item->getPosition().x< currNode->getChild(3)->getMaxX() &&
+		    item->getPosition().x> currNode->getChild(3)->getMinX() &&
+		    item->getPosition().z< currNode->getChild(3)->getMaxZ() &&
+		    item->getPosition().z> currNode->getChild(3)->getMinZ())
+		{
+			QuadTree::recAddEntity(item, currNode->getChild(3));
+		}
 	}
 }
 
