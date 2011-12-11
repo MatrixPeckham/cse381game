@@ -226,7 +226,7 @@ void Ogro::processAI()
 		float playerDistance = playerDirection.length();
 		playerDirection.normalize();
 		const int dist = 3;
-		const float hitAngle = degreesToRadians(90);
+		const float hitAngle = degreesToRadians(40);
 		float m_yaw = getYaw();
 		float m_pitch = getPitch();
 		float cosYaw = cosf(degreesToRadians(m_yaw));
@@ -241,10 +241,14 @@ void Ogro::processAI()
 		if(playerDistance<DANGER_DISTANCE){
 			float dot = playerDirection.x*look.x+playerDirection.y*look.y+playerDirection.z*look.z;
 			if(-dot>cos(hitAngle)){
+
+				float ryaw=(float)atan2(-playerDirection.z,-playerDirection.x);
+				float rpit=(float)atan2(playerDirection.y,1);
+				
 			    Entity* rocket = getWorld()->spawnEntity(ROCKET);
 			    rocket->setPosition(getPosition());
-			    rocket->setYaw(getYaw());
-			    rocket->setPitch(getPitch());
+				rocket->setYaw(radiansToDegrees(ryaw));
+				rocket->setPitch(radiansToDegrees(rpit));
 				getWorld()->getQuadTree()->UpdateEntity(rocket);
 			}
 		}

@@ -69,7 +69,7 @@ class Player : public Entity
         virtual void onPostRender();
         virtual bool onInitialize();
         virtual void onShutdown();
-        virtual void onCollision(Entity* collider) { } //Players don't collide.. yet
+        virtual void onCollision(Entity* collider);
         
 		Vector3 m_position;
         Vector3 m_velocity;

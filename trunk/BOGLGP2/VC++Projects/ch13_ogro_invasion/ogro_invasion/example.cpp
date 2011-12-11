@@ -119,7 +119,7 @@ void Example::render()
         stringstream scoreString;
         scoreString << "Score: " << m_world->getPlayer()->getScore();
 		//scoreString << "World Width: " << m_world->getLandscape()->getTerrain()->getWidth();
-		m_font->printString(scoreString.str(), 20.0f, 20.0f);
+		m_font->printString(scoreString.str(), 20.0f, 60.0f);
 
         stringstream remainingString;
         remainingString << "Time remaining: "  << m_world->getRemainingTimeAsString();
@@ -162,7 +162,7 @@ void Example::render()
 
         stringstream fpsMessage;     
         fpsMessage << "FPS: " << std::setprecision(3) << m_FPS;
-        m_font->printString(fpsMessage.str(), (float)viewport[2] - 100.0f, 20.0f);
+        m_font->printString(fpsMessage.str(), (float)viewport[2] - 100.0f, 60.0f);
 
 
 

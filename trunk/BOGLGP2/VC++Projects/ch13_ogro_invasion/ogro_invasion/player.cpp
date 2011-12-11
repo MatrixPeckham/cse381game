@@ -465,3 +465,9 @@ void Player::moveSideways(const float speed){
 
     setPosition(pos);
 }
+
+void Player::onCollision(Entity* collider){
+	if(collider->getType()==OGRO){
+		getWorld()->subtractTime(10.0f);
+	}
+}

@@ -58,6 +58,10 @@ class GameWorld : private Uncopyable
 			return myQuadTree;
 		}
 
+		void subtractTime(float time){
+			m_remainingTime-=time;
+		}
+
 		void toggleRenderMode()
 		{
 			if(myRenderMode == GL_FILL)

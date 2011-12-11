@@ -227,7 +227,9 @@ public:
 
     static bool glsl130Supported()
     {
-        std::string version = (char*)glGetString(GL_SHADING_LANGUAGE_VERSION);
+		char* tmp = (char*)glGetString(GL_SHADING_LANGUAGE_VERSION);
+		if(!tmp) return false;
+        std::string version = tmp;
         if (version.find("1.30") != string::npos)
         {
             return true;
