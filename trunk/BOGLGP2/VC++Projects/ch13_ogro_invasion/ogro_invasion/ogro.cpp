@@ -16,25 +16,20 @@
 
 using std::string;
 
-const string BODY_MODEL = "data/models/Sergeant/spos_body.md2";
-const string HEAD_MODEL = "data/models/Sergeant/spos_head.md2";
-const string GUN_MODEL = "data/models/Sergeant/spos_weapon.md2";
-const string BODY_TEXTURE = "data/models/Sergeant/spos_body.tga";
-const string HEAD_TEXTURE = "data/models/Sergeant/spos_head1.tga";
-const string GUN_TEXTURE = "data/models/Sergeant/spos_weapon.tga";
 
-Ogro::Ogro(GameWorld* world):
+Ogro::Ogro(GameWorld* world, MD2Model* body, MD2Model* head, MD2Model* gun, TargaImage bodyTexture, TargaImage headTexture, TargaImage gunTexture):
 Enemy(world),
 m_AIState(OGRO_IDLE),
 m_currentTime(0),
 m_lastAIChange(0)
 {
-    string vertexShader = (GLSLProgram::glsl130Supported())? "data/shaders/glsl1.30/model.vert" : "data/shaders/glsl1.20/model.vert";
-    string fragmentShader = (GLSLProgram::glsl130Supported())? "data/shaders/glsl1.30/model.frag" : "data/shaders/glsl1.20/model.frag";
+	myBody = body;
+	myHead = head;
+	myGun = gun;
 
-	myBody = new MD2Model(vertexShader, fragmentShader);
-	myHead = new MD2Model(vertexShader, fragmentShader);
-	myGun = new MD2Model(vertexShader, fragmentShader);
+	myBodyTexture = bodyTexture;
+	myHeadTexture = headTexture;
+	myGunTexture = gunTexture;
 
     myBody->setAnimation(Animation::IDLE);
 	myHead->setAnimation(Animation::IDLE);
@@ -125,17 +120,28 @@ bool Ogro::onInitialize()
 
 	if(!myHasLoaded)
 	{
-		result1 = myBody->load(BODY_MODEL);
-		result2 = myHead->load(HEAD_MODEL);
-		result3 = myGun->load(GUN_MODEL);
+		if(myBody != NULL)
+		{
+			result1 = true;
+		}
+
+		if(myHead != NULL)
+		{
+			result2 = true;
+		}
+
+		if(myGun != NULL)
+		{
+			result3 = true;
+		}
 
 		myHasLoaded = true;
 
 		if (result1 && result2 && result3)
 		{
-			if (!myBodyTexture.load(BODY_TEXTURE) || 
-				!myHeadTexture.load(HEAD_TEXTURE) ||
-				!myGunTexture.load(GUN_TEXTURE))
+			if (myBodyTexture.getHeight() <= 0 || 
+				myHeadTexture.getHeight() <= 0 ||
+				myGunTexture.getHeight() <= 0)
 			{
 				result1 = false;
 				result2 = false;

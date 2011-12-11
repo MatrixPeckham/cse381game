@@ -12,6 +12,7 @@
 #include "skybox.h"
 #include "quadtree.h"
 #include "goalarea.h"
+#include "md2model.h"
 
 class KeyboardInterface;
 class MouseInterface;
@@ -195,6 +196,13 @@ class GameWorld : private Uncopyable
         Landscape* m_landscape;
 		Skybox*	mySkybox;
 		GoalArea* m_goal;
+
+		MD2Model* myBody;
+		MD2Model* myHead;
+		MD2Model* myGun; 
+		TargaImage myBodyTexture;
+		TargaImage myHeadTexture;
+		TargaImage myGunTexture;
 
         std::auto_ptr<Camera> m_gameCamera;
 

@@ -18,10 +18,14 @@ enum AIState {
 class Ogro : public Enemy
 {
     public:
-        Ogro(GameWorld* world);
+        Ogro(GameWorld* world, MD2Model* body, MD2Model* head, MD2Model* gun, TargaImage bodyTexture, TargaImage headTexture, TargaImage gunTexture);
         virtual ~Ogro();
 
         virtual EntityType getType() const { return OGRO; }
+
+		void setBodyModel(MD2Model* model);
+		void setHeadModel(MD2Model* model);
+		void setGunModel(MD2Model* model);
 
     private:
         virtual void onPrepare(float dT);

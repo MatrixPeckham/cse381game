@@ -24,7 +24,16 @@
 
 using std::list;
 using std::string;
+
 const std::string TERRAIN_HEIGHTMAP = "data/island.raw";
+
+const string BODY_MODEL = "data/models/Sergeant/spos_body.md2";
+const string HEAD_MODEL = "data/models/Sergeant/spos_head.md2";
+const string GUN_MODEL = "data/models/Sergeant/spos_weapon.md2";
+const string BODY_TEXTURE = "data/models/Sergeant/spos_body.tga";
+const string HEAD_TEXTURE = "data/models/Sergeant/spos_head1.tga";
+const string GUN_TEXTURE = "data/models/Sergeant/spos_weapon.tga";
+
 
 GameWorld::GameWorld(KeyboardInterface* keyboardInterface, MouseInterface* mouseInterface):
 m_entities(list<Entity*>()),
@@ -43,6 +52,22 @@ m_relY(0)
     m_frustum = new Frustum();
 	//myQuadTree = new QuadTree(m_landscape->getTerrain()->getWidth());
 	myQuadTree = new QuadTree(65);
+
+	string vertexShader = (GLSLProgram::glsl130Supported())? "data/shaders/glsl1.30/model.vert" : "data/shaders/glsl1.20/model.vert";
+    string fragmentShader = (GLSLProgram::glsl130Supported())? "data/shaders/glsl1.30/model.frag" : "data/shaders/glsl1.20/model.frag";
+
+	myBody = new MD2Model(vertexShader, fragmentShader);
+	myHead = new MD2Model(vertexShader, fragmentShader);
+	myGun = new MD2Model(vertexShader, fragmentShader);
+
+	myBody->load(BODY_MODEL);
+	myHead->load(HEAD_MODEL);
+	myGun->load(GUN_MODEL);
+
+	myBodyTexture.load(BODY_TEXTURE);
+	myHeadTexture.load(HEAD_TEXTURE);
+	myGunTexture.load(GUN_TEXTURE);
+
 }
 
 GameWorld::~GameWorld()
@@ -102,7 +127,7 @@ Entity* GameWorld::spawnEntity(EntityType entityType)
             }
             else
             {
-                newEntity = new Ogro(this);
+                newEntity = new Ogro(this, myBody, myHead, myGun, myBodyTexture, myHeadTexture, myGunTexture);
             }
 
             m_lastSpawn = m_currentTime;
