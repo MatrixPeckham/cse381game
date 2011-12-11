@@ -70,7 +70,7 @@ void Ogro::onPrepare(float dT)
 
 		if (m_AIState == OGRO_RUNNING)
 		{
-			//speed = 2.0f * dT;
+			speed = 2.0f * dT;
 		}
 		else if (m_AIState == OGRO_WALK)
 		{
@@ -224,8 +224,36 @@ void Ogro::processAI()
 		Vector3 playerPosition = getWorld()->getPlayer()->getPosition();
 		Vector3 playerDirection = getPosition() - playerPosition;
 		float playerDistance = playerDirection.length();
+		playerDirection.normalize();
+		const int dist = 3;
+		const float hitAngle = degreesToRadians(90);
+		float m_yaw = getYaw();
+		float m_pitch = getPitch();
+		float cosYaw = cosf(degreesToRadians(m_yaw));
+		float sinYaw = sinf(degreesToRadians(m_yaw));
+		float sinPitch = sinf(degreesToRadians(m_pitch));
+		float cosPitch = cosf(degreesToRadians(m_pitch));
+		Vector3 look;
+		look.x = cosYaw*cosPitch;
+		look.y = sinPitch;
+		look.z = sinYaw*cosPitch;
+		look.normalize();
+		if(playerDistance<DANGER_DISTANCE){
+			float dot = playerDirection.x*look.x+playerDirection.y*look.y+playerDirection.z*look.z;
+			if(-dot>cos(hitAngle)){
+			    Entity* rocket = getWorld()->spawnEntity(ROCKET);
+			    rocket->setPosition(getPosition());
+			    rocket->setYaw(getYaw());
+			    rocket->setPitch(getPitch());
+				getWorld()->getQuadTree()->UpdateEntity(rocket);
+			}
+		}
+		
 
-		if (playerDistance < DANGER_DISTANCE && m_AIState != OGRO_RUNNING && (m_currentTime - m_lastAIChange) > 3.0f)
+
+
+
+/*		if (playerDistance < DANGER_DISTANCE && m_AIState != OGRO_RUNNING && (m_currentTime - m_lastAIChange) > 3.0f)
 		{
 			myBody->setAnimation(Animation::RUN);
 			myHead->setAnimation(Animation::RUN);
@@ -267,7 +295,7 @@ void Ogro::processAI()
 				}
 			}
 		}
-
+*/
 		//Stop the Ogro's going outside the map bounds
 		float minX = getWorld()->getLandscape()->getTerrain()->getMinX() + 2.5f;
 		float maxX = getWorld()->getLandscape()->getTerrain()->getMaxX() - 2.5f;
