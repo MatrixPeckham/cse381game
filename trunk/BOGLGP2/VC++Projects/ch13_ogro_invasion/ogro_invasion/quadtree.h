@@ -31,7 +31,6 @@ public:
 	void QuadTree::InitChildren(Node* currNode);
 	void QuadTree::BuildQuadTree();
 	void QuadTree::AddEntity(Entity* item);
-	std::vector<Entity*> QuadTree::Concat(std::vector<Entity*> v1, std::vector<Entity*> v2);
 
 };
 

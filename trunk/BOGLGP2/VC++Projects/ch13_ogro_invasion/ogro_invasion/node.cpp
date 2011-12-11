@@ -30,8 +30,7 @@ Node::Node(float width)
 	myCenter.x = 0.0f;
 	myCenter.y = 0.0f;
 	myCenter.z = 0.0f;
-	
-	myTempNode = 0;
+
 	myID = -99;//if -99 then its the root
 
 	myMinX = -64.0f;
@@ -63,11 +62,6 @@ Vector3 Node::getCenter()
 float Node::getNodeWidth()
 {
 	return myNodeWidth;
-}
-
-int Node::getTempNode()
-{
-	return myTempNode;
 }
 
 Node* Node::getParent()
@@ -108,11 +102,6 @@ void Node::setID(int id)
 void Node::setCenter(Vector3 center)
 {
 	myCenter = center;
-}
-
-void Node::setTempNode(int amt)
-{
-	myTempNode = amt;
 }
 
 void Node::setNodeWidth(float amt)

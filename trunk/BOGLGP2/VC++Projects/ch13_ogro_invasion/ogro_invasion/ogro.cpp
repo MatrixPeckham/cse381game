@@ -40,9 +40,9 @@ m_lastAIChange(0)
 
 Ogro::~Ogro()
 {
-    delete myBody;
-	delete myHead;
-	delete myGun;
+    //delete myBody;
+	//delete myHead;
+	//delete myGun;
 }
 
 void Ogro::onPrepare(float dT)

@@ -350,10 +350,6 @@ void GameWorld::update(float dT)
 
 void GameWorld::render() const
 {
-	float minX = 0.0f;
-	float minZ = 0.0f;
-	float maxX = 0.0f;
-	float maxZ = 0.0f;
 	vector<Entity*> tempList;
 
     m_gameCamera->apply(myIsThirdPerson);
@@ -362,8 +358,12 @@ void GameWorld::render() const
 
 	mySkybox->render();
 	mySkybox->postRender();
+
 	m_landscape->render();
 	m_landscape->postRender();
+
+	m_player->render();
+	m_player->postRender();
 
 	for (int w = 0; w < tempList.size(); w++)
     {
