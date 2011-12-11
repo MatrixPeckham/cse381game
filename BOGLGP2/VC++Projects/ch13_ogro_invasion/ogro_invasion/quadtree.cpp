@@ -143,10 +143,10 @@ void QuadTree::recAddEntity(Entity* item, Node* currNode)
 	}
 	else
 	{
-		if( item->getPosition().x< currNode->getChild(0)->getMaxX() &&
-		    item->getPosition().x> currNode->getChild(0)->getMinX() &&
-		    item->getPosition().z< currNode->getChild(0)->getMaxZ() &&
-		    item->getPosition().z> currNode->getChild(0)->getMinZ())
+		if( item->getPosition().x<= currNode->getChild(0)->getMaxX() &&
+		    item->getPosition().x>= currNode->getChild(0)->getMinX() &&
+		    item->getPosition().z<= currNode->getChild(0)->getMaxZ() &&
+		    item->getPosition().z>= currNode->getChild(0)->getMinZ())
 		{
 			QuadTree::recAddEntity(item, currNode->getChild(0));
 		}
@@ -198,6 +198,10 @@ void QuadTree::BuildQuadTree()
 void QuadTree::UpdateEntity(Entity* ent){
 	Vector3 pos = ent->getPosition();
 	Node* n = ent->getContainingNode();
+	if(n==NULL){
+		recAddEntity(ent,getRoot());
+		return;
+	}
 	if( pos.x>n->getMaxX()||
 		pos.x<n->getMinX()||
 		pos.z>n->getMaxZ()||
