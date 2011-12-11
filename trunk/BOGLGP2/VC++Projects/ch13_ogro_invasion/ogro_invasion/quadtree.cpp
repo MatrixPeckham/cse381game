@@ -139,6 +139,7 @@ void QuadTree::recAddEntity(Entity* item, Node* currNode)
 	if(currNode->getIsLeafNode())
 	{
 		currNode->addEntityToNodeList(item);
+		item->setContainingNode(currNode);
 	}
 	else
 	{
@@ -192,4 +193,16 @@ void QuadTree::BuildQuadTree()
 {
 	myRoot->setNodeWidth(65);
 	recBuildTree(NULL, myRoot);
+}
+
+void QuadTree::UpdateEntity(Entity* ent){
+	Vector3 pos = ent->getPosition();
+	Node* n = ent->getContainingNode();
+	if( pos.x>n->getMaxX()||
+		pos.x<n->getMinX()||
+		pos.z>n->getMaxZ()||
+		pos.z<n->getMinZ()){
+			n->removeEntityFromNodeList(ent);
+			recAddEntity(ent,getRoot());
+	}
 }

@@ -31,7 +31,8 @@ public:
 	void QuadTree::InitChildren(Node* currNode);
 	void QuadTree::BuildQuadTree();
 	void QuadTree::AddEntity(Entity* item);
-
+	void QuadTree::UpdateEntity(Entity* ent);
+	void QuadTree::removeEntity(Entity* ent){ent->getContainingNode()->removeEntityFromNodeList(ent);}
 };
 
 #endif

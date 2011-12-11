@@ -235,11 +235,12 @@ void Player::onPrepare(float dT)
 		} 
 		else 
 		{
-			Vector3 pos = getPosition();
-			Entity* rocket = getWorld()->spawnEntity(ROCKET);
-			rocket->setPosition(Vector3(pos.x, pos.y, pos.z));
-		    rocket->setYaw(getYaw());
-	        rocket->setPitch(getPitch());
+//			Vector3 pos = getPosition();
+	//		Entity* rocket = getWorld()->spawnEntity(ROCKET);
+		//	rocket->setPosition(Vector3(pos.x, pos.y, pos.z));
+		  //  rocket->setYaw(getYaw());
+	        //rocket->setPitch(getPitch());
+			getWorld()->playerAttack();
 		}
 	}
 

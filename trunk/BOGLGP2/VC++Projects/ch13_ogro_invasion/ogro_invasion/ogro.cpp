@@ -70,7 +70,7 @@ void Ogro::onPrepare(float dT)
 
 		if (m_AIState == OGRO_RUNNING)
 		{
-			speed = 2.0f * dT;
+			//speed = 2.0f * dT;
 		}
 		else if (m_AIState == OGRO_WALK)
 		{
@@ -332,6 +332,7 @@ void Ogro::onKill()
     }
 
     m_AIState = OGRO_DEAD;
+	destroy();
 
 }
 

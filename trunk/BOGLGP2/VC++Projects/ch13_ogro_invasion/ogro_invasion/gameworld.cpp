@@ -119,7 +119,7 @@ Entity* GameWorld::spawnEntity(EntityType entityType)
     {
         case OGRO:
             //In the case of the ogro, we can reuse old dead ones
-            newEntity = findDeadEnemy();
+            //newEntity = findDeadEnemy();
             if (newEntity)
             {
                 (dynamic_cast<Enemy*>(newEntity))->bringToLife();
@@ -229,10 +229,10 @@ bool GameWorld::initialize()
         Entity* newEntity = spawnEntity(TREE);
 
         Vector3 pos(0.0f, -1.0f, 0.0f);
-        while (pos.y < 1.1f) 
-		{
+        //while (pos.y < 1.1f) 
+		//{
             pos = getRandomPosition();
-        }
+        //}
 
         newEntity->setPosition(pos);
 		if(!(newEntity->getType()==SKY||newEntity->getType()==LANDSCAPE))
@@ -271,12 +271,14 @@ void GameWorld::update(float dT)
     for (EntityIterator entity = m_entities.begin(); entity != m_entities.end(); ++entity)
     {
         (*entity)->prepare(dT);
+		if((*entity)->getType()==SKY||(*entity)->getType()==LANDSCAPE||(*entity)->getType()==PLAYER) continue;
+		myQuadTree->UpdateEntity(*entity);
     }
 
     //Perform all the collisions
 	inRoom=false;
     Collider::updateColliders(m_colliders);
-    clearDeadEntities(); //Remove any entities that were killed as a result of a collision
+    clearDeadEntities( ); //Remove any entities that were killed as a result of a collision
 
     //Spawn an entity every 10 seconds if we have room
     if (getOgroCount() < MAX_ENEMY_COUNT && (m_currentTime - m_lastSpawn) > 10.0f)
@@ -413,6 +415,7 @@ void GameWorld::clearDeadEntities()
         }
 
         unregisterCollider((*entity)->getCollider());
+		myQuadTree->removeEntity(*entity);
         delete (*entity);
         entity = m_entities.erase(entity);
     }
@@ -451,5 +454,37 @@ void GameWorld::registerEntity(Entity* entity)
     }
 
     m_entities.push_back(entity);
+	if(!(entity->getType()==SKY||entity->getType()==LANDSCAPE||entity->getType()==OGRO||entity->getType()==TREE))
+		myQuadTree->AddEntity(entity);
+}
 
+void GameWorld::playerAttack(){
+	const int dist = 3;
+	const float hitAngle = degreesToRadians(90);
+	Vector3 pos = m_player->getPosition();
+	float m_yaw = m_player->getYaw();
+	float m_pitch = m_player->getPitch();
+	float cosYaw = cosf(degreesToRadians(m_yaw));
+	float sinYaw = sinf(degreesToRadians(m_yaw));
+	float sinPitch = sinf(degreesToRadians(m_pitch));
+	float cosPitch = cosf(degreesToRadians(m_pitch));
+	Vector3 look;
+	look.x = cosYaw*cosPitch;
+	look.y = sinPitch;
+	look.z = sinYaw*cosPitch;
+	look.normalize();
+	vector<Entity*> list = myQuadTree->getPotentiallyVisible(m_frustum);
+	std::vector<Entity*>::iterator it = list.begin();
+	for(;it!=list.end();++it){
+		if((*it)->getType()==OGRO){
+			Vector3 diff = ((*it)->getPosition()-pos);
+			if(diff.length()<=dist){
+				diff.normalize();
+				float dot = diff.x*look.x+diff.y*look.y+diff.z*look.z;
+				if(dot>cos(hitAngle)){
+					(dynamic_cast<Ogro*>(*it))->kill();
+				}
+			}
+		}
+	}
 }
