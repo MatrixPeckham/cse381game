@@ -54,6 +54,10 @@ class GameWorld : private Uncopyable
 			myRenderMode = mode;
 		}
 
+		QuadTree* getQuadTree(){
+			return myQuadTree;
+		}
+
 		void toggleRenderMode()
 		{
 			if(myRenderMode == GL_FILL)

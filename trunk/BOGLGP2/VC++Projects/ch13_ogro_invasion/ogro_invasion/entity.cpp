@@ -1,8 +1,13 @@
+#ifdef _WIN32
+#include <windows.h>
+#endif
+
 #include "entity.h"
 
 Entity::Entity(GameWorld* const gameWorld):
 m_canBeRemoved(false),
-m_world(gameWorld)
+m_world(gameWorld),
+containingNode(NULL)
 {
 
 }

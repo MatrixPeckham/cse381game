@@ -32,7 +32,7 @@ public:
 	void QuadTree::BuildQuadTree();
 	void QuadTree::AddEntity(Entity* item);
 	void QuadTree::UpdateEntity(Entity* ent);
-	void QuadTree::removeEntity(Entity* ent){ent->getContainingNode()->removeEntityFromNodeList(ent);}
+	void QuadTree::removeEntity(Entity* ent){if(ent->getContainingNode())ent->getContainingNode()->removeEntityFromNodeList(ent);}
 };
 
 #endif
