@@ -14,7 +14,6 @@ private:
 	bool myListInit;
 	bool myChildrenInit;
 	int myID;
-	int myTempNode; //used to go back up the tree
 	float myNodeWidth;
 	Vector3 myCenter;
 
@@ -37,14 +36,12 @@ public:
 	float Node::getMaxZ();
 
 	int Node::getID();
-	int Node::getTempNode();
 	Vector3 Node::getCenter();
 	bool Node::getChildrenInit();
 	bool Node::getIsLeafNode();
 
 	void Node::setID(int id);
 	void Node::setCenter(Vector3 center);
-	void Node::setTempNode(int amt);
 	void Node::setNodeWidth(float amt);
 	void Node::setParent(Node* parent);
 	void Node::setChildrenInit(bool amt);

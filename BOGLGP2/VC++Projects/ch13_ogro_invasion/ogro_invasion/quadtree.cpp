@@ -16,23 +16,6 @@ float QuadTree::getWorldWidth()
 	return myWorldWidth;
 }
 
-std::vector<Entity*> QuadTree::Concat(std::vector<Entity*> v1, std::vector<Entity*> v2)
-{
-	std::vector<Entity*> mergedVec;
-
-	for(int i = 0; i < v1.size(); i++)
-	{
-		mergedVec.push_back(v1.at(i));
-	}
-
-	for(int i = 0; i < v2.size(); i++)
-	{
-		mergedVec.push_back(v2.at(i));
-	}
-
-	return mergedVec;
-}
-
 void QuadTree::InitChildren(Node* currNode)
 {
 	if(currNode->getChildrenInit() == false)
@@ -90,7 +73,7 @@ void QuadTree::recBuildTree(Node* parent, Node* currNode)
 		}
 	}
 
-	if((int)currNode->getNodeWidth() < 10 || currNode->getTempNode() >= 4)
+	if((int)currNode->getNodeWidth() < 10 )
 	{
 		InitChildren(currNode);
 		return;
@@ -114,8 +97,6 @@ void QuadTree::recBuildTree(Node* parent, Node* currNode)
 
 std::vector<Entity*> QuadTree::recPotentiallyVisible(Node* curNode, Frustum *frust)
 {
-	std::vector<Entity*> myConcatList;
-
 	if(curNode != NULL)
 	{
 		//if node is visible
@@ -135,11 +116,11 @@ std::vector<Entity*> QuadTree::recPotentiallyVisible(Node* curNode, Frustum *fru
 				std::vector<Entity*> t2 = recPotentiallyVisible(curNode->getChild(2), frust);
 				std::vector<Entity*> t3 = recPotentiallyVisible(curNode->getChild(3), frust);
 
-				myConcatList = Concat(t0, t1);
-				myConcatList = Concat(myConcatList, t2);
-				myConcatList = Concat(myConcatList, t3);
+				t0.insert(t0.end(), t1.begin(), t1.end());
+				t0.insert(t0.end(), t2.begin(), t2.end());
+				t0.insert(t0.end(), t3.begin(), t3.end());
 
-				return myConcatList;
+				return t0;
 			}
 		} 
 		else
