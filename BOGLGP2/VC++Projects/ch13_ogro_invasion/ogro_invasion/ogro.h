@@ -47,6 +47,8 @@ class Ogro : public Enemy
         float m_currentTime;
         float m_lastAIChange;
 
+		bool myHasLoaded;
+
         virtual void onKill();
         virtual void onResurrection();
 };
