@@ -62,25 +62,25 @@ bool Frustum::BoxInFrustum(float minX, float minZ, float maxX, float maxZ)
 	//If all 8 points are not on the correct side
 	//of the plane, then the entitys is not in the Frustum
 	int total = 0;
-	Vector3* points[8];
+	Vector3 points[8];
 
-	points[0] = new Vector3(minX, -100, minZ);
-	points[1] = new Vector3(minX, -100, maxZ);
-	points[2] = new Vector3(maxX, -100, maxZ);
-	points[3] = new Vector3(maxX, -100, minZ);
+	points[0] = Vector3(minX, -100, minZ);
+	points[1] = Vector3(minX, -100, maxZ);
+	points[2] = Vector3(maxX, -100, maxZ);
+	points[3] = Vector3(maxX, -100, minZ);
 
-	points[4] = new Vector3(minX, 100, minZ);
-	points[5] = new Vector3(minX, 100, maxZ);
-	points[6] = new Vector3(maxX, 100, maxZ);
-	points[7] = new Vector3(maxX, 100, minZ);
+	points[4] = Vector3(minX, 100, minZ);
+	points[5] = Vector3(minX, 100, maxZ);
+	points[6] = Vector3(maxX, 100, maxZ);
+	points[7] = Vector3(maxX, 100, minZ);
 
 	for(int j = 0; j < 6; j++)
 	{
 		for(int i = 0; i < 8; i++)
 		{
-			Vector3 *temp = points[i];
+			Vector3 temp = points[i];
 			
-			if(!PointOnPlane(*temp, j))
+			if(!PointOnPlane(temp, j))
 			{
 				total++;
 			}

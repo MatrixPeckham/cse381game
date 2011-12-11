@@ -195,8 +195,8 @@ void Node::initChild(int nodeIndex)
 		//calculate center for each child
 		if(nodeIndex == 0)
 		{
-			temp.x = -myChildren[0]->getNodeWidth() / 2.0f;
-			temp.z = myChildren[0]->getNodeWidth() / 2.0f;
+			temp.x = this->getCenter().x-myChildren[0]->getNodeWidth() / 2.0f;
+			temp.z = this->getCenter().z+myChildren[0]->getNodeWidth() / 2.0f;
 			
 			myChildren[0]->setCenter(temp);
 
@@ -207,8 +207,8 @@ void Node::initChild(int nodeIndex)
 		}
 		else if(nodeIndex == 1)
 		{
-			temp.x = myChildren[1]->getNodeWidth() / 2.0f;
-			temp.z = myChildren[1]->getNodeWidth() / 2.0f;
+			temp.x = this->getCenter().x+myChildren[1]->getNodeWidth() / 2.0f;
+			temp.z = this->getCenter().z+myChildren[1]->getNodeWidth() / 2.0f;
 			
 			myChildren[1]->setCenter(temp);	
 
@@ -219,8 +219,8 @@ void Node::initChild(int nodeIndex)
 		}
 		else if(nodeIndex == 2)
 		{
-			temp.x = myChildren[2]->getNodeWidth() / 2.0f;
-			temp.z = -myChildren[2]->getNodeWidth() / 2.0f;
+			temp.x = this->getCenter().x+myChildren[2]->getNodeWidth() / 2.0f;
+			temp.z = this->getCenter().z-myChildren[2]->getNodeWidth() / 2.0f;
 			
 			myChildren[2]->setCenter(temp);
 
@@ -231,8 +231,8 @@ void Node::initChild(int nodeIndex)
 		}
 		else if(nodeIndex == 3)
 		{
-			temp.x = -myChildren[3]->getNodeWidth() / 2.0f;
-			temp.z = -myChildren[3]->getNodeWidth() / 2.0f;
+			temp.x = this->getCenter().x-myChildren[3]->getNodeWidth() / 2.0f;
+			temp.z = this->getCenter().z-myChildren[3]->getNodeWidth() / 2.0f;
 			
 			myChildren[3]->setCenter(temp);	
 
