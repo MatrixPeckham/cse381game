@@ -18,8 +18,9 @@ private:
 	std::vector<Entity*> myConcatList;
 
 	void QuadTree::recBuildTree(Node* parent, Node* currNode);
+	void QuadTree::recAddEntity(Entity* item, Node* currNode);
 	std::vector<Entity*> QuadTree::recPotentiallyVisible(Node* curNode, Frustum *frust);
-
+	
 public:
 	QuadTree::QuadTree(float worldWidth);
 
@@ -29,6 +30,7 @@ public:
 	
 	void QuadTree::InitChildren(Node* currNode);
 	void QuadTree::BuildQuadTree();
+	void QuadTree::AddEntity(Entity* item);
 	std::vector<Entity*> QuadTree::Concat(std::vector<Entity*> v1, std::vector<Entity*> v2);
 
 };

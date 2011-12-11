@@ -316,7 +316,6 @@ void GameWorld::update(float dT)
 
 }
 
-int numEntitysRenderd = 0;
 void GameWorld::render() const
 {
 	float minX = 0.0f;
@@ -353,7 +352,6 @@ void GameWorld::render() const
 		}
 	}
 
-	numEntitysRenderd = numEntitysRenderd;
 }
 
 Vector3 GameWorld::getRandomPosition() const
@@ -416,7 +414,5 @@ void GameWorld::registerEntity(Entity* entity)
         return;
     }
     m_entities.push_back(entity);
-
-	//myQuadTree->getRoot()->addEntityToNodeList(entity);
 
 }
