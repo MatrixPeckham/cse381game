@@ -131,7 +131,7 @@ Entity* GameWorld::spawnEntity(EntityType entityType)
 					myHeadTexture.load(HEAD_TEXTURE);
 					myGunTexture.load(GUN_TEXTURE);
 
-					myIsModelLoaded = true;
+					//myIsModelLoaded = true;
 
 					newEntity = new Ogro(this, myBody, myHead, myGun, myBodyTexture, myHeadTexture, myGunTexture);
 				}
@@ -237,7 +237,7 @@ bool GameWorld::initialize()
 	myQuadTree->AddEntity(m_goal);
 	
     //Spawn a load of monsters
-    for (unsigned int i = 0; i < MAX_ENEMY_COUNT; ++i)
+    for (unsigned int ui = 0; ui < MAX_ENEMY_COUNT; ++ui)
     {
         Entity* newEntity = spawnEntity(OGRO);
         newEntity->setPosition(getRandomPosition());
@@ -264,7 +264,7 @@ bool GameWorld::initialize()
 
     //Spawn the player and center them
     spawnEntity(PLAYER);
-    getPlayer()->setPosition(Vector3(10.0f, 0.0f, 0.0f));
+    getPlayer()->setPosition(getRandomPosition());
 	//getPlayer()->setPosition(Vector3(97.0f, 98.0f, 94.0f));
 
     m_gameCamera->attachTo(getPlayer()); //Attach the camera to the player
@@ -487,7 +487,7 @@ void GameWorld::registerEntity(Entity* entity)
 
 void GameWorld::playerAttack()
 {
-	const int dist = 3;
+	const int dist = 2;
 	const float hitAngle = degreesToRadians(90);
 	Vector3 pos = m_player->getPosition();
 	float m_yaw = m_player->getYaw();

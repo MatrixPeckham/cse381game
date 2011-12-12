@@ -40,7 +40,7 @@ isEditing(false)
 	myHead->setAnimation(Animation::CAMERA_IDLE);
 	myGun->setAnimation(Animation::CAMERA_IDLE);
 
-	myAcceleration = 3.0f;
+	myAcceleration = 1.5f;
 }
 
 Player::~Player()
@@ -257,8 +257,8 @@ void Player::onPrepare(float dT)
 	} 
 	else 
 	{
-		yaw(float(x) * 40.0f * dT);
-		pitch(float(y) * -40.0f * dT);
+		yaw(float(x) * 20.0f * dT);
+		pitch(float(y) * -20.0f * dT);
 	}
 
 	if(m_mode==PLAYER_MODE || m_mode == THIRD_P_MODE)
