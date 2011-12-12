@@ -24,6 +24,8 @@ m_currentTime(0),
 last_change(0.0f),
 m_lastAIChange(0)
 {
+	myWorld = world;
+
 	myBody = body;
 	myHead = head;
 	myGun = gun;
@@ -39,6 +41,7 @@ m_lastAIChange(0)
 	m_AIState=rand()%2==0?OGRO_IDLE:OGRO_WALK;
 
 	myHasLoaded = false;
+	myCurrFloor = 0.0;
 }
 
 Ogro::~Ogro()
@@ -52,6 +55,7 @@ void Ogro::onPrepare(float dT)
 {
 	if(myHasLoaded)
 	{
+		Vector3 pos = getPosition();
 		getCollider()->setRadius(myBody->getRadius());
 
 		m_currentTime += dT;
@@ -62,12 +66,19 @@ void Ogro::onPrepare(float dT)
 		myHead->update(dT);
 		myGun->update(dT);
 
-		if (m_position.y > 0.0f) 
+		if (m_position.y > 4.0f) 
 		{
 			m_position.y -= 10.0f * dT;
 		}
 
-		Vector3 pos = getPosition();
+		myCurrFloor = myWorld->getLandscape()->getTerrain()->getHeightAt(m_position.x, m_position.z);
+		
+		if(m_position.y < myCurrFloor + 4 )
+		{
+			m_position.y += 4;
+		}
+
+		
 
 		float speed = 0.0f;
 
@@ -86,6 +97,11 @@ void Ogro::onPrepare(float dT)
 		pos.z += float(sinYaw) * speed;
 
 		setPosition(pos);
+
+		if(myHead->getCurrentFrame() == 28)
+		{
+			destroy();
+		}
 	}
 
 
@@ -324,10 +340,11 @@ void Ogro::processAI(float dT)
 			getPosition().z > maxZ)
 		{
 			m_yaw += randYaw;
-			m_AIState = OGRO_WALK;
-			myBody->setAnimation(Animation::RUN);
-			myHead->setAnimation(Animation::RUN);
-			myGun->setAnimation(Animation::RUN);
+			//m_AIState = OGRO_WALK;
+
+			//myBody->setAnimation(Animation::RUN);
+			//myHead->setAnimation(Animation::RUN);
+			//myGun->setAnimation(Animation::RUN);
 			m_lastAIChange = m_currentTime;
 
 			if (getPosition().x < minX)
@@ -353,28 +370,12 @@ void Ogro::processAI(float dT)
 
 void Ogro::onKill()
 {
-    int r = (int) rand() % 3;
-    if (r == 0)
-    {
-        myBody->setAnimation(Animation::DEATH1);
-		myHead->setAnimation(Animation::DEATH1);
-		myGun->setAnimation(Animation::DEATH1);
-    }
-    else if (r == 1)
-    {
-        myBody->setAnimation(Animation::DEATH2);
-		myHead->setAnimation(Animation::DEATH2);
-		myGun->setAnimation(Animation::DEATH2);
-    }
-    else
-    {
-        myBody->setAnimation(Animation::DEATH3);
-		myHead->setAnimation(Animation::DEATH3);
-		myGun->setAnimation(Animation::DEATH3);
-    }
+
+    myBody->setAnimation(Animation::DEATH2);
+	myHead->setAnimation(Animation::DEATH2);
+	myGun->setAnimation(Animation::DEATH2);
 
     m_AIState = OGRO_DEAD;
-	destroy();
 
 }
 

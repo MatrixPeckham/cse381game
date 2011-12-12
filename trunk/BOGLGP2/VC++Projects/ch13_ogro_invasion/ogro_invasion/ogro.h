@@ -34,12 +34,14 @@ class Ogro : public Enemy
         virtual bool onInitialize();
         virtual void onShutdown();
 
+		GameWorld* myWorld;
         MD2Model* myBody;
 		MD2Model* myHead;
 		MD2Model* myGun;
         TargaImage myBodyTexture;
 		TargaImage myHeadTexture;
 		TargaImage myGunTexture;
+
         unsigned int myBodyTextureID;
 		unsigned int myHeadTextureID;
 		unsigned int myGunTextureID;
@@ -50,6 +52,7 @@ class Ogro : public Enemy
 
         float m_currentTime;
         float m_lastAIChange;
+		float myCurrFloor;
 
 		bool myHasLoaded;
 

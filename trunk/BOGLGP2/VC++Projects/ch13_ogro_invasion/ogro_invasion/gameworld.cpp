@@ -52,6 +52,7 @@ m_relY(0)
     m_frustum = new Frustum();
 	//myQuadTree = new QuadTree(m_landscape->getTerrain()->getWidth());
 	myQuadTree = new QuadTree(65);
+	myIsModelLoaded = false;
 
 
 }
@@ -113,7 +114,7 @@ Entity* GameWorld::spawnEntity(EntityType entityType)
             }
             else
             {
-				if(myBody == NULL && myHead == NULL && myGun == NULL)
+				if(!myIsModelLoaded)
 				{
 					string vertexShader = (GLSLProgram::glsl130Supported())? "data/shaders/glsl1.30/model.vert" : "data/shaders/glsl1.20/model.vert";
 					string fragmentShader = (GLSLProgram::glsl130Supported())? "data/shaders/glsl1.30/model.frag" : "data/shaders/glsl1.20/model.frag";
@@ -129,6 +130,8 @@ Entity* GameWorld::spawnEntity(EntityType entityType)
 					myBodyTexture.load(BODY_TEXTURE);
 					myHeadTexture.load(HEAD_TEXTURE);
 					myGunTexture.load(GUN_TEXTURE);
+
+					myIsModelLoaded = true;
 
 					newEntity = new Ogro(this, myBody, myHead, myGun, myBodyTexture, myHeadTexture, myGunTexture);
 				}
