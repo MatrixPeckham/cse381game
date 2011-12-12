@@ -61,11 +61,11 @@ public:
 
     void setAnimation(const Animation& ani) 
 	{
-		if(ani.startFrame != m_startFrame && ani.endFrame != m_endFrame)
-		{
+		//if(ani.startFrame != m_startFrame && ani.endFrame != m_endFrame)
+		//{
 			setAnimation(ani.startFrame, ani.endFrame);
 			m_loopAnimation = ani.loop;
-		}
+		//}
     }
 
     std::vector<std::string> getSkinNames() {

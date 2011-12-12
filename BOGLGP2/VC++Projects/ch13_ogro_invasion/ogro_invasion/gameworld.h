@@ -229,7 +229,7 @@ class GameWorld : private Uncopyable
 
         Frustum *m_frustum;
 		bool inRoom;
-
+		bool myIsModelLoaded;
 };
 
 #endif // GAMEWORLD_H
