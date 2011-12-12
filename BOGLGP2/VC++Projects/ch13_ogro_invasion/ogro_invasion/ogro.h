@@ -44,7 +44,7 @@ class Ogro : public Enemy
 		unsigned int myHeadTextureID;
 		unsigned int myGunTextureID;
 
-        void processAI();
+        void processAI(float dT);
 
         AIState m_AIState;
 
@@ -55,6 +55,8 @@ class Ogro : public Enemy
 
         virtual void onKill();
         virtual void onResurrection();
+		float last_change;
+
 };
 
 #endif // OGRO_H_INCLUDED
