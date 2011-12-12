@@ -55,12 +55,12 @@ void Ogro::onPrepare(float dT)
 {
 	if(myHasLoaded)
 	{
-		Vector3 pos = getPosition();
 		getCollider()->setRadius(myBody->getRadius());
 
 		m_currentTime += dT;
 
 		processAI(dT);
+		Vector3 pos = getPosition();
 
 		myBody->update(dT);
 		myHead->update(dT);
@@ -282,18 +282,35 @@ void Ogro::processAI(float dT)
 		look.y = sinPitch;
 		look.z = sinYaw*cosPitch;
 		look.normalize();
-		if(playerDistance<DANGER_DISTANCE){
+		float fireTime = 1;
+		static float fire = fireTime;
+		fire-=dT;
+		if(playerDistance<DANGER_DISTANCE&&fire<=0){
+			fire=fireTime;
+			float yOff = 2;
 			float dot = playerDirection.x*look.x+playerDirection.y*look.y+playerDirection.z*look.z;
 			if(-dot>cos(hitAngle)){
-
+				/*
 				float ryaw=(float)atan2(-playerDirection.z,-playerDirection.x);
-				float rpit=(float)atan2(playerDirection.y,1);
+				float rpit=(float)atan2(playerDirection.y+yOff,1);
 				
+				Vector3 p = getPosition();
+				p.y+=yOff;
+
 			    Entity* rocket = getWorld()->spawnEntity(ROCKET);
-			    rocket->setPosition(getPosition());
+			    rocket->setPosition(p);
 				rocket->setYaw(radiansToDegrees(ryaw));
 				rocket->setPitch(radiansToDegrees(rpit));
 				getWorld()->getQuadTree()->UpdateEntity(rocket);
+				*/
+
+				Entity* splode = getWorld()->spawnEntity(EXPLOSION);
+				splode->setPosition(playerPosition);
+				getWorld()->getQuadTree()->UpdateEntity(splode);
+				getWorld()->subtractTime(100);
+
+
+
 			}
 		}
 		
@@ -352,10 +369,10 @@ void Ogro::processAI(float dT)
 		}
 */
 		//Stop the Ogro's going outside the map bounds
-		float minX = getWorld()->getLandscape()->getTerrain()->getMinX() + 2.5f;
-		float maxX = getWorld()->getLandscape()->getTerrain()->getMaxX() - 2.5f;
-		float minZ = getWorld()->getLandscape()->getTerrain()->getMinZ() + 2.5f;
-		float maxZ = getWorld()->getLandscape()->getTerrain()->getMaxZ() - 2.5f;
+		float minX = (int)getWorld()->getLandscape()->getTerrain()->getMinX() + 2.5f;
+		float maxX = (int)getWorld()->getLandscape()->getTerrain()->getMaxX() - 2.5f;
+		float minZ = (int)getWorld()->getLandscape()->getTerrain()->getMinZ() + 2.5f;
+		float maxZ = (int)getWorld()->getLandscape()->getTerrain()->getMaxZ() - 2.5f;
 
 		float randYaw = 90.0f + (float) (rand() % 90);
 
@@ -365,6 +382,7 @@ void Ogro::processAI(float dT)
 			getPosition().z > maxZ)
 		{
 			m_yaw += randYaw;
+			setYaw(m_yaw);
 			//m_AIState = OGRO_WALK;
 
 			//myBody->setAnimation(Animation::RUN);
@@ -374,20 +392,22 @@ void Ogro::processAI(float dT)
 
 			if (getPosition().x < minX)
 			{
-				m_position.x = minX;
+				m_position.x = minX+5;
 			}
 			else if (getPosition().x > maxX)
 			{
-				m_position.x = maxX;
+				m_position.x = maxX-5;
 			}
 			else if (getPosition().z < minZ)
 			{
-				m_position.z = minZ;
+				m_position.z = minZ+5;
 			}
 			else if (getPosition().z > maxZ)
 			{
-				m_position.z = maxZ;
+				m_position.z = maxZ-5;
 			}
+			setPosition(m_position);
+			Vector3 pos=getPosition();
 		}
 	}
 
