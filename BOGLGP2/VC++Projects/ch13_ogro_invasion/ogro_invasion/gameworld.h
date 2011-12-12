@@ -235,6 +235,7 @@ class GameWorld : private Uncopyable
 		bool myIsModelLoaded;
 		bool won;
 		int numEne;
+
 };
 
 #endif // GAMEWORLD_H
