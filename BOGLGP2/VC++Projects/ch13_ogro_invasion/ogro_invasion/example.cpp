@@ -111,7 +111,7 @@ void Example::render()
     GLint viewport[4];
     glGetIntegerv(GL_VIEWPORT, viewport);
 
-    if (m_world->getRemainingTime() > 0.0f)
+    if (m_world->getRemainingTime() > 0.0f && !m_world->gameWon())
     {
         m_world->render();
 
@@ -157,7 +157,11 @@ void Example::render()
 
 		m_font->printString(mode,(float) viewport[2]/2, (float) viewport[3]-15);
 
-		m_font->printString(m_world->isInRoom()?"In Hostage Room":"",(float) viewport[2]/2, (float) viewport[3]-25);
+		m_font->printString(m_world->isInRoom()?"In Hostage Room":"",(float) viewport[2]/2, (float) viewport[3]-55);
+
+		stringstream enemymessage;
+		enemymessage<<m_world->getNumEnemies()<<" Enemies Left";
+		m_font->printString( enemymessage.str(),(float) viewport[2]/2, (float) viewport[3]-25);
 
 
         stringstream fpsMessage;     
@@ -167,7 +171,17 @@ void Example::render()
 
 
     }
-    else
+    else if(m_world->gameWon())
+	{
+        glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+        m_font->printString("YOU WON!!! YOU SAVED THE HOSTAGES!", (float)viewport[2] / 2 - 60, (float)viewport[3] / 2);
+
+        stringstream scoreMessage;
+        scoreMessage << "Your score was " << m_world->getPlayer()->getScore();
+        m_font->printString(scoreMessage.str(), (float)viewport[2] / 2 - 60, (float)viewport[3] / 2 - 30);
+        m_font->printString("Press ESC to exit", (float)viewport[2] / 2 - 60, (float)viewport[3] / 2 - 60);
+	}
+	else
     {
         glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
         m_font->printString("Game Over", (float)viewport[2] / 2 - 40, (float)viewport[3] / 2);

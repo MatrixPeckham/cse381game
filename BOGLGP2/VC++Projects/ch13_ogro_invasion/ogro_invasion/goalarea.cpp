@@ -35,7 +35,7 @@ GoalArea::GoalArea(GameWorld* const world):
 Entity(world)
 {
 	wid = 4;
-	m_collider = new SphereCollider(this, std::sqrtf(3*(wid/2*wid/2)));
+	m_collider = new SphereCollider(this, wid/2);//std::sqrtf(3*(wid/2*wid/2)));
 }
 
 GoalArea::~GoalArea()

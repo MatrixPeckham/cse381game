@@ -122,6 +122,31 @@ void Ogro::onRender() const
 			myHead->render();
 			glBindTexture(GL_TEXTURE_2D, myGunTextureID);
 			myGun->render();
+			glDisable(GL_DEPTH_TEST);
+				glUseProgram(0);
+				glBegin(GL_TRIANGLES);
+					glColor3f(1,0,0);
+					glVertex3f(1,3,0);
+					glVertex3f(-1,3,0);
+					glVertex3f(0,2,0);
+
+					glColor3f(1,0,0);
+					glVertex3f(0,3,1);
+					glVertex3f(0,3,-1);
+					glVertex3f(0,2,0);
+
+					glColor3f(1,0,0);
+					glVertex3f(-1,3,0);
+					glVertex3f(1,3,0);
+					glVertex3f(0,2,0);
+
+					glColor3f(1,0,0);
+					glVertex3f(0,3,-1);
+					glVertex3f(0,3,1);
+					glVertex3f(0,2,0);
+				glEnd();
+			
+			glEnable(GL_DEPTH_TEST);
 		glPopMatrix();
 	}
 }

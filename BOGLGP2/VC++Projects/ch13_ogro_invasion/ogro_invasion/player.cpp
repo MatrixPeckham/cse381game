@@ -210,7 +210,9 @@ void Player::onPrepare(float dT)
         rocket->setYaw(getYaw());
         rocket->setPitch(getPitch());
 		getWorld()->getQuadTree()->UpdateEntity(rocket);
-    */}
+    */
+		int breakable = 1+1;
+	}
 
 	if(getWorld()->getMouse()->isButtonDown(0))
 	{
