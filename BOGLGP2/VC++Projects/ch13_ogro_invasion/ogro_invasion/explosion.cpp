@@ -51,9 +51,9 @@ bool Explosion::onInitialize()
         float randX = rand() / ((float)RAND_MAX + 1) - 0.5f;
         float randY = rand() / ((float)RAND_MAX + 1) - 0.5f;
         float randZ = rand() / ((float)RAND_MAX + 1) - 0.5f;
-        float randSpeed = 1.5f; //(rand() / ((double)RAND_MAX + 1)) * 2.0f;
+        float randSpeed = 3.0f; //(rand() / ((double)RAND_MAX + 1)) * 2.0f;
 
-        (*it).life = 1.0f;
+        (*it).life = 2.0f;
         (*it).velocity = Vector3(randX, randY, randZ);
         (*it).velocity.normalize();
         (*it).velocity = (*it).velocity * randSpeed;

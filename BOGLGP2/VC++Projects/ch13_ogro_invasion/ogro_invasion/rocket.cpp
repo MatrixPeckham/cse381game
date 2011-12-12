@@ -108,7 +108,7 @@ void Rocket::onShutdown()
 
 void Rocket::onCollision(Entity* collider)
 {
-	if (collider->getType() == PLAYER) {}//return;
+	if (collider->getType() == OGRO) return;
 
     //Create an explosion where the rocket is
     Entity* explosion = getWorld()->spawnEntity(EXPLOSION);
