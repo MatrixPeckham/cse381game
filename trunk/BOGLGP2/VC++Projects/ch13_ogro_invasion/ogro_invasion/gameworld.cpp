@@ -54,7 +54,7 @@ m_relY(0)
 	//myQuadTree = new QuadTree(m_landscape->getTerrain()->getWidth());
 	myQuadTree = new QuadTree(65);
 	myIsModelLoaded = false;
-
+	numEne=0;
 
 }
 
@@ -151,6 +151,7 @@ Entity* GameWorld::spawnEntity(EntityType entityType)
 
                 
             }
+			numEne++;
 
             m_lastSpawn = m_currentTime;
         break;
@@ -237,11 +238,15 @@ bool GameWorld::initialize()
 	m_goal->setPosition(getRandomPosition());
 	myQuadTree->AddEntity(m_goal);
 	
+    //Spawn the player and center them
+    spawnEntity(PLAYER);
+    getPlayer()->setPosition(getRandomPosition());
     //Spawn a load of monsters
     for (unsigned int ui = 0; ui < MAX_ENEMY_COUNT; ++ui)
     {
         Entity* newEntity = spawnEntity(OGRO);
         newEntity->setPosition(getRandomPosition());
+	
 		if(!(newEntity->getType()==SKY||newEntity->getType()==LANDSCAPE))
 			myQuadTree->AddEntity(newEntity);
     }
@@ -263,9 +268,6 @@ bool GameWorld::initialize()
     }
 
 
-    //Spawn the player and center them
-    spawnEntity(PLAYER);
-    getPlayer()->setPosition(getRandomPosition());
 	//getPlayer()->setPosition(Vector3(97.0f, 98.0f, 94.0f));
 
     m_gameCamera->attachTo(getPlayer()); //Attach the camera to the player
@@ -293,19 +295,13 @@ void GameWorld::update(float dT)
 	m_player->prepare(dT);
 	mySkybox->prepare(dT);
 	m_landscape->prepare(dT);
-	vector<Entity*> list=myQuadTree->getPotentiallyVisible(m_frustum);
-	vector<Entity*>::iterator entity=list.begin();
+//	vector<Entity*> list=myQuadTree->getPotentiallyVisible(m_frustum);
+//	vector<Entity*>::iterator entity=list.begin();
 
-	bool enemiesAlive=false;
-	numEne=0;
 //	for(;entity!=list.end();++entity)
     for (EntityIterator entity = m_entities.begin(); entity != m_entities.end(); ++entity)
     {
         (*entity)->prepare(dT);
-		if((*entity)->getType()==OGRO){
-			enemiesAlive=true;
-			numEne++;
-		}
 		if((*entity)->getType()==SKY||(*entity)->getType()==LANDSCAPE||(*entity)->getType()==PLAYER) continue;
 		myQuadTree->UpdateEntity(*entity);
     }
@@ -315,7 +311,7 @@ void GameWorld::update(float dT)
     Collider::updateColliders(m_colliders);
     clearDeadEntities( ); //Remove any entities that were killed as a result of a collision
 
-	if((!enemiesAlive)&&inRoom){
+	if(numEne==0&&inRoom){
 		won=true;
 	}
 
@@ -433,8 +429,8 @@ void GameWorld::render() const
 
 Vector3 GameWorld::getRandomPosition() const
 {
-    float minX = (int)getLandscape()->getTerrain()->getMinX();
-    float mapWidth = (int)getLandscape()->getTerrain()->getMaxX() - minX;
+    float minX = (int)getLandscape()->getTerrain()->getMinX()+5;
+    float mapWidth = ((int)getLandscape()->getTerrain()->getMaxX()-5) - minX;
 
     float randX = minX + ((rand() / ((float)RAND_MAX + 1)) * mapWidth);
     float randZ = minX + ((rand() / ((float)RAND_MAX + 1)) * mapWidth);
@@ -454,6 +450,10 @@ void GameWorld::clearDeadEntities()
         }
 
         unregisterCollider((*entity)->getCollider());
+		if((*entity)->getType()==OGRO){
+			numEne--;
+		}
+
 		myQuadTree->removeEntity(*entity);
         delete (*entity);
         entity = m_entities.erase(entity);

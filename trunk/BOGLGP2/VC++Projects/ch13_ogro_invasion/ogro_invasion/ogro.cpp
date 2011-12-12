@@ -55,12 +55,12 @@ void Ogro::onPrepare(float dT)
 {
 	if(myHasLoaded)
 	{
+		Vector3 pos = getPosition();
 		getCollider()->setRadius(myBody->getRadius());
 
 		m_currentTime += dT;
 
 		processAI(dT);
-		Vector3 pos = getPosition();
 
 		myBody->update(dT);
 		myHead->update(dT);
@@ -407,7 +407,7 @@ void Ogro::processAI(float dT)
 				m_position.z = maxZ-5;
 			}
 			setPosition(m_position);
-			Vector3 pos=getPosition();
+			
 		}
 	}
 
