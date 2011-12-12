@@ -195,7 +195,8 @@ void QuadTree::BuildQuadTree()
 	recBuildTree(NULL, myRoot);
 }
 
-void QuadTree::UpdateEntity(Entity* ent){
+void QuadTree::UpdateEntity(Entity* ent)
+{
 	Vector3 pos = ent->getPosition();
 	Node* n = ent->getContainingNode();
 	if(n==NULL){
