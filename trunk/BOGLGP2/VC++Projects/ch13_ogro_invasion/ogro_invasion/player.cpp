@@ -398,6 +398,12 @@ void Player::onShutdown()
 
 }
 
+void Player::changeAnimation(const Animation& ani)
+{
+	myHead->setAnimation(ani);
+	myBody->setAnimation(ani);
+	myGun->setAnimation(ani);
+}
 void Player::yaw(const float val)
 {
     m_yaw += val;

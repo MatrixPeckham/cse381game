@@ -505,6 +505,8 @@ void GameWorld::playerAttack()
 	vector<Entity*> list = myQuadTree->getPotentiallyVisible(m_frustum);
 	std::vector<Entity*>::iterator it = list.begin();
 
+	m_player->changeAnimation(Animation::ATTACK);
+
 	for(;it!=list.end();++it)
 	{
 		if((*it)->getType()==OGRO)
