@@ -180,6 +180,9 @@ class GameWorld : private Uncopyable
 		bool isInRoom(){return inRoom;}
 		void setInRoom(bool b){inRoom=b;}
 
+		bool gameWon(){return won;}
+		int getNumEnemies(){return numEne;}
+
     private:
         std::list<Entity*> m_entities; //!< Member variable "m_enemies"
         std::list<Collider*> m_colliders;
@@ -230,6 +233,8 @@ class GameWorld : private Uncopyable
         Frustum *m_frustum;
 		bool inRoom;
 		bool myIsModelLoaded;
+		bool won;
+		int numEne;
 };
 
 #endif // GAMEWORLD_H

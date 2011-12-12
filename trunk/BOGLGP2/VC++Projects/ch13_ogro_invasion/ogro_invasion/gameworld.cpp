@@ -46,6 +46,7 @@ m_mouse(mouseInterface),
 m_lastSpawn(0),
 m_currentTime(0),
 m_relX(0),
+won(false),
 m_relY(0)
 {
     m_gameCamera = std::auto_ptr<Camera>(new Camera());
@@ -294,10 +295,17 @@ void GameWorld::update(float dT)
 	m_landscape->prepare(dT);
 	vector<Entity*> list=myQuadTree->getPotentiallyVisible(m_frustum);
 	vector<Entity*>::iterator entity=list.begin();
+
+	bool enemiesAlive=false;
+	numEne=0;
 //	for(;entity!=list.end();++entity)
     for (EntityIterator entity = m_entities.begin(); entity != m_entities.end(); ++entity)
     {
         (*entity)->prepare(dT);
+		if((*entity)->getType()==OGRO){
+			enemiesAlive=true;
+			numEne++;
+		}
 		if((*entity)->getType()==SKY||(*entity)->getType()==LANDSCAPE||(*entity)->getType()==PLAYER) continue;
 		myQuadTree->UpdateEntity(*entity);
     }
@@ -306,6 +314,10 @@ void GameWorld::update(float dT)
 	inRoom=false;
     Collider::updateColliders(m_colliders);
     clearDeadEntities( ); //Remove any entities that were killed as a result of a collision
+
+	if((!enemiesAlive)&&inRoom){
+		won=true;
+	}
 
     //Spawn an entity every 10 seconds if we have room
     if (getOgroCount() < MAX_ENEMY_COUNT && (m_currentTime - m_lastSpawn) > 10.0f)
@@ -421,8 +433,8 @@ void GameWorld::render() const
 
 Vector3 GameWorld::getRandomPosition() const
 {
-    float minX = getLandscape()->getTerrain()->getMinX();
-    float mapWidth = getLandscape()->getTerrain()->getMaxX() - minX;
+    float minX = (int)getLandscape()->getTerrain()->getMinX();
+    float mapWidth = (int)getLandscape()->getTerrain()->getMaxX() - minX;
 
     float randX = minX + ((rand() / ((float)RAND_MAX + 1)) * mapWidth);
     float randZ = minX + ((rand() / ((float)RAND_MAX + 1)) * mapWidth);
