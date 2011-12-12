@@ -195,8 +195,8 @@ class GameWorld : private Uncopyable
 		Vector3 getRandomPosition() const;
         void clearDeadEntities();
 
-        static const unsigned int MAX_ENEMY_COUNT = 1;
-        static const int TREE_COUNT = 10;
+        static const unsigned int MAX_ENEMY_COUNT = 10;
+        static const int TREE_COUNT = 1;
 
 		GLint myRenderMode;
 		bool myBackFaceCulling;
