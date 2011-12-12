@@ -21,6 +21,7 @@ Ogro::Ogro(GameWorld* world, MD2Model* body, MD2Model* head, MD2Model* gun, Targ
 Enemy(world),
 m_AIState(OGRO_IDLE),
 m_currentTime(0),
+last_change(0.0f),
 m_lastAIChange(0)
 {
 	myBody = body;
@@ -34,6 +35,8 @@ m_lastAIChange(0)
     myBody->setAnimation(Animation::IDLE);
 	myHead->setAnimation(Animation::IDLE);
 	myGun->setAnimation(Animation::IDLE);
+
+	m_AIState=rand()%2==0?OGRO_IDLE:OGRO_WALK;
 
 	myHasLoaded = false;
 }
@@ -53,7 +56,7 @@ void Ogro::onPrepare(float dT)
 
 		m_currentTime += dT;
 
-		processAI();
+		processAI(dT);
 
 		myBody->update(dT);
 		myHead->update(dT);
@@ -210,7 +213,7 @@ AIState getRandomIdleState()
     }
 }
 
-void Ogro::processAI()
+void Ogro::processAI(float dT)
 {
 	if(myHasLoaded)
 	{
@@ -253,10 +256,17 @@ void Ogro::processAI()
 			}
 		}
 		
+		float turnAngle = 90;
 
-
-
-
+		if(m_AIState==OGRO_WALK){
+			if(last_change<=0){
+				m_yaw+=turnAngle;
+				last_change=5.0f;
+			}
+			last_change-=dT;
+		}
+		setYaw(m_yaw);
+		
 /*		if (playerDistance < DANGER_DISTANCE && m_AIState != OGRO_RUNNING && (m_currentTime - m_lastAIChange) > 3.0f)
 		{
 			myBody->setAnimation(Animation::RUN);
@@ -373,6 +383,6 @@ void Ogro::onResurrection()
     myBody->setAnimation(Animation::IDLE);
     myHead->setAnimation(Animation::IDLE);
 	myGun->setAnimation(Animation::IDLE);
-	m_AIState = OGRO_IDLE;
+	//m_AIState = OGRO_IDLE;
     m_lastAIChange = m_currentTime;
 }

@@ -53,6 +53,7 @@ m_relY(0)
 	//myQuadTree = new QuadTree(m_landscape->getTerrain()->getWidth());
 	myQuadTree = new QuadTree(65);
 
+
 }
 
 GameWorld::~GameWorld()
@@ -285,6 +286,12 @@ void GameWorld::update(float dT)
 		myIsThirdPerson = true;
 	}
 
+	m_player->prepare(dT);
+	mySkybox->prepare(dT);
+	m_landscape->prepare(dT);
+	vector<Entity*> list=myQuadTree->getPotentiallyVisible(m_frustum);
+	vector<Entity*>::iterator entity=list.begin();
+//	for(;entity!=list.end();++entity)
     for (EntityIterator entity = m_entities.begin(); entity != m_entities.end(); ++entity)
     {
         (*entity)->prepare(dT);

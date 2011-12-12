@@ -2,7 +2,7 @@
 #define ENTITYTYPES_H_INCLUDED
 
 enum EntityType {
-    OGRO,
+    OGRO=0,
     PLAYER,
     ROCKET,
     EXPLOSION,
