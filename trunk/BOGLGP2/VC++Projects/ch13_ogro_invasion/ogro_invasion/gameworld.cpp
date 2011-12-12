@@ -242,7 +242,7 @@ bool GameWorld::initialize()
     spawnEntity(PLAYER);
     getPlayer()->setPosition(getRandomPosition());
     //Spawn a load of monsters
-    for (unsigned int ui = 0; ui < MAX_ENEMY_COUNT; ++ui)
+    for (unsigned int count = 0; count < MAX_ENEMY_COUNT; ++count)
     {
         Entity* newEntity = spawnEntity(OGRO);
         newEntity->setPosition(getRandomPosition());
@@ -434,7 +434,7 @@ Vector3 GameWorld::getRandomPosition() const
 
     float randX = minX + ((rand() / ((float)RAND_MAX + 1)) * mapWidth);
     float randZ = minX + ((rand() / ((float)RAND_MAX + 1)) * mapWidth);
-    float y = getLandscape()->getTerrain()->getHeightAt(randX, randZ) - 2;
+    float y = getLandscape()->getTerrain()->getHeightAt(randX, randZ) + 0.35;
 
     return Vector3(randX, y, randZ);
 }
