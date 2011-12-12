@@ -81,6 +81,11 @@ public:
         return m_radii[m_currentFrame]; //Return the current radius
     }
 
+	int getCurrentFrame()
+	{
+		return m_currentFrame;
+	}
+
 private:
 
     void reorganizeVertices();

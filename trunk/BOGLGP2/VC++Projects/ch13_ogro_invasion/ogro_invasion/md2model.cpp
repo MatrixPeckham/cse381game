@@ -31,9 +31,9 @@ const Animation Animation::CROUCH_WALK = Animation(1, 10);
 const Animation Animation::CROUCH_ATTACK = Animation(13, 18);
 const Animation Animation::CROUCH_PAIN = Animation(11, 12);
 const Animation Animation::CROUCH_DEATH = Animation(18, 28);
-const Animation Animation::DEATH1 = Animation(18, 28, false);
-const Animation Animation::DEATH2 = Animation(18, 28, false);
-const Animation Animation::DEATH3 = Animation(18, 28, false);
+const Animation Animation::DEATH1 = Animation(18, 28);
+const Animation Animation::DEATH2 = Animation(18, 28);
+const Animation Animation::DEATH3 = Animation(18, 28);
 
 
 MD2Model::MD2Model(const std::string vertexShader, const std::string fragmentShader):
@@ -189,10 +189,14 @@ void MD2Model::update(float dt)
 {
     const float FRAMES_PER_SECOND = 8.0f;
     m_interpolation += dt * FRAMES_PER_SECOND;
-    if (m_interpolation >= 1.0f) {
+
+    if (m_interpolation >= 1.0f) 
+	{
         m_currentFrame = m_nextFrame;
         m_nextFrame++;
-        if (m_nextFrame > m_endFrame) {
+
+        if (m_nextFrame > m_endFrame) 
+		{
             if (m_loopAnimation)
             {
                 m_nextFrame = m_startFrame;
@@ -203,7 +207,8 @@ void MD2Model::update(float dt)
                 m_startFrame = m_endFrame;
             }
         }
-        m_interpolation = 0.0f;
+        
+		m_interpolation = 0.0f;
     }
 
     float t = m_interpolation;

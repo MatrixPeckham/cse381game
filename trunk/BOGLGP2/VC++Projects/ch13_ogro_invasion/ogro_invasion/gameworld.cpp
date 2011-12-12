@@ -53,21 +53,6 @@ m_relY(0)
 	//myQuadTree = new QuadTree(m_landscape->getTerrain()->getWidth());
 	myQuadTree = new QuadTree(65);
 
-	string vertexShader = (GLSLProgram::glsl130Supported())? "data/shaders/glsl1.30/model.vert" : "data/shaders/glsl1.20/model.vert";
-    string fragmentShader = (GLSLProgram::glsl130Supported())? "data/shaders/glsl1.30/model.frag" : "data/shaders/glsl1.20/model.frag";
-
-	myBody = new MD2Model(vertexShader, fragmentShader);
-	myHead = new MD2Model(vertexShader, fragmentShader);
-	myGun = new MD2Model(vertexShader, fragmentShader);
-
-	myBody->load(BODY_MODEL);
-	myHead->load(HEAD_MODEL);
-	myGun->load(GUN_MODEL);
-
-	myBodyTexture.load(BODY_TEXTURE);
-	myHeadTexture.load(HEAD_TEXTURE);
-	myGunTexture.load(GUN_TEXTURE);
-
 }
 
 GameWorld::~GameWorld()
@@ -127,7 +112,39 @@ Entity* GameWorld::spawnEntity(EntityType entityType)
             }
             else
             {
-                newEntity = new Ogro(this, myBody, myHead, myGun, myBodyTexture, myHeadTexture, myGunTexture);
+				if(myBody == NULL && myHead == NULL && myGun == NULL)
+				{
+					string vertexShader = (GLSLProgram::glsl130Supported())? "data/shaders/glsl1.30/model.vert" : "data/shaders/glsl1.20/model.vert";
+					string fragmentShader = (GLSLProgram::glsl130Supported())? "data/shaders/glsl1.30/model.frag" : "data/shaders/glsl1.20/model.frag";
+
+					myBody = new MD2Model(vertexShader, fragmentShader);
+					myHead = new MD2Model(vertexShader, fragmentShader);
+					myGun = new MD2Model(vertexShader, fragmentShader);
+
+					myBody->load(BODY_MODEL);
+					myHead->load(HEAD_MODEL);
+					myGun->load(GUN_MODEL);
+
+					myBodyTexture.load(BODY_TEXTURE);
+					myHeadTexture.load(HEAD_TEXTURE);
+					myGunTexture.load(GUN_TEXTURE);
+
+					newEntity = new Ogro(this, myBody, myHead, myGun, myBodyTexture, myHeadTexture, myGunTexture);
+				}
+				else //we dont want to keep loading from file
+				{
+					MD2Model* body = (MD2Model*)malloc(sizeof(MD2Model));
+					MD2Model* head = (MD2Model*)malloc(sizeof(MD2Model));
+					MD2Model* gun = (MD2Model*)malloc(sizeof(MD2Model));
+
+					memcpy(body, myBody, sizeof(MD2Model));
+					memcpy(head, myHead, sizeof(MD2Model));
+					memcpy(gun, myGun, sizeof(MD2Model));
+
+					newEntity = new Ogro(this, body, head, gun, myBodyTexture, myHeadTexture, myGunTexture);
+				}
+
+                
             }
 
             m_lastSpawn = m_currentTime;
@@ -458,7 +475,8 @@ void GameWorld::registerEntity(Entity* entity)
 		myQuadTree->AddEntity(entity);
 }
 
-void GameWorld::playerAttack(){
+void GameWorld::playerAttack()
+{
 	const int dist = 3;
 	const float hitAngle = degreesToRadians(90);
 	Vector3 pos = m_player->getPosition();
@@ -468,6 +486,7 @@ void GameWorld::playerAttack(){
 	float sinYaw = sinf(degreesToRadians(m_yaw));
 	float sinPitch = sinf(degreesToRadians(m_pitch));
 	float cosPitch = cosf(degreesToRadians(m_pitch));
+
 	Vector3 look;
 	look.x = cosYaw*cosPitch;
 	look.y = sinPitch;
@@ -475,13 +494,21 @@ void GameWorld::playerAttack(){
 	look.normalize();
 	vector<Entity*> list = myQuadTree->getPotentiallyVisible(m_frustum);
 	std::vector<Entity*>::iterator it = list.begin();
-	for(;it!=list.end();++it){
-		if((*it)->getType()==OGRO){
+
+	for(;it!=list.end();++it)
+	{
+		if((*it)->getType()==OGRO)
+		{
 			Vector3 diff = ((*it)->getPosition()-pos);
-			if(diff.length()<=dist){
+
+			if(diff.length()<=dist)
+			{
 				diff.normalize();
-				float dot = diff.x*look.x+diff.y*look.y+diff.z*look.z;
-				if(dot>cos(hitAngle)){
+
+				float dot = diff.x*look.x + diff.y*look.y + diff.z*look.z;
+
+				if(dot>cos(hitAngle))
+				{
 					(dynamic_cast<Ogro*>(*it))->kill();
 				}
 			}
