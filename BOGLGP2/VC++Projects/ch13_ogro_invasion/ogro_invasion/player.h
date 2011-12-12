@@ -62,6 +62,8 @@ class Player : public Entity
 
         void increaseScore(int amount) { m_score += amount; }
 		int getBrushSize(){return brushSize;}
+
+		void changeAnimation(const Animation& ani);
     private:
         unsigned int m_score; //!< Member variable "m_score"
         virtual void onPrepare(float);
