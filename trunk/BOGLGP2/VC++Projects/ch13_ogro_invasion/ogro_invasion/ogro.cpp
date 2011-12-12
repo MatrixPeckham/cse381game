@@ -100,6 +100,7 @@ void Ogro::onPrepare(float dT)
 
 		if(myHead->getCurrentFrame() == 28)
 		{
+			getWorld()->getPlayer()->increaseScore(100);
 			destroy();
 		}
 	}
