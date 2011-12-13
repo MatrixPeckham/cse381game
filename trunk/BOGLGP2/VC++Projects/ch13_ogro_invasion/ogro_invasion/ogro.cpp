@@ -22,6 +22,7 @@ Enemy(world),
 m_AIState(OGRO_IDLE),
 m_currentTime(0),
 last_change(0.0f),
+fire(1),
 m_lastAIChange(0)
 {
 	myWorld = world;
@@ -283,8 +284,7 @@ void Ogro::processAI(float dT)
 		look.y = sinPitch;
 		look.z = sinYaw*cosPitch;
 		look.normalize();
-		float fireTime = 1;
-		static float fire = fireTime;
+		float fireTime = 0.5;
 		fire-=dT;
 		if(playerDistance<DANGER_DISTANCE&&fire<=0){
 			fire=fireTime;

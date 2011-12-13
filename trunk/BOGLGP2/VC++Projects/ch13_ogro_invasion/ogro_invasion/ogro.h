@@ -59,7 +59,7 @@ class Ogro : public Enemy
         virtual void onKill();
         virtual void onResurrection();
 		float last_change;
-
+		float fire;
 };
 
 #endif // OGRO_H_INCLUDED
