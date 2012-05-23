@@ -6,6 +6,10 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "KazmathLib", "VC++Projects\KazmathLib\KazmathLib.vcxproj", "{DCE7C7CB-A782-41EC-BBF1-BAB80E52E8A2}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ch13_ogro_invasion", "VC++Projects\ch13_ogro_invasion\ch13_ogro_invasion.vcxproj", "{9E70D809-D21E-4BA9-8F63-B6FFAE1FD270}"
+	ProjectSection(ProjectDependencies) = postProject
+		{5CB3C044-3B90-4915-92A5-02B174C790AC} = {5CB3C044-3B90-4915-92A5-02B174C790AC}
+		{DCE7C7CB-A782-41EC-BBF1-BAB80E52E8A2} = {DCE7C7CB-A782-41EC-BBF1-BAB80E52E8A2}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
