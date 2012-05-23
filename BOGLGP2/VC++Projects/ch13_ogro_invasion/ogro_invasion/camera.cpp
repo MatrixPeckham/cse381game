@@ -99,7 +99,7 @@ void Camera::apply(bool isThirdPerson)
 		}
 		else
 		{
-			tempPos.y += 0.75;// move camera up to head
+			tempPos.y += 0.85;// move camera up to head
 
 			setPosition(tempPos);
 		}

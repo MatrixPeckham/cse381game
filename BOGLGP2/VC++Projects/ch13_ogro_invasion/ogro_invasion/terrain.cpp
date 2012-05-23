@@ -446,9 +446,9 @@ void Terrain::generateTexCoords(int width)
 void Terrain::generateWaterTexCoords(int width)
 {
     m_waterTexCoords.push_back(TexCoord(0.0f, 0.0f));
-    m_waterTexCoords.push_back(TexCoord(0.0f, 60.0f));
-    m_waterTexCoords.push_back(TexCoord(60.0f, 60.0f));
-    m_waterTexCoords.push_back(TexCoord(60.0f, 0.0f));
+    m_waterTexCoords.push_back(TexCoord(0.0f, 500.0f));
+    m_waterTexCoords.push_back(TexCoord(500.0f, 500.0f));
+    m_waterTexCoords.push_back(TexCoord(500.0f, 0.0f));
 
     glGenBuffers(1, &m_waterTexCoordsBuffer);
     glBindBuffer(GL_ARRAY_BUFFER, m_waterTexCoordsBuffer); //Bind the vertex buffer
@@ -647,9 +647,9 @@ bool Terrain::loadHeightmap(const string& rawFile, const string& grassTexture, c
     m_shaderProgram->sendUniform("material_diffuse", 0.8f, 0.8f, 0.8f, 1.0f);
     m_shaderProgram->sendUniform("material_specular", 0.6f, 0.6f, 0.6f, 1.0f);
     m_shaderProgram->sendUniform("material_emissive", 0.0f, 0.0f, 0.0f, 1.0f);
-    m_shaderProgram->sendUniform("material_shininess", 10.0f);
-    m_shaderProgram->sendUniform("light0.ambient", 0.3f, 0.3f, 0.3f, 1.0f);
-    m_shaderProgram->sendUniform("light0.diffuse", 1.0f, 1.0f, 1.0f, 1.0f);
+    m_shaderProgram->sendUniform("material_shininess", 70.0f);
+    m_shaderProgram->sendUniform("light0.ambient", 0.2f, 0.3f, 0.2f, 1.0f);
+    m_shaderProgram->sendUniform("light0.diffuse", 0.4f, 0.4f, 0.4f, 1.0f);
     m_shaderProgram->sendUniform("light0.specular", 0.3f, 0.3f, 0.3f, 1.0f);
     m_shaderProgram->sendUniform("light0.position", 0.0f, 0.4f, 1.0f, 0.0f);
 
@@ -713,11 +713,11 @@ void Terrain::renderWater() const
     m_waterShaderProgram->sendUniform4x4("projection_matrix", projectionMatrix);
     m_waterShaderProgram->sendUniform("texture0", 0);
 
- 		glActiveTexture(GL_TEXTURE0);
-   glBindTexture(GL_TEXTURE_2D, m_waterTexID);
+ 	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, m_waterTexID);
 
-    //glEnable(GL_BLEND);
-    //glBlendFunc(GL_SRC_ALPHA, GL_ONE);
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE);
     glEnableVertexAttribArray(0);
     glEnableVertexAttribArray(1);
 
@@ -749,7 +749,7 @@ void Terrain::renderWater() const
 
     glDisableVertexAttribArray(0);
     glDisableVertexAttribArray(1);
-    //glDisable(GL_BLEND);
+    glDisable(GL_BLEND);
 }
 
 void Terrain::render(Frustum * frust) const
